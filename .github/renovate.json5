@@ -2,26 +2,29 @@
   "$schema": "https://docs.renovatebot.com/renovate-global-schema.json",
   "extends": ["config:base"],
 
-  // ===== SURVEILLANCE UNIQUEMENT DES GITHUB ACTIONS =====
+  // Surveillance des GitHub Actions UNIQUEMENT
   "packageRules": [
     {
       "matchPackageNames": ["actions/*"],
       "automerge": true,
       "automergeType": "branch",
-      "automergeTypes": ["minor", "patch"],
+      "automergeSchedule": ["before 6am on monday"],
       "matchUpdateTypes": ["minor", "patch", "pin"],
+      "excludeUpdateTypes": ["major"],
       "labels": ["dependencies", "github-actions"]
     }
   ],
 
-  // ===== CONFIGURATION GITHUB ACTIONS =====
+  // Configuration GitHub Actions
   "github-actions": {
     "enabled": true,
-    "pinDigests": true
+    "pinDigests": true  // ✅ Épingle les SHA pour la sécurité
   },
 
-  // ===== CONFIGURATION GÉNÉRALE =====
+  // Configuration générale
   "prCreation": "not-pending",
+  "prPriority": 10,
   "schedule": ["before 5am on monday"],
-  "timezone": "Europe/Paris"
+  "timezone": "Europe/Paris",
+  }
 }
