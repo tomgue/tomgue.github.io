@@ -56,6 +56,5 @@
     "enabled": true
   },
   "dependencyDashboard": true,        // Active le tableau de bord Renovate
-  "prHourlyLimit": 2,                 // Limite les PRs simultanées (évite le spam)
-  "rangeDependencies": false          // Préfère les mises à jour de version exactes quand possible
+  "prHourlyLimit": 2                  // Limite les PRs simultanées (évite le spam)
 }
