@@ -1,0 +1,61 @@
+{
+  "$schema": "https://docs.renovatebot.io/renovate-schema.json",
+  "extends": ["config:base"],
+
+  // ===== GITHUB ACTIONS SURVEILLANCE (votre demande initiale) =====
+  "packageRules": [
+    {
+      "matchPackageNames": ["actions/*"],
+      "automerge": true,                           // Active la fusion automatique
+      "automergeType": "branch",                   // Sur branche séparée (sécurité)
+      "automergeTypes": ["minor", "patch"],        // NE PAS automajoriser (évite les ruptures)
+      "matchUpdateTypes": ["minor", "patch", "pin"], // Ne considère que ces types pour automerge
+      "labels": ["dependencies", "github-actions"],  // Étiquettes pour les PRs
+      "description": "GitHub Actions: automerge patch/minor only, pin digests"
+    }
+  ],
+
+  // ===== CONFIGURATION GITHUB ACTIONS SPECIFIQUE =====
+  "github-actions": {
+    "enabled": true,
+    "pinDigests": true,                            // ✨ RECOMMANDÉ: épingle les SHA de commit plutôt que les versions
+    // Alternative si vous préférez les versions : "digest": false
+  },
+
+  // ===== RÈGLES SPÉCIFIQUES POUR ASTRO MODULAR (réduit les warnings) =====
+  "packageRules": [
+    // Astro et ses plugins : nécessite des tests manuels
+    {
+      "matchPackageNames": ["^astro$", "^@astrojs/"],
+      "automerge": false,
+      "labels": ["dependencies", "astro"],
+      "description": "Astro core et plugins: toujours tester manuellement"
+    },
+    // TypeScript : les mises à jour majeures nécessitent attention
+    {
+      "matchPackageNames": ["^typescript$"],
+      "automerge": false,
+      "labels": ["dependencies", "typescript"],
+      "description": "TypeScript majeur: vérifier compatibilité avec les configs"
+    },
+    // Wrangler : si vous utilisez Cloudflare Workers
+    {
+      "matchPackageNames": ["^wrangler$"],
+      "automerge": false,
+      "labels": ["dependencies", "wrangler"],
+      "description": "Wrangler: vérifier les changements d'API Workers"
+    }
+  ],
+
+  // ===== CONFIGURATION GÉNÉRALE =====
+  "prCreation": "not-pending",        // Évite les PRs en double
+  "prPriority": 5,                    // Priorité normale
+  "schedule": ["before 5am on monday"], // Heure creuse réduite
+  "timezone": "Europe/Paris",         // Votre fuseau horaire
+  "lockFileMaintenance": {            // Maintient les lockfiles à jour
+    "enabled": true
+  },
+  "dependencyDashboard": true,        // Active le tableau de bord Renovate
+  "prHourlyLimit": 2,                 // Limite les PRs simultanées (évite le spam)
+  "rangeDependencies": false          // Préfère les mises à jour de version exactes quand possible
+}
