@@ -1,0 +1,535 @@
+backend:
+  name: github
+  repo: tomgue/tomgue.github.io
+  branch: main
+
+publish_mode: editorial_workflow
+
+media_folder: /public/media
+public_folder: /media
+
+# Global slug configuration
+slug:
+  encoding: "ascii"
+  sanitize_replacement: "-"
+
+# Output configuration
+output:
+  omit_empty_optional_fields: false
+  yaml:
+    quote: none
+    indent_size: 2
+    indent_sequences: true
+
+# Collections configuration matching Astro Modular Theme interfaces
+collections:
+  # Posts Collection - matches PostData interface
+  - name: posts
+    label: Articles
+    label_singular: Article
+    icon: article
+    folder: /src/content/posts
+    format: yaml-frontmatter
+    extension: md
+    identifier_field: title
+    sortable_fields: [title, date, draft]
+    summary: "**{{title}}** - 📆 *{{date | date('DD MMM YYYY')}}* - 🏷️ {{tags}} - **{{draft | ternary('⛔️ Brouillon', '✅ Publié')}}**"
+    thumbnail: image
+    fields:
+      # Required fields
+      - name: title
+        label: Titre
+        widget: string
+        required: true
+        hint: "Le titre de l'article, utilisé pour l'affichage et le référencement (SEO)"
+
+      - name: description
+        label: Description
+        widget: text
+        required: true
+        hint: "Une brève description de l'article, utilisée pour les balises méta"
+
+      - name: date
+        label: Date
+        widget: datetime
+        type: date
+        required: true
+        format: "YYYY-MM-DD"
+        hint: "Date de publication de l'article"
+
+      # Optional fields
+      - name: tags
+        label: Mots-clés
+        widget: list
+        field:
+          name: tag
+          label: Mot-clé
+          widget: string
+        required: false
+        hint: "Liste de mots-clés pour catégoriser l'article"
+
+      - name: draft
+        label: Brouillon
+        widget: boolean
+        required: false
+        default: false
+        hint: "Si coché, l'article ne sera pas publié"
+
+      - name: image
+        label: Image à la une
+        widget: image
+        required: false
+        hint: "Image principale de l'article"
+
+      - name: imageAlt
+        label: Texte alternatif de l'image
+        widget: string
+        required: false
+        hint: "Texte alternatif pour l'image à la une (accessibilité)"
+
+      - name: imageOG
+        label: Utiliser comme image OG
+        widget: boolean
+        required: false
+        default: false
+        hint: "Utiliser cette image pour les balises Open Graph (partage sur les réseaux sociaux)"
+
+      - name: hideCoverImage
+        label: Masquer l'image de couverture
+        widget: boolean
+        required: false
+        default: false
+        hint: "Masquer l'image à la une de la page de l'article"
+
+      - name: hideTOC
+        label: Masquer la table des matières
+        widget: boolean
+        required: false
+        default: false
+        hint: "Masquer la table des matières de la page de l'article"
+
+      - name: targetKeyword
+        label: Mot-clé cible
+        widget: string
+        required: false
+        hint: "Mot-clé principal pour l'optimisation SEO"
+
+      - name: noIndex
+        label: Ne pas indexer
+        widget: boolean
+        required: false
+        default: false
+        hint: "Empêcher les moteurs de recherche d'indexer cet article"
+
+      - name: body
+        label: Contenu
+        widget: richtext
+        required: false
+        hint: "Contenu principal de l'article"
+
+  - divider: true
+  # Pages Collection - matches PageData interface
+  - name: pages
+    label: Pages
+    label_singular: Page
+    icon: description
+    folder: /src/content/pages
+    format: yaml-frontmatter
+    extension: md
+    identifier_field: title
+    sortable_fields: [title, lastModified, draft]
+    summary: "**{{title}}** - 🕒 *{{lastModified | date('DD MMM YYYY')}}* - **{{draft | ternary('⛔️ Brouillon', '✅ Publié')}}**"
+    fields:
+      # Required fields
+      - name: title
+        label: Titre
+        widget: string
+        required: true
+
+      - name: description
+        label: Description
+        widget: text
+        required: true
+
+      # Optional fields
+      - name: draft
+        label: Brouillon
+        widget: boolean
+        required: false
+        default: false
+
+      - name: lastModified
+        label: Dernière modification
+        widget: datetime
+        type: date
+        required: false
+        format: "YYYY-MM-DD"
+
+      - name: image
+        label: Image à la une
+        widget: image
+        required: false
+
+      - name: imageAlt
+        label: Texte alternatif de l'image
+        widget: string
+        required: false
+
+      - name: hideCoverImage
+        label: Masquer l'image de couverture
+        widget: boolean
+        required: false
+        default: false
+
+      - name: hideTOC
+        label: Masquer la table des matières
+        widget: boolean
+        required: false
+        default: false
+
+      - name: noIndex
+        label: Ne pas indexer
+        widget: boolean
+        required: false
+        default: false
+
+      - name: body
+        label: Contenu
+        widget: richtext
+        required: false
+
+  - divider: true
+  # Projects Collection - matches ProjectData interface
+  - name: projects
+    label: Projets
+    label_singular: Projet
+    icon: work
+    folder: /src/content/projects
+    format: yaml-frontmatter
+    extension: md
+    identifier_field: title
+    sortable_fields: [title, date, featured, draft, status]
+    summary: "{{title}} - {{status | default('Aucun statut')}}"
+    fields:
+      # Required fields
+      - name: title
+        label: Titre
+        widget: string
+        required: true
+
+      - name: description
+        label: Description
+        widget: text
+        required: true
+
+      - name: date
+        label: Date
+        widget: datetime
+        type: date
+        required: true
+        format: "YYYY-MM-DD"
+
+      # Optional fields
+      - name: categories
+        label: Catégories
+        widget: list
+        field:
+          name: category
+          label: Catégorie
+          widget: string
+        required: false
+        hint: "Liste des catégories pour ce projet"
+
+      - name: repositoryUrl
+        label: URL du dépôt
+        widget: string
+        required: false
+        hint: "URL vers le dépôt du code source du projet"
+
+      - name: demoUrl
+        label: URL de démonstration
+        widget: string
+        required: false
+        hint: "URL vers une démonstration en ligne du projet"
+
+      - name: status
+        label: Statut
+        widget: select
+        options:
+          - label: Terminé
+            value: "completed"
+          - label: En cours
+            value: "in-progress"
+          - label: En attente
+            value: "On Hold"
+          - label: Prévu
+            value: "planned"
+          - label: Abandonné
+            value: "abandoned"
+        required: false
+        default: "in-progress"
+        hint: "Statut actuel du projet"
+
+      - name: image
+        label: Image à la une
+        widget: image
+        required: false
+
+      - name: imageAlt
+        label: Texte alternatif de l'image
+        widget: string
+        required: false
+
+      - name: hideCoverImage
+        label: Masquer l'image de couverture
+        widget: boolean
+        required: false
+        default: false
+
+      - name: hideTOC
+        label: Masquer la table des matières
+        widget: boolean
+        required: false
+        default: false
+
+      - name: draft
+        label: Brouillon
+        widget: boolean
+        required: false
+        default: false
+
+      - name: noIndex
+        label: Ne pas indexer
+        widget: boolean
+        required: false
+        default: false
+
+      - name: featured
+        label: En vedette
+        widget: boolean
+        required: false
+        default: false
+        hint: "Mettre ce projet en avant sur la page d'accueil"
+
+      - name: body
+        label: Contenu
+        widget: richtext
+        required: false
+
+  - divider: true
+  # Documentation Collection - matches DocumentationData interface
+  - name: docs
+    label: Documentation
+    label_singular: Document
+    icon: school
+    folder: /src/content/docs
+    format: yaml-frontmatter
+    extension: md
+    identifier_field: title
+    sortable_fields: [title, category, order, draft, featured]
+    summary: "{{category}}: {{title}}"
+    fields:
+      # Required fields
+      - name: title
+        label: Titre
+        widget: string
+        required: true
+
+      - name: description
+        label: Description
+        widget: text
+        required: true
+
+      - name: category
+        label: Catégorie
+        widget: string
+        required: true
+        hint: "La catégorie à laquelle appartient ce document"
+
+      - name: order
+        label: Ordre
+        widget: number
+        required: true
+        default: 0
+        hint: "Ordre de tri dans la catégorie"
+
+      # Optional fields
+      - name: lastModified
+        label: Dernière modification
+        widget: datetime
+        type: date
+        required: false
+        format: "YYYY-MM-DD"
+
+      - name: version
+        label: Version
+        widget: string
+        required: false
+        hint: "Version de la documentation"
+
+      - name: image
+        label: Image à la une
+        widget: image
+        required: false
+
+      - name: imageAlt
+        label: Texte alternatif de l'image
+        widget: string
+        required: false
+
+      - name: hideCoverImage
+        label: Masquer l'image de couverture
+        widget: boolean
+        required: false
+        default: false
+
+      - name: hideTOC
+        label: Masquer la table des matières
+        widget: boolean
+        required: false
+        default: false
+
+      - name: draft
+        label: Brouillon
+        widget: boolean
+        required: false
+        default: false
+
+      - name: noIndex
+        label: Ne pas indexer
+        widget: boolean
+        required: false
+        default: false
+
+      - name: showTOC
+        label: Afficher la table des matières
+        widget: boolean
+        required: false
+        default: true
+
+      - name: featured
+        label: En vedette
+        widget: boolean
+        required: false
+        default: false
+
+      - name: body
+        label: Contenu
+        widget: richtext
+        required: false
+
+  - divider: true
+  # Special Pages File Collection
+  - name: special
+    label: Pages spéciales
+    icon: star
+    files:
+      - name: home
+        label: Page d'accueil
+        file: /src/content/special/home.md
+        fields:
+          - name: title
+            label: Titre
+            widget: string
+            required: true
+          - name: description
+            label: Description
+            widget: text
+            required: false
+          - name: hideTOC
+            label: Masquer la table des matières
+            widget: boolean
+            required: false
+            default: false
+          - name: body
+            label: Contenu
+            widget: richtext
+            required: false
+
+      - name: page_404
+        label: Page 404
+        file: /src/content/special/404.md
+        fields:
+          - name: title
+            label: Titre
+            widget: string
+            required: true
+          - name: description
+            label: Description
+            widget: text
+            required: false
+          - name: hideTOC
+            label: Masquer la table des matières
+            widget: boolean
+            required: false
+            default: false
+          - name: body
+            label: Contenu
+            widget: richtext
+            required: false
+
+      - name: posts_index
+        label: Page d'index des articles
+        file: /src/content/special/posts.md
+        fields:
+          - name: title
+            label: Titre
+            widget: string
+            required: true
+          - name: description
+            label: Description
+            widget: text
+            required: false
+          - name: hideTOC
+            label: Masquer la table des matières
+            widget: boolean
+            required: false
+            default: false
+          - name: body
+            label: Contenu
+            widget: richtext
+            required: false
+
+      - name: projects_index
+        label: Page d'index des projets
+        file: /src/content/special/projects.md
+        fields:
+          - name: title
+            label: Titre
+            widget: string
+            required: true
+          - name: description
+            label: Description
+            widget: text
+            required: false
+          - name: hideTOC
+            label: Masquer la table des matières
+            widget: boolean
+            required: false
+            default: false
+          - name: body
+            label: Contenu
+            widget: richtext
+            required: false
+
+      - name: docs_index
+        label: Page d'index de la documentation
+        file: /src/content/special/docs.md
+        fields:
+          - name: title
+            label: Titre
+            widget: string
+            required: true
+          - name: description
+            label: Description
+            widget: text
+            required: false
+          - name: hideTOC
+            label: Masquer la table des matières
+            widget: boolean
+            required: false
+            default: false
+          - name: body
+            label: Contenu
+            widget: richtext
+            required: false
