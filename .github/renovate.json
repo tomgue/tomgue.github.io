@@ -1,0 +1,37 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-global-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "actions/*"
+      ],
+      "automerge": true,
+      "automergeType": "branch",
+      "automergeSchedule": [
+        "before 6am on monday"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin"
+      ],
+      "prPriority": 10,
+      "labels": [
+        "dependencies",
+        "github-actions"
+      ]
+    }
+  ],
+  "github-actions": {
+    "enabled": true,
+    "pinDigests": true
+  },
+  "prCreation": "not-pending",
+  "schedule": [
+    "before 5am on monday"
+  ],
+  "timezone": "Europe/Paris"
+}
