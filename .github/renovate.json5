@@ -1,28 +1,37 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-global-schema.json",
-  "extends": ["config:base"],
-
-  // Surveillance des GitHub Actions UNIQUEMENT
-  "packageRules": [
-    {
-      "matchPackageNames": ["actions/*"],
-      "automerge": true,
-      "automergeType": "branch",
-      "automergeSchedule": ["before 6am on monday"],
-      "matchUpdateTypes": ["minor", "patch", "pin"],
-      "labels": ["dependencies", "github-actions"]
-    }
+  $schema: 'https://docs.renovatebot.com/renovate-global-schema.json',
+  extends: [
+    'config:recommended',
   ],
-
-  // Configuration GitHub Actions
-  "github-actions": {
-    "enabled": true,
-    "pinDigests": true  // ✅ Épingle les SHA pour la sécurité
+  packageRules: [
+    {
+      matchPackageNames: [
+        'actions/*',
+      ],
+      automerge: true,
+      automergeType: 'branch',
+      automergeSchedule: [
+        'before 6am on monday',
+      ],
+      matchUpdateTypes: [
+        'minor',
+        'patch',
+        'pin',
+      ],
+      labels: [
+        'dependencies',
+        'github-actions',
+      ],
+    },
+  ],
+  'github-actions': {
+    enabled: true,
+    pinDigests: true,
   },
-
-  // Configuration générale
-  "prCreation": "not-pending",
-  "prPriority": 10,
-  "schedule": ["before 5am on monday"],
-  "timezone": "Europe/Paris"
+  prCreation: 'not-pending',
+  prPriority: 10,
+  schedule: [
+    'before 5am on monday',
+  ],
+  timezone: 'Europe/Paris',
 }
