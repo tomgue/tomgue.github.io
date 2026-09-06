@@ -26,5 +26,4 @@
   "prPriority": 10,
   "schedule": ["before 5am on monday"],
   "timezone": "Europe/Paris"
-  }
 }
