@@ -59,7 +59,7 @@
     "sharp": "^0.34.5",
     "swup": "^4.10.0",
     "tailwindcss": "^4.3.3",
-    "typescript": "^5.9.3",
+    "typescript": "^7.0.0",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.1.0"
   },
