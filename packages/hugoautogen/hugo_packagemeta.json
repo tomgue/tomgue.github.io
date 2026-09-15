@@ -1,0 +1,9 @@
+{
+  "sum": "a6930f22dcc5c374",
+  "dependencySources": {
+    "dependencies": {},
+    "devDependencies": {
+      "style-dictionary": "github.com/hugolify/hugolify-theme-docs/v2"
+    }
+  }
+}
