@@ -3,7 +3,6 @@
   "devDependencies": {
     "style-dictionary": "^5.0.0"
   },
-  "name": "hugoautogen",
-  "private": true,
+  "name": "tomgue.github.io",
   "version": "0.1.0"
 }

@@ -222,9 +222,9 @@
     "@jsonjoy.com/codegen" "^1.0.0"
 
 "@uncinq/component-tokens@^1.0.0":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@uncinq/component-tokens/-/component-tokens-1.9.0.tgz#af7de37f774b8176e2c79f17ea197a508e173cdd"
-  integrity sha512-8Q1/li63jxRbdUEYL0GbJg84ggJxJQlpsknjXcJrKTMbSI+1KQGGuvjj1taoGX9/hnirkkV2DAPsSjqnbjRy2A==
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/@uncinq/component-tokens/-/component-tokens-1.9.1.tgz#7cb902f6b6614ce6a16993950d4817d45cfd4f2d"
+  integrity sha512-MHtYipC0DtR4Q1ktwiKPep7UrPaO5M0595M4yNOsSJJUdnlZAhJvl12khLOCZZX8QPhhedShmHxBMnVSyD4krg==
 
 "@uncinq/css-base@^1.0.0":
   version "1.7.3"
@@ -232,14 +232,14 @@
   integrity sha512-STFSme3EO1d0DQRW00cMu1U9ajY/xY+ydcn0bOGFvQ6kSP3nBzevbD379BPlvlny7q2d8hyTihBe4VbcoFkKnw==
 
 "@uncinq/css-components@^1.0.0":
-  version "1.14.0"
-  resolved "https://registry.yarnpkg.com/@uncinq/css-components/-/css-components-1.14.0.tgz#e94a205a20364737eff08da97e853470173d1698"
-  integrity sha512-ToQm/0Y6BACyAozisVzfZqVA8LIFEx1CdGuvcd19GeECJ0yhsErx4VTmAKvytToaAbWrfKVXbm/6cZizgjiqkw==
+  version "1.15.1"
+  resolved "https://registry.yarnpkg.com/@uncinq/css-components/-/css-components-1.15.1.tgz#d9835e40667bdbf3212af98031e4cb4255278d5e"
+  integrity sha512-w6PXvyQKFs04f0c1shhXZhEXrN736cP1R7t+hPuJePaUmkr+TRPa8PAMu3VefF3SF7NlbWT9SDIBI9wuUtPLFQ==
 
 "@uncinq/design-tokens@^1.0.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@uncinq/design-tokens/-/design-tokens-1.7.0.tgz#79d4184e46e8228f481955091d1a51842a1b6df0"
-  integrity sha512-H+cCJ6ztRQfVaUEQfLQUZNkz6J6ocNrGJCuue6LOwJ1SNtf3auIQI/tL6hYZmurU0VXo8wwZ2DyWAWqmgn1EDQ==
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@uncinq/design-tokens/-/design-tokens-1.7.1.tgz#be5a2e95f30fff27591e4f2ff21e624615c1af3d"
+  integrity sha512-Kv/1/sdN9b5QaJ+OObpzTROujHHMumPFPWKsJlky/90Pl7oA5DK0vu3BSOSJtkLlklPazJ041KHhqvCOu6fFwg==
 
 "@zip.js/zip.js@^2.7.44":
   version "2.15.0"
@@ -478,9 +478,9 @@ dunder-proto@^1.0.1:
     gopd "^1.2.0"
 
 electron-to-chromium@^1.5.427:
-  version "1.5.429"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.429.tgz#1f9bf3eea3c99942dd86d66e121e8b864c26f01e"
-  integrity sha512-/1ENIE3cx4HTIx4IfPZFaOunJmsrSVTnj6coXoRVbiJUbkeTyFkJvBeWGkdgh08OhFbxYLMT1kbkwFVSarq6Ow==
+  version "1.5.430"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.430.tgz#788eada5bbfda8095a95149184368a2bb4fb8e4a"
+  integrity sha512-e1QEj72Y4zd8RlNZVmoTg+iCOSVwpk05IOiiQwdrkwCSVlZfPthevErhE+nckGd2YbsXfp1SkisznhGVIXP2NQ==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -977,9 +977,9 @@ postcss@^8:
     source-map-js "^1.2.1"
 
 prettier@^3.3.3:
-  version "3.9.6"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.9.6.tgz#b3ea5146515d40fc53f18aa63f74dfab1e10dbf6"
-  integrity sha512-OpN0zzVdiaiAhxpuuj5efpIS4sY9j7bY6uR5mnj5yPzGkdkjNKSJeUThPb60Jw29QuAZgA4o+/iB49kFiaBX6g==
+  version "3.9.7"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.9.7.tgz#dfc831d49deeece0505b692d516ef6f39ec874a5"
+  integrity sha512-T3mF5P7HFzZVLDQuCUNtJj6WK1pcpLMweMNUVwGb01bLNkH9AkKxtZvmInw8K6bnn2O3d6/5RHl6zSHiBAD0Og==
 
 pretty-hrtime@^1.0.3:
   version "1.0.3"
