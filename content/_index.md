@@ -3,19 +3,17 @@ isPage: true
 draft: false
 title: Tomlab
 description: Un petit blog note personnel sur lequel je partage des geekeries, en d'autres termes mon "digital garden"
-image:
-  src: 
-  alt: ''
+image: null
 hero:
   surtitle: TomLab
   title: Un blog de geek
   text: Un petit blog note personnel sur lequel je partage des geekeries, en d'autres termes mon "digital garden" 🌱.
   ctas: []
   image:
-    src: /images/uploads/land-o-lakes-inc-DdcWKBbJeEI-unsplash.jpg
+    src: ''
     src_mobile: ''
     alt: ''
-    credit: Credit.
+    credit: ''
     background: false
     darken: false
   video: null
@@ -27,9 +25,19 @@ blocks:
       title: Titre
       text: Texte de la section
     ui: null
+    section: posts
     count: 4
+    show_more: true
+  - type: selected-posts
+    heading: null
+    ui: null
+    items: []
     section: posts
     show_more: true
+    source: selection
+    authors: []
+    categories: []
+    tags: []
 slug: ''
 isIndex: true
 ---
