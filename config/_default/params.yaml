@@ -9,6 +9,13 @@ search:
   filter: false # Set true to add filters by type
   sort: true
 
+docs:
+  thumbnail:
+    desktop: '38x38'
+    desktop_large: '100x100'
+    mobile: '38x38'
+    scrollsnap: '38x38'
+
 css:
   darkmode: true
   preload: true
@@ -26,4 +33,4 @@ admin:
     identity: false
   collections:
     indexes:
-      enable: false
+      enable: true

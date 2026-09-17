@@ -1,0 +1,9 @@
+links:
+  - title: Blog
+    url: /news/
+    blank: false
+    is_highlighted: false
+  - title: Docs
+    url: /docs/
+    blank: false
+    is_highlighted: false

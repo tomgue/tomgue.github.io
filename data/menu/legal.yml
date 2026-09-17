@@ -1,0 +1,9 @@
+links:
+  - title: Mentions légales
+    url: /mentions-legales/
+    blank: false
+    is_highlighted: false
+  - title: Plan du site
+    url: /plan-du-site/
+    blank: false
+    is_highlighted: false

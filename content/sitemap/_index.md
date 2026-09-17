@@ -1,5 +1,5 @@
 ---
 draft: false
-title: Sitemap
-url: sitemap
+title: plan-du-site
+url: plan-du-site
 ---
