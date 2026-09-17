@@ -1,6 +1,6 @@
 ---
 isIndex: false
-draft: true
+draft: false
 title: Thomas
 firstname: Thomas
 lastname: Gueroult
