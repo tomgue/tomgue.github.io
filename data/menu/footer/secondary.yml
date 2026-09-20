@@ -1,9 +1,0 @@
-links:
-  - title: A propos
-    url: /a-propos/
-    blank: false
-    is_highlighted: false
-  - title: Contact
-    url: /contact/
-    blank: false
-    is_highlighted: false

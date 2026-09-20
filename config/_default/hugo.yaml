@@ -1,6 +1,6 @@
 ## LANGUAGE
-defaultContentLanguage: fr
-baseURL: https://tomgue.github.io/
+defaultContentLanguage: en
+enableEmoji: true
 
 ## ADVANCED
 build:
@@ -10,6 +10,7 @@ build:
     disableTags: false
     enable: true
 enableRobotsTXT: true
+
 markup:
   tableOfContents:
     ordered: true
