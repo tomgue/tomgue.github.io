@@ -1,6 +1,5 @@
 ---
 isPage: true
-isIndex: true
 draft: false
 title: Home
 hero:
@@ -9,6 +8,7 @@ hero:
   text: Content Hero
   image:
     src: assets/images/uploads/william-veitch-zVkeONx-3So-unsplash.jpg
+    alt: image hero
     credit: Credit
     background: false
     darken: false
@@ -17,4 +17,5 @@ hero:
     align: start
     vertical_align: center
     darken: false
+isIndex: true
 ---
