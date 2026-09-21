@@ -7,7 +7,7 @@ hero:
   title: Title Hero
   text: Content Hero
   image:
-    src: assets/images/uploads/william-veitch-zVkeONx-3So-unsplash.jpg
+    src: /images/uploads/william-veitch-zVkeONx-3So-unsplash.jpg
     alt: image hero
     credit: Credit
     background: false
