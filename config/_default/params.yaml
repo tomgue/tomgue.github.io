@@ -9,7 +9,9 @@ admin:
     identity: false
   collections:
     docs:
-      nested:
-        depth: 10
+      depth: 10
+      summary: '{{title}}'
+      subfolders: true
+    meta: { path: { index_file: _index } }
     indexes:
       enable: false
