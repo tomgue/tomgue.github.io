@@ -18,4 +18,4 @@ nested: {
 {{ end }}
 ```
 
-{{< qr text="hello World !" >}}
+{{< qr text="hello World !" />}}
