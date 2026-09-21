@@ -1,5 +1,30 @@
 _merge: deep
 
+animation: true # default false, data-anim scroll reveal
+parallax:
+  enable: true # default false, loads Rellax
+
+logo:
+  header: '/assets/images/logo.svg'
+  footer: '/assets/images/logo-footer.svg' # default: /assets/images/logo.svg
+
+image:
+  retina:
+    desktop: true # default false, Set true to enable retina for desktop
+
+css:
+  darkmode: true
+  preload: true
+  print: true
+  postcss: 'postcss/design-system'
+
+# Search
+search:
+  enable: true # Set true to enable search
+  layout: raw # Also raw, modal or drawer
+  filter: false # Set true to add filters by type
+  sort: true
+
 # Admin
 admin:
   cms: sveltiacms
@@ -8,14 +33,12 @@ admin:
   netlify:
     identity: false
   collections:
-    docs: 
-      path: '{{slug}}/_index'
-      media_folder: ''
-      public_folder: ''
+    pages:
+      summary: "**{{title}}** - _{{draft | ternary('⛔️ Brouillon', '✅ Publié')}}_"
+    docs:
+      summary: "**{{title}}** - _{{draft | ternary('⛔️ Brouillon', '✅ Publié')}}_"
       nested:
         depth: 10
-        summary: '{{title}}'
         subfolders: true
-      meta: { path: { index_file: _index } }
     indexes:
       enable: false

@@ -1,11 +1,5 @@
-# fr:
-#   locale: fr
-#   label: Français
-#   title: Demo Hugolify
-#   weight: 2
-
-en:
-  locale: en
-  label: English
-  title: Hugolify demo
+fr:
+  locale: fr
+  label: Français
+  title: TomLab
   weight: 1

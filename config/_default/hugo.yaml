@@ -1,19 +1,4 @@
 ## LANGUAGE
-defaultContentLanguage: en
+defaultContentLanguage: fr
 enableEmoji: true
-
-## ADVANCED
-build:
-  buildStats:
-    disableClasses: false
-    disableIDs: true
-    disableTags: false
-    enable: true
 enableRobotsTXT: true
-
-markup:
-  tableOfContents:
-    ordered: true
-pagination:
-  pagerSize: 9
-removePathAccents: true
