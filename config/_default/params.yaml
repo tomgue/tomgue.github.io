@@ -8,10 +8,14 @@ admin:
   netlify:
     identity: false
   collections:
-    docs:
-      depth: 10
-      summary: '{{title}}'
-      subfolders: true
-    meta: { path: { index_file: _index } }
+    docs: 
+      path: '{{slug}}/_index'
+      media_folder: ''
+      public_folder: ''
+      nested:
+        depth: 10
+        summary: '{{title}}'
+        subfolders: true
+      meta: { path: { index_file: _index } }
     indexes:
       enable: false
