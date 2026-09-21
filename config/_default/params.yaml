@@ -8,5 +8,8 @@ admin:
   netlify:
     identity: false
   collections:
+    docs:
+      nested:
+        depth: 10
     indexes:
       enable: false
