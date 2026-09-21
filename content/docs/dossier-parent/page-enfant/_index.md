@@ -1,6 +1,6 @@
 ---
 isIndex: false
-draft: true
+draft: false
 title: Page enfant
 description: Page enfant
 icon: brand:portainer
