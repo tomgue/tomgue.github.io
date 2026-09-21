@@ -222,19 +222,19 @@
     "@jsonjoy.com/codegen" "^1.0.0"
 
 "@uncinq/component-tokens@^1.0.0":
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/@uncinq/component-tokens/-/component-tokens-1.9.2.tgz#bec2cca1ef0bca5e6e231eddbb09d7d4181c121c"
-  integrity sha512-EdkTeHJPL2fj+Z5TdaCjEmZevrI9CjAZYL4VPDQnYArgRPN7UoK0LzZVCtR/w6uzf6eks+gm2zKzm9FC/exyHA==
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/@uncinq/component-tokens/-/component-tokens-1.9.3.tgz#3635c7221a584abc677c5ee4c4ef9b201ac213d5"
+  integrity sha512-6/e0Vy5joy6UNAVKJ+mV6bpZENqz2umKu+ZB4zSF+WpqQeZeKvx+H4GWtM2y1odGzF8Fxe4fSY+KU5WjacM2aA==
 
 "@uncinq/css-base@^1.0.0":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@uncinq/css-base/-/css-base-1.8.1.tgz#ecaf6f2654d11306497e88155a4dc4df60c325b6"
-  integrity sha512-JE1qnKDIhJgK3IwpF53r6F4JbwYiiKzaNGYO4lFndSobZDuO7TMM6q5ygZ5MO3B1tA1gPKSmn10MioHNAOlG6Q==
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@uncinq/css-base/-/css-base-1.9.0.tgz#9a5f33d806d783f94484cae298045561a373f04f"
+  integrity sha512-A3WOs1F+qXvzkLg9i1ZXXZ1ULY49PrjBTohBLYQV7VH27kVrCAc0t2XkBTIQH6HNKN8PVnfqBAXO5XNoRpsfCA==
 
 "@uncinq/css-components@^1.0.0":
-  version "1.15.2"
-  resolved "https://registry.yarnpkg.com/@uncinq/css-components/-/css-components-1.15.2.tgz#043844158c9ca3fe4547a19321eeef8e0805f227"
-  integrity sha512-M4ZynhyfBRxEJ5LdEnEq6bEOBeaXUDssqGLpoZcdS61ksLNMXixX5YROKZI5ZRzYfzju6M+/F6XOGjj4pgHvqA==
+  version "1.15.3"
+  resolved "https://registry.yarnpkg.com/@uncinq/css-components/-/css-components-1.15.3.tgz#09d9927a43e243f21ed3cda675c6f690b93c102d"
+  integrity sha512-kX6W25f432o28oPWQkrXiHjiQLGT5C1AGfGJMiBcHQT7c9p4V3VRppx9TTec4vfR5mum+I0x8oATX5cEa/YmUQ==
 
 "@uncinq/design-tokens@^1.0.0":
   version "1.7.3"
@@ -242,9 +242,9 @@
   integrity sha512-svRMHf47hPNHLyL7JUWuLs9eK519qVAke6pfSM5Ie1mSpuLL2Ae8GLlXEMwesI6+spP/E/nTPYyg6TtmpDjHlQ==
 
 "@zip.js/zip.js@^2.7.44":
-  version "2.16.0"
-  resolved "https://registry.yarnpkg.com/@zip.js/zip.js/-/zip.js-2.16.0.tgz#6fca4dce2cc27324cc0e6c6af741d1f658a736e4"
-  integrity sha512-D2DZ0Gdn4TP0HlIERuLLRyzKd65C7YUqxF2A6tpthM9TAcWBE+oWGvN52tJ12smenv6vo9J2tXVX4Obzh6skuA==
+  version "2.16.1"
+  resolved "https://registry.yarnpkg.com/@zip.js/zip.js/-/zip.js-2.16.1.tgz#5d8c3320b8795a1434ff98acc7aa23ecfd8e55d8"
+  integrity sha512-ohYjEczZigvNWcRLMkf+KNLo63WtSneKC6xLD9f3sasy1/zQ9pSQlBukwjb50g1RL4oNnAKlnSDzClaZ82X/uQ==
 
 ansi-regex@^5.0.1:
   version "5.0.1"
