@@ -4,6 +4,9 @@ draft: false
 title: Contact
 blocks:
   - type: form
+    ui:
+      theme: accent
+      grid: large
     items:
       - name: nom
         label: Nom
@@ -26,6 +29,11 @@ blocks:
         placeholder: Votre message
     name: contact
     submit: Envoyer
+  - type: title
+    heading:
+      text: « En soumettant ce formulaire, vous acceptez que les informations saisies soient traitées par le biais du service Netlify Forms afin de répondre à votre demande. Pour en savoir plus sur la gestion de vos données et exercer vos droits, consultez notre Politique de Confidentialité. »
+    ui:
+      theme: light
+      grid: large
+      align: center
 ---
-
-« En soumettant ce formulaire, vous acceptez que les informations saisies soient traitées par le biais du service Netlify Forms afin de répondre à votre demande. Pour en savoir plus sur la gestion de vos données et exercer vos droits, consultez notre Politique de Confidentialité. »
