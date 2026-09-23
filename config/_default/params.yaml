@@ -1,12 +1,8 @@
 _merge: deep
 
-animation: true # default false, data-anim scroll reveal
-parallax:
-  enable: true # default false, loads Rellax
-
-logo:
-  header: '/assets/images/logo.svg'
-  footer: '/assets/images/logo-footer.svg' # default: /assets/images/logo.svg
+# logo:
+#   header: '/assets/images/logo.svg'
+#   footer: '/assets/images/logo-footer.svg' # default: /assets/images/logo.svg
 
 image:
   retina:
