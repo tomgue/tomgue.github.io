@@ -26,12 +26,14 @@ admin:
   cms: sveltiacms
   name: github
   repo: tomgue/tomgue.github.io
+  title: TomLab CMS
   netlify:
     identity: false
   collections:
     pages:
       summary: "**{{title}}** - _{{draft | ternary('⛔️ Brouillon', '✅ Publié')}}_"
     docs:
+      thumbnail: image.src
       media_folder: /public/uploads/docs
       public_folder: /uploads/docs
       summary: "**{{title}}** - _{{draft | ternary('⛔️ Brouillon', '✅ Publié')}}_"
