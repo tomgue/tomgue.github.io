@@ -17,7 +17,7 @@ css:
 # Search
 search:
   enable: true # Set true to enable search
-  layout: raw # Also raw, modal or drawer
+  layout: drawer # Also raw, modal or drawer
   filter: false # Set true to add filters by type
   sort: true
 
@@ -32,6 +32,8 @@ admin:
     pages:
       summary: "**{{title}}** - _{{draft | ternary('⛔️ Brouillon', '✅ Publié')}}_"
     docs:
+      media_folder: /public/uploads/docs
+      public_folder: /uploads/docs
       summary: "**{{title}}** - _{{draft | ternary('⛔️ Brouillon', '✅ Publié')}}_"
       nested:
         depth: 10
