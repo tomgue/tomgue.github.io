@@ -13,3 +13,5 @@ image:
 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 
 {{< badge text="Info" state="light" >}}
+
+{{< figure src="/assets/images/uploads/docs/IMG20260718201026.jpg" alt="Texte alternatif " legend="Château de Cany-Barville" credit="Crédit " >}}
