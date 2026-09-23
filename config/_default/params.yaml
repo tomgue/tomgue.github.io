@@ -35,6 +35,7 @@ admin:
     docs:
       thumbnail: image.src
       media_folder: /assets/images/uploads/docs
+      public_folder: /images/uploads/docs
       summary: "**{{title}}** - {{draft | ternary('⛔️ Brouillon', '✅ _Publié_')}}"
       nested:
         depth: 10
