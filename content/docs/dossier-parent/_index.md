@@ -4,6 +4,8 @@ draft: false
 title: Dossier parent
 description: Dossier parent
 icon: info
+image:
+  src: https://res.cloudinary.com/uncinq/image/upload/v1758204585/logo-hugolify-picto_i6dlrq.svg
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec ligula nec lacus laoreet facilisis. Nullam ac erat scelerisque, sodales lacus sit amet, venenatis ipsum. Ut leo ipsum, mollis in finibus et, semper quis arcu. Cras eget odio dignissim, aliquet purus nec, pharetra nisi. Fusce arcu felis, hendrerit sed pulvinar at, posuere et erat. Sed augue eros, efficitur suscipit turpis at, tincidunt aliquam purus. Praesent varius neque quis dui lobortis lacinia. Vestibulum cursus enim ac augue volutpat porttitor. Nam blandit pellentesque faucibus. Pellentesque rutrum mauris mi, vel efficitur mi consectetur vel. Quisque imperdiet ex neque, at iaculis nibh vestibulum quis. Cras metus lorem, fringilla ut eros ut, viverra aliquet nulla.
