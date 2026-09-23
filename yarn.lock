@@ -222,24 +222,24 @@
     "@jsonjoy.com/codegen" "^1.0.0"
 
 "@uncinq/component-tokens@^1.0.0":
-  version "1.9.3"
-  resolved "https://registry.yarnpkg.com/@uncinq/component-tokens/-/component-tokens-1.9.3.tgz#3635c7221a584abc677c5ee4c4ef9b201ac213d5"
-  integrity sha512-6/e0Vy5joy6UNAVKJ+mV6bpZENqz2umKu+ZB4zSF+WpqQeZeKvx+H4GWtM2y1odGzF8Fxe4fSY+KU5WjacM2aA==
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@uncinq/component-tokens/-/component-tokens-1.10.0.tgz#2cc75d11c0cfa34c8ce879b8a29197a7afc2854d"
+  integrity sha512-zHHukDXouujXMVWnlaSucCU7dMKn9dJU/OcLcH+XJvgshbjDTTB9SzmJcHIMDCu0i4pCusnqiZbdtQYM5NA4hw==
 
 "@uncinq/css-base@^1.0.0":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@uncinq/css-base/-/css-base-1.9.0.tgz#9a5f33d806d783f94484cae298045561a373f04f"
-  integrity sha512-A3WOs1F+qXvzkLg9i1ZXXZ1ULY49PrjBTohBLYQV7VH27kVrCAc0t2XkBTIQH6HNKN8PVnfqBAXO5XNoRpsfCA==
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@uncinq/css-base/-/css-base-1.10.0.tgz#0fbe09afcdb08b5ac587a8f703ee3d1c50f90dff"
+  integrity sha512-AATZ2DMiWkDKnr6a/aOCVP3AEH3UiOYKoZxb74ebgnU8s/gD41OmGuj58pF/fBuahB9TIqKUmdjwCNvu1Hs7lQ==
 
 "@uncinq/css-components@^1.0.0":
-  version "1.15.3"
-  resolved "https://registry.yarnpkg.com/@uncinq/css-components/-/css-components-1.15.3.tgz#09d9927a43e243f21ed3cda675c6f690b93c102d"
-  integrity sha512-kX6W25f432o28oPWQkrXiHjiQLGT5C1AGfGJMiBcHQT7c9p4V3VRppx9TTec4vfR5mum+I0x8oATX5cEa/YmUQ==
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/@uncinq/css-components/-/css-components-1.16.0.tgz#73d768890c01c19cfb1d4365a82574aaeda2494b"
+  integrity sha512-H3OQjKTj3mbZOOZETLRfUOuHEAHIu9LDAk0WAOfoI+ndnlB3Lb6/QxAUtVvrUd6LehdTeqZejPQ+v2wTJY2Tcw==
 
 "@uncinq/design-tokens@^1.0.0":
-  version "1.7.3"
-  resolved "https://registry.yarnpkg.com/@uncinq/design-tokens/-/design-tokens-1.7.3.tgz#5c518ae209843d305f21bfe1891c972607e5fe46"
-  integrity sha512-svRMHf47hPNHLyL7JUWuLs9eK519qVAke6pfSM5Ie1mSpuLL2Ae8GLlXEMwesI6+spP/E/nTPYyg6TtmpDjHlQ==
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@uncinq/design-tokens/-/design-tokens-1.8.0.tgz#e1d5f30b772fe13529dd7f53fbe82601327cab09"
+  integrity sha512-oQS+sDI+QwsumUXfkTgysBBBInxcl723n1EEchuL0tVvqFubavrEupPhkdfhUjutd12Bew76Yvt0JIEX5nrYcA==
 
 "@zip.js/zip.js@^2.7.44":
   version "2.17.0"
