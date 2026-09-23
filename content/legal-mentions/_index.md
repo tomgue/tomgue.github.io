@@ -29,3 +29,5 @@ https://www.netlify.com
 ## Conception
 
 This site was designed with [Hugolify](https://www.hugolify.io), an open-source Jamstack solution, which allows you to design a site that is as environmentally friendly as possible and closest to accessibility criteria.
+
+{{< figure src="/assets/images/uploads/pages/1000004084.jpg" alt="Texte alternatif " legend="légende " credit="Crédit " >}}
