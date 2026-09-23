@@ -31,12 +31,12 @@ admin:
     identity: false
   collections:
     pages:
-      summary: "**{{title}}** - _{{draft | ternary('⛔️ Brouillon', '✅ Publié')}}_"
+      summary: "**{{title}}** - {{draft | ternary('⛔️ Brouillon', '✅ _Publié_')}}"
     docs:
       thumbnail: image.src
-      media_folder: /public/uploads/docs
-      public_folder: /uploads/docs
-      summary: "**{{title}}** - _{{draft | ternary('⛔️ Brouillon', '✅ Publié')}}_"
+      media_folder: /assets/images/uploads/docs
+      public_folder: /images/uploads/docs
+      summary: "**{{title}}** - {{draft | ternary('⛔️ Brouillon', '✅ _Publié_')}}"
       nested:
         depth: 10
         subfolders: true
