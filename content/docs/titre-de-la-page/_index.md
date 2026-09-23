@@ -5,7 +5,7 @@ title: Titre de la page
 description: Description de la page
 icon: brand:github
 image:
-  src: /public/uploads/docs/1000013972.jpg
+  src: /images/uploads/1000013984.jpg
 ---
 
 {{< alert text="Lorem Ipsum is simply dummy text of the printing and typesetting industry." state="light" >}}
