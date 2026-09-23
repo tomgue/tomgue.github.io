@@ -32,7 +32,7 @@ admin:
   collections:
     pages:
       media_folder: '{{media_folder}}/pages'
-    public_folder: '{{public_folder}}/pages'
+      public_folder: '{{public_folder}}/pages'
       summary: "**{{title}}** - {{draft | ternary('⛔️ Brouillon', '✅ _Publié_')}}"
     docs:
       thumbnail: image.src
