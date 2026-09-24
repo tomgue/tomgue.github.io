@@ -1,6 +1,6 @@
 ---
 isPage: true
-draft: true
+draft: false
 title: Galerie
 hero:
   image:
