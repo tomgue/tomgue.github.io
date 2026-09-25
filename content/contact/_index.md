@@ -2,6 +2,12 @@
 isPage: true
 draft: false
 title: Contact
+hero:
+  title: Hugo
+  image:
+    src: /images/uploads/pages/hugo.png
+    background: false
+    darken: false
 blocks:
   - type: form
     ui:
@@ -38,3 +44,5 @@ blocks:
       offset: center
       align: center
 ---
+
+{{< figure src="/images/uploads/pages/william-veitch-zVkeONx-3So-unsplash.jpg" >}}

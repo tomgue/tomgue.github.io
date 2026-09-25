@@ -1,0 +1,9 @@
+{{/* --- UMAMI ANALYTICS --- */}}
+{{ with .Site.Params.umami }}
+  {{ if and .enabled .src .website_id (not hugo.IsServer) }}
+    <script async defer 
+            data-website-id="{{ .website_id }}" 
+            src="{{ .src }}">
+    </script>
+  {{ end }}
+{{ end }}
