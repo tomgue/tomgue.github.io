@@ -1,5 +1,7 @@
 _merge: deep
 
+font_awesome_kit: 'e1fcc4861e'
+
 # Umami Analytics Configuration
 umami:
   enabled: true # Définissez à false pour désactiver Umami

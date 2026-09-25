@@ -5,6 +5,8 @@ title: Legal mentions
 description: Legal mentions page
 ---
 
+<i class="fa-solid fa-thumbs-up"></i>
+
 ## Welcome to demo.hugolify.io
 
 By using this site, you acknowledge having read the provisions below and you agree to respect them. The legal notices indicated below may change, we invite you to consult them regularly.

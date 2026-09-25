@@ -7,3 +7,8 @@
     </script>
   {{ end }}
 {{ end }}
+
+{{/* --- FONT AWESOME --- */}}
+{{ with .Site.Params.font_awesome_kit }}
+  <script src="https://kit.fontawesome.com/{{ . }}.js" crossorigin="anonymous"></script>
+{{ end }}
