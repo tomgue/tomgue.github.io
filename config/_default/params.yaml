@@ -55,3 +55,19 @@ admin:
         subfolders: true
     indexes:
       enable: false
+
+markup:
+  goldmark:
+    extensions:
+      extras:
+        delete:
+          enable: true
+        insert:
+          enable: true
+        mark:
+          enable: true
+        subscript:
+          enable: true
+        superscript:
+          enable: true
+      strikethrough: false
