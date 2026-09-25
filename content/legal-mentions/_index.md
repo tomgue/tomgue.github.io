@@ -5,7 +5,45 @@ title: Legal mentions
 description: Legal mentions page
 ---
 
-<i class="fa-solid fa-thumbs-up"></i>
+  <!-- solid style -->
+
+<i class="fa-solid fa-user"></i>
+
+  <!-- regular style -->
+
+<i class="fa-regular fa-user"></i>
+
+  <!-- light style -->
+
+<i class="fa-light fa-user"></i>
+
+  <!-- thin style -->
+
+<i class="fa-thin fa-user"></i>
+
+  <!-- duotone style -->
+
+<i class="fa-duotone fa-solid fa-user"></i>
+
+  <!-- sharp solid style -->
+
+<i class="fa-sharp fa-solid fa-user"></i>
+
+  <!-- sharp duotone style -->
+
+<i class="fa-sharp-duotone fa-solid fa-user"></i>
+
+  <!-- whiteboard style -->
+
+<i class="fa-2x fa-whiteboard fa-semibold fa-user"></i>
+
+  <!-- jelly-duo style -->
+
+<i class="fa-2x fa-jelly-duo fa-regular fa-user"></i>
+
+  <!-- brand icon-->
+
+<i class="fa-brands fa-github-square"></i>
 
 ## Welcome to demo.hugolify.io
 
