@@ -1,0 +1,17 @@
+/* CSS de remplacement pour les icônes de liste Font Awesome */
+li > .fa-li {
+  position: absolute;
+  left: -1.5em;
+  top: 0.15em;
+  text-align: center;
+  width: 1.5em;
+  line-height: inherit;
+}
+
+/* S'assurer que les éléments de liste sont prêts à recevoir l'icône */
+li {
+  position: relative;
+  list-style-type: none;
+  padding-left: 1.5em;
+  text-indent: -1.5em;
+}
