@@ -227,14 +227,14 @@
   integrity sha512-wpr5jrJ11Nclci9SyvETTJFCSxoyyRex07eaA8Wj9S73mMxWH0R5L6dFhToFBSeisvway7dbTVCtjyR94GmXsw==
 
 "@uncinq/css-base@^1.0.0":
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/@uncinq/css-base/-/css-base-1.10.1.tgz#358efc7c42fed0a2d96668e11b0ed103350edef0"
-  integrity sha512-EIiH7TNeG+uzmQTsWCLwBKUl5kpPyfkMbGgIliqouncnrIESQSVE2MkyEg7bXkJL8+Rp2/amleVM/BEI4eLUxw==
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@uncinq/css-base/-/css-base-1.11.0.tgz#0d199cb4d5f109cf003e67e08b63cab4f994d5ca"
+  integrity sha512-MfuAZp6hYLHzRelGZovo1uK9ZR1KqTBWpQhgF7vEqbTfjZbdyZQmQ1d/BjtewD/HOX8I2AuF9mBjdVy80ydnxA==
 
 "@uncinq/css-components@^1.0.0":
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/@uncinq/css-components/-/css-components-1.16.1.tgz#6978ecd869e3b74b13f9d73649e4de51ecb874be"
-  integrity sha512-tX581snXMfRmH0iiWtpRisDgFIy0eNAyx18BBuFhxLHd0OpQlNLahGrTjqfMfBFYP7jvj6pPkwDFJxQuiyqxww==
+  version "1.16.2"
+  resolved "https://registry.yarnpkg.com/@uncinq/css-components/-/css-components-1.16.2.tgz#edf1feafc6856da53888c8fd52fe25ee05ccdd73"
+  integrity sha512-JNKtMaknjy+URTauONaMQaCfue2bAExzcBfDSlkxLpPAOQvQ9+W5OBA233E7p2tEtAr8Y5HupCrCRc3EvvknWg==
 
 "@uncinq/design-tokens@^1.0.0":
   version "1.8.1"
