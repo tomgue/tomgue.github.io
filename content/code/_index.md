@@ -26,3 +26,11 @@ func main() {
 server:
   port: 8080
 {{< /code >}}
+
+## Avec style Github
+
+{{< code style="github">}}
+:root {
+  --menu-width: 18rem;
+}
+{{< /code >}}
