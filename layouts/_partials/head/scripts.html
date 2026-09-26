@@ -1,8 +1,7 @@
 {{/* --- UMAMI ANALYTICS --- */}}
 {{ with .Site.Params.umami }}
   {{ if and .enabled .src .website_id hugo.IsProduction (not hugo.IsServer) }}
-    <script defer src="{{ .src }}" data-website-id="{{ .website_id }}">
-    </script>
+    <script defer src="{{ .src }}" data-website-id="{{ .website_id }}"></script>
   {{ end }}
 {{ end }}
 

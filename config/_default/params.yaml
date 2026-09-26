@@ -4,9 +4,9 @@ font_awesome_kit: 'e1fcc4861e'
 
 # Umami Analytics Configuration
 umami:
-  enabled: true # Définissez à false pour désactiver Umami
-  website_id: 'be9bcb10-25a5-44a6-b0b7-59c84d81c202' # Remplacez par votre ID Umami (ex: "123e4567-e89b-12d3-a456-426614174000")
-  src: 'https://cloud.umami.is/script.js' # Remplacez par votre URL Umami
+  enabled: true
+  website_id: 'be9bcb10-25a5-44a6-b0b7-59c84d81c202'
+  src: 'https://cloud.umami.is/script.js'
 
 # logo:
 #   header: '/assets/images/logo.svg'
