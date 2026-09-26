@@ -12,7 +12,7 @@ title: code bloc
 
 ## Avec options highlight natives + options maison
 
-{{< code go title="main.go" hl_lines="2 3" >}}
+{{< code lang="go" title="main.go" hl_lines="2 3" >}}
 package main
 
 func main() {
@@ -22,7 +22,7 @@ func main() {
 
 ## Icône personnalisée, sans bouton copier
 
-{{< code yaml icon="fa-solid fa-gears" copy=false >}}
+{{< code lang="yaml" icon="fa-solid fa-gears" copy=false >}}
 server:
   port: 8080
 {{< /code >}}
