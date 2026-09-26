@@ -1,0 +1,109 @@
+{{- /* Font Awesome 7 Free Shortcode */ -}}
+{{- /* Requires Font Awesome to be loaded separately (e.g., via kit in head) */ -}}
+{{- /* Free version only supports: solid, regular, brands styles */ -}}
+{{- /* All Free styling options from https://docs.fontawesome.com/web/style/ */ -}}
+{{- /* */ -}}
+{{- /* Usage examples: */ -}}
+{{- /*   {{< fa icon="home" >}} */ -}}
+{{- /*   {{< fa icon="heart" style="solid" color="red" size="2x" >}} */ -}}
+{{- /*   {{< fa icon="github" style="brands" size="lg" >}} */ -}}
+{{- /*   {{< fa icon="spinner" animation="spin" >}} */ -}}
+{{- /* */ -}}
+
+{{- /* Required: icon name */ -}}
+{{- $icon := .Get "icon" | default (.Get 0) -}}
+{{- if not $icon -}}
+  {{- errorf "fa shortcode: missing required 'icon' parameter. Usage: {{</* fa icon=\"name\" */>}" -}}
+{{- end -}}
+
+{{- /* Style: solid (default), regular, brands - Free version only */ -}}
+{{- $style := .Get "style" | default (.Get 1) | default "solid" -}}
+{{- $validStyles := slice "solid" "regular" "brands" -}}
+{{- if not (in $validStyles $style) -}}
+  {{- errorf "fa shortcode: invalid style '%s'. Font Awesome Free version only supports: %s" $style (delimit $validStyles ", ") -}}
+{{- end -}}
+
+{{- /* Color */ -}}
+{{- $color := .Get "color" | default (.Get 2) | default "" -}}
+
+{{- /* Build class list */ -}}
+{{- $classes := slice (printf "fa-%s" $style) (printf "fa-%s" $icon) -}}
+
+{{- /* Size options */ -}}
+{{- $size := .Get "size" | lower | default (.Get 3) | default "" -}}
+{{- if $size -}}
+  {{- $sizeMap := dict "" "" "xs" "fa-xs" "sm" "fa-sm" "lg" "fa-lg" "xl" "fa-xl" "2xl" "fa-2xl" -}}
+  {{- $mappedSize := index $sizeMap $size -}}
+  {{- if $mappedSize -}}
+    {{- $classes = $classes | append $mappedSize -}}
+  {{- else if (hasPrefix $size "fa-") -}}
+    {{- $classes = $classes | append $size -}}
+  {{- else -}}
+    {{- /* Numeric sizes: 2x, 3x, 4x, 5x, 6x, 7x, 8x, 9x, 10x */ -}}
+    {{- $classes = $classes | append (printf "fa-%sx" $size) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Rotation: 90, 180, 270, or by */ -}}
+{{- $rotate := .Get "rotate" | default "" -}}
+{{- if $rotate -}}
+  {{- $validRotations := slice "90" "180" "270" "by" -}}
+  {{- if (in $validRotations $rotate) -}}
+    {{- $classes = $classes | append (printf "fa-rotate-%s" $rotate) -}}
+  {{- else -}}
+    {{- errorf "fa shortcode: invalid rotate value '%s'. Must be one of: %s" $rotate (delimit $validRotations ", ") -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Flip: horizontal, vertical, both */ -}}
+{{- $flip := .Get "flip" | lower | default "" -}}
+{{- if $flip -}}
+  {{- $validFlips := slice "horizontal" "vertical" "both" -}}
+  {{- if (in $validFlips $flip) -}}
+    {{- $classes = $classes | append (printf "fa-flip-%s" $flip) -}}
+  {{- else -}}
+    {{- errorf "fa shortcode: invalid flip value '%s'. Must be one of: %s" $flip (delimit $validFlips ", ") -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Animation */ -}}
+{{- $animation := .Get "animation" | lower | default "" -}}
+{{- $validAnimations := slice "spin" "spin-reverse" "pulse" "beat" "bounce" "fade" "beat-fade" "flip" "shake" "spin-pulse" -}}
+{{- if (and $animation (in $validAnimations $animation)) -}}
+  {{- $classes = $classes | append (printf "fa-%s" $animation) -}}
+{{- end -}}
+
+{{- /* Boolean options (Free tier) - accept "true", "1", or any non-empty string */ -}}
+{{- $border := .Get "border" -}}
+{{- if and $border (ne $border "false") -}}
+  {{- $classes = $classes | append "fa-border" -}}
+{{- end -}}
+
+{{- $fw := .Get "fw" -}}
+{{- if and $fw (ne $fw "false") -}}
+  {{- $classes = $classes | append "fa-fw" -}}
+{{- end -}}
+
+{{- $li := .Get "li" -}}
+{{- if and $li (ne $li "false") -}}
+  {{- $classes = $classes | append "fa-li" -}}
+{{- end -}}
+
+{{- $pullLeft := .Get "pull-left" -}}
+{{- if and $pullLeft (ne $pullLeft "false") -}}
+  {{- $classes = $classes | append "fa-pull-left" -}}
+{{- end -}}
+
+{{- $pullRight := .Get "pull-right" -}}
+{{- if and $pullRight (ne $pullRight "false") -}}
+  {{- $classes = $classes | append "fa-pull-right" -}}
+{{- end -}}
+
+{{- /* Additional classes from 'class' parameter */ -}}
+{{- $customClass := .Get "class" | default "" -}}
+{{- if $customClass -}}
+  {{- $classes = $classes | append (split $customClass " ") -}}
+{{- end -}}
+
+{{- /* Output icon */ -}}
+<i class="{{ delimit $classes " " }}"{{ with $color }} style="color: {{ . | safeCSS }};"{{ end }} aria-hidden="true"></i>
