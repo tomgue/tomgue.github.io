@@ -29,7 +29,7 @@ server:
 
 ## Avec style Github
 
-{{< code style="github">}}
+{{< code lang="css" style="github">}}
 :root {
   --menu-width: 18rem;
 }
