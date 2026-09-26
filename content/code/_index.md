@@ -10,6 +10,23 @@ title: code bloc
 <p>Bonjour</p>
 {{< /code >}}
 
+{{< code lang="html" title="index.html" style="nord" >}}
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Titre de la page</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+</head>
+<body>
+  ...
+  <!-- Le reste du contenu -->
+  ...
+</body>
+</html>
+{{< /code >}}
+
 ## Avec options highlight natives + options maison
 
 {{< code lang="go" title="main.go" hl_lines="2 3" >}}
