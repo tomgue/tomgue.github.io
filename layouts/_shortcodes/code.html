@@ -1,0 +1,92 @@
+{{- /* Langue : premier paramètre positionnel (comme highlight) ou paramètre nommé "lang" */ -}}
+{{- $lang := "plaintext" -}}
+{{- if .IsNamedParams -}}
+  {{- $lang = .Get "lang" | default "plaintext" -}}
+{{- else if gt (len .Params) 0 -}}
+  {{- $lang = index .Params 0 -}}
+{{- end -}}
+
+{{- /* Options maison, non transmises à highlight */ -}}
+{{- $title := "" -}}
+{{- $icon := "" -}}
+{{- $copy := true -}}
+{{- if .IsNamedParams -}}
+  {{- $title = .Get "title" | default "" -}}
+  {{- $icon = .Get "icon" | default "" -}}
+  {{- if isset .Params "copy" -}}{{- $copy = ne (.Get "copy") false -}}{{- end -}}
+{{- end -}}
+
+{{- /* Icône Font Awesome selon la langue */ -}}
+{{- $icons := dict
+      "html" "fa-brands fa-html5"
+      "xml" "fa-brands fa-html5"
+      "css" "fa-brands fa-css3-alt"
+      "scss" "fa-brands fa-sass"
+      "sass" "fa-brands fa-sass"
+      "js" "fa-brands fa-js"
+      "javascript" "fa-brands fa-js"
+      "ts" "fa-brands fa-js"
+      "typescript" "fa-brands fa-js"
+      "json" "fa-solid fa-code"
+      "py" "fa-brands fa-python"
+      "python" "fa-brands fa-python"
+      "go" "fa-brands fa-golang"
+      "golang" "fa-brands fa-golang"
+      "rust" "fa-brands fa-rust"
+      "php" "fa-brands fa-php"
+      "java" "fa-brands fa-java"
+      "bash" "fa-solid fa-terminal"
+      "sh" "fa-solid fa-terminal"
+      "shell" "fa-solid fa-terminal"
+      "zsh" "fa-solid fa-terminal"
+      "console" "fa-solid fa-terminal"
+      "powershell" "fa-brands fa-windows"
+      "sql" "fa-solid fa-database"
+      "md" "fa-brands fa-markdown"
+      "markdown" "fa-brands fa-markdown"
+      "yaml" "fa-solid fa-code-branch"
+      "yml" "fa-solid fa-code-branch"
+      "toml" "fa-solid fa-gear"
+      "ini" "fa-solid fa-gear"
+      "diff" "fa-solid fa-code-compare"
+      "git" "fa-brands fa-git-alt"
+      "docker" "fa-brands fa-docker"
+      "dockerfile" "fa-brands fa-docker"
+      "vue" "fa-brands fa-vuejs"
+      "svelte" "fa-brands fa-svelte"
+      "react" "fa-brands fa-react"
+      "jsx" "fa-brands fa-react"
+      "tsx" "fa-brands fa-react"
+      "wordpress" "fa-brands fa-wordpress"
+      "hugo" "fa-brands fa-glide"
+-}}
+{{- $icon = $icon | default (index $icons (lower $lang)) | default "fa-solid fa-file-code" -}}
+
+{{- /* Toutes les autres options nommées sont transmises à highlight
+       (hl_lines, linenos, line_numbers_in_table, anchorLineNos, noClasses…) */ -}}
+{{- $opts := dict -}}
+{{- if .IsNamedParams -}}
+  {{- range $k, $v := $.Params -}}
+    {{- if not (in (slice "lang" "title" "icon" "copy") $k) -}}
+      {{- $opts = merge $opts (dict $k $v) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+<div class="code-block" data-lang="{{ $lang }}">
+  <div class="code-block-header">
+    <span class="code-block-lang">
+      <i class="{{ $icon }}" aria-hidden="true"></i>
+      {{- with $title }}<span class="code-block-title">{{ . }}</span>
+      {{- else }}<span class="code-block-title">{{ upper $lang }}</span>{{- end -}}
+    </span>
+    {{- if $copy }}
+    <button class="code-block-copy" type="button" aria-label="Copier le code">
+      <i class="fa-solid fa-copy" aria-hidden="true"></i>
+      <span class="visually-hidden">Copier</span>
+    </button>
+    {{- end }}
+  </div>
+  {{- $highlighted := highlight .Inner $lang $opts -}}
+  <div class="code-block-body">{{ $highlighted }}</div>
+</div>
