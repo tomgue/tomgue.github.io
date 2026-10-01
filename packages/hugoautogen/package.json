@@ -1,0 +1,8 @@
+{
+  "dependencies": {},
+  "devDependencies": {
+    "style-dictionary": "^5.0.0"
+  },
+  "name": "tomgue.github.io",
+  "version": "0.1.0"
+}
