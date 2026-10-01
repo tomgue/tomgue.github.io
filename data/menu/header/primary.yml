@@ -3,3 +3,7 @@ links:
     url: /docs/
     blank: false
     is_highlighted: false
+  - title: Hugolify
+    url: https://www.hugolify.io
+    blank: true
+    is_highlighted: true
