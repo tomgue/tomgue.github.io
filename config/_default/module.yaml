@@ -1,0 +1,14 @@
+imports:
+ 
+  # Modules
+  - path: github.com/hugolify/hugolify-theme-docs/v2
+
+  # Core theme
+  - path: github.com/hugolify/hugolify-theme/v2
+  # CSS and JS
+  - path: github.com/hugolify/hugolify-theme-design-system
+  # icons
+  - path: github.com/hugolify/hugolify-theme-icons
+
+  # CMS
+  - path: github.com/hugolify/hugolify-admin/v2
