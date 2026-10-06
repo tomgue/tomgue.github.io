@@ -105,9 +105,9 @@ jobs:
       - name: Build
         env:
           HUGO_ENVIRONMENT: production
+          HUGO_BASEURL: "${{ steps.pages.outputs.base_url }}/"
         run: |
-          echo "Building the project..."
-          yarn build:search --baseURL "${{ steps.pages.outputs.base_url }}" --cacheDir "${{ runner.temp }}/.cache/hugo"
+          yarn build:search -- --cacheDir "${{ runner.temp }}/.cache/hugo"
 
       - name: Cache save
         uses: actions/cache/save@v6
