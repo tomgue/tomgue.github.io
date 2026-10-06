@@ -102,12 +102,20 @@ jobs:
           key: hugo-${{ github.run_id }}
           restore-keys: hugo-
 
-      - name: Build
+      - name: Build Hugo and generate Search Index
         env:
           HUGO_ENVIRONMENT: production
-          HUGO_BASEURL: "${{ steps.pages.outputs.base_url }}/"
         run: |
-          yarn build:search -- --cacheDir "${{ runner.temp }}/.cache/hugo"
+          echo "Building Hugo site..."
+          hugo build \
+            --noChmod \
+            --gc \
+            --minify \
+            --baseURL "${{ steps.pages.outputs.base_url }}/" \
+            --cacheDir "${{ runner.temp }}/.cache/hugo"
+
+          echo "Generating Pagefind index..."
+          npm_config_yes=true npx pagefind --site "public"
 
       - name: Cache save
         uses: actions/cache/save@v6
