@@ -2,13 +2,9 @@ _merge: deep
 
 # Umami Analytics Configuration
 umami:
-  enabled: true
-  website_id: 'be9bcb10-25a5-44a6-b0b7-59c84d81c202'
+  enabled: false
+  website_id: ''
   src: 'https://cloud.umami.is/script.js'
-
-# logo:
-#   header: '/assets/images/logo.svg'
-#   footer: '/assets/images/logo-footer.svg' # default: /assets/images/logo.svg
 
 
 css:
