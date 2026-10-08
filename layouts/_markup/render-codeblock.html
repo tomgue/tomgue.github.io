@@ -1,0 +1,77 @@
+{{- /*
+  Code blocks — Markdown render hook for fenced code blocks (site override).
+
+  Opt-in extras, written in the info string:
+    {title="index.html"}   → header bar with a title or a file name
+    {icon}                 → icon of the code language
+    {icon="python"}        → explicit icon (Simple Icons name, "ui:x" for Lucide)
+    {copy}                 → copy-to-clipboard button
+
+  Site-wide defaults (config/_default/params.yaml), the info string always wins.
+
+  A block that asks for none of these goes through transform.HighlightCodeBlock,
+  Hugo’s own default rendering.
+
+  @see layouts/_partials/func/GetCodeIcon.html for the language → icon mapping.
+*/ -}}
+{{- $title := "" -}}
+{{- $icon := "" -}}
+{{- $copy := false -}}
+{{- $autoIcon := false -}}
+{{- $siteIcon := false -}}
+{{- $siteCopy := false -}}
+{{- with site.Params.code }}
+  {{- with .icon }}{{- $siteIcon = true -}}{{- end }}
+  {{- with .copy }}{{- $siteCopy = true -}}{{- end }}
+{{- end }}
+{{- with .Attributes }}
+  {{- with .title }}{{- $title = printf "%v" . -}}{{- end }}
+  {{- if isset . "icon" }}
+    {{- $value := printf "%v" (index . "icon") -}}
+    {{- if eq $value "true" }}
+      {{- $autoIcon = true -}}
+    {{- else if eq $value "false" }}
+      {{- /* explicit opt-out */ -}}
+    {{- else }}
+      {{- $icon = $value -}}
+    {{- end }}
+  {{- else if $siteIcon }}{{- $autoIcon = true -}}{{- end }}
+  {{- if isset . "copy" }}
+    {{- if eq (printf "%v" (index . "copy")) "true" }}{{- $copy = true -}}{{- end }}
+  {{- else if $siteCopy }}{{- $copy = true -}}{{- end }}
+{{- else }}
+  {{- if $siteIcon }}{{- $autoIcon = true -}}{{- end }}
+  {{- if $siteCopy }}{{- $copy = true -}}{{- end }}
+{{- end }}
+{{- if $autoIcon }}{{- $icon = partial "func/GetCodeIcon.html" .Type -}}{{- end }}
+{{- if not (or $title $icon $copy) -}}
+  {{- transform.HighlightCodeBlock . -}}
+{{- else }}
+  {{- $attrs := slice -}}
+  {{- range $key, $value := $.Attributes }}
+    {{- if not (in (slice "title" "icon" "copy") $key) }}
+      {{- $attrs = $attrs | append (printf `%s="%s"` $key (htmlEscape (printf "%v" $value))) -}}
+    {{- end }}
+  {{- end }}
+  <figure class="code-block"{{ with $attrs }} {{ delimit $attrs " " | safeHTML }}{{ end }}>
+    <figcaption class="code-block-header">
+      {{- with $icon }}
+        {{- if templates.Exists "partials/icon.html" }}
+          {{- if strings.Contains . ":" }}{{ partial "icon" . }}{{ else }}{{ partial "icon" (printf "brand:%s" .) }}{{ end }}
+        {{- end }}
+      {{- end }}
+      {{- if $title }}
+        <span class="code-block-title">{{ $title }}</span>
+      {{- else with $.Type }}
+        <span class="code-block-lang">{{ . }}</span>
+      {{- end }}
+      {{- if $copy }}
+        <button type="button" class="code-copy js-code-copy" aria-label="{{ i18n "code.copy" }}">
+          {{- if templates.Exists "partials/icon.html" }}{{ partial "icon" "copy" }}{{ partial "icon" "check" }}{{ end }}
+          <span class="code-copy-text">{{ i18n "code.copy" }}</span>
+        </button>
+      {{- end }}
+    </figcaption>
+    {{- highlight $.Inner $.Type $.Options -}}
+  </figure>
+{{- end -}}
