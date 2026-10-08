@@ -1,0 +1,13 @@
+{{- $id := or .Attributes.id .Anchor -}}
+{{- $classes := slice "heading" (printf "heading-%d" .Level) -}}
+{{- with .Attributes.class }}{{ $classes = $classes | append . }}{{ end -}}
+<h{{ .Level }} id="{{ $id | safeURL }}" class="{{ delimit $classes " " }}">
+  {{- with .Attributes.icon }}
+    {{- if templates.Exists "partials/icon.html" }}
+      <span class="heading-icon" aria-hidden="true">{{ partial "icon" . }}</span>
+    {{- end }}
+  {{- end -}}
+  <a href="#{{ $id | safeURL }}" class="heading-anchor" aria-label="Lien vers cette section : {{ .PlainText }}">
+    {{- .Text | safeHTML -}}
+  </a>
+</h{{ .Level }}>
