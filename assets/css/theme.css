@@ -2,14 +2,35 @@
    Importé en fin de css/main.css (hugolify-theme-design-system), juste avant site.css.
    Le fichier du projet éclipse celui (vide) du module, sans le forker. */
 
-/* Débordement horizontal — la colonne de contenu peut rétrécir sous son
-   min-content. Sans min-width: 0, un item flex/grid garde min-width: auto
-   (= min-content) : au breakpoint où .row passe en flex row (socle
-   @uncinq/css-base), une ligne de code plus large que la colonne pousse
-   .row — donc la page — au-delà du viewport. Avec min-width: 0, les
-   éléments trop larges (pre, table) scrolleront chez eux via leur propre
-   overflow-x: auto. Sans effet en mobile : en flex column, l'axe main est
-   vertical. */
+/* Débordement horizontal mobile — voir le diagnostic dans la PR #13.
+   Le socle (@uncinq/css-base, layouts/row.css) définit .row en
+   flex-direction: column + flex-wrap: wrap. En colonne AVEC wrap, la
+   largeur de chaque colonne est fixée par le contenu (max-content) : un
+   élément plus large que la colonne — figure.code-block (largeur auto),
+   pre… — élargit toute la colonne flex, donc .row, donc la page, au-delà
+   du viewport. Symptôme mesuré en console : les deux items de .row
+   (.sidebar--menu et le wrapper du contenu) débordent alors que .row
+   elle-même tient dans le viewport.
+   nowrap dans l'état column (sous --tablet) : une seule colonne,
+   étirée à la largeur du conteneur ; les contenus trop larges
+   scrolleront chez eux (pre { overflow-x: auto },
+   figure.code-block { overflow: hidden }). Aucun effet au-dessus de
+   --tablet, où .row repasse en flex row et retrouve son wrap. */
+@layer layouts {
+  @media not (--tablet) {
+    .row {
+      flex-wrap: nowrap;
+    }
+  }
+}
+
+/* Débordement horizontal (tablette+) — la colonne de contenu peut
+   rétrécir sous son min-content. Sans min-width: 0, un item flex/grid
+   garde min-width: auto (= min-content) : au breakpoint où .row passe
+   en flex row, une ligne de code plus large que la colonne pousse la
+   ligne flex — donc la page — au-delà du viewport. Avec min-width: 0,
+   les éléments trop larges (pre, table) scrolleront chez eux via leur
+   propre overflow-x: auto. */
 @layer layouts {
   .row > .content,
   .grid > .content {
