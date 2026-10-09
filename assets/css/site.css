@@ -17,6 +17,16 @@
     --code-block-header-padding: var(--spacing-xs);
     --code-block-copy-gap: var(--spacing-2xs);
   }
+
+  /* Correction du code inline invisible en dark mode :
+     le thème sombre de @uncinq/design-tokens 1.8.x remappe --color-background-muted
+     (gray-900) mais pas --color-text-on-muted, qui reste à sa valeur claire (gray-900).
+     Voir https://github.com/Hugolify/hugolify-theme-design-system/issues/1 */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-color-scheme="light"]) {
+      --color-text-on-muted: var(--color-gray-200);
+    }
+  }
 }
 
 @layer components {
