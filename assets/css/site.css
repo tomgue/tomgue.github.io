@@ -6,16 +6,19 @@
     --code-block-border-radius: var(--radius-surface);
     --code-block-border-style: var(--border-style-normal);
     --code-block-border-width: 1px;
-    /* Fond unique du bloc : figure, figcaption ET zone de code (pre).
-       Le <pre> est épinglé sur ce token (!important dans @layer components) :
-       sans cela, Chroma (markup.highlight.style: nord) pose le sien en
-       styles inline (#2e3440) et le socle @uncinq/css-base en pose un autre
-       (var(--color-background-muted)) — changer la teinte du bloc se ferait
-       ici, en un seul endroit. #d8dee9 = texte nord (nord4). */
-    --code-block-color-background: #2e3440;
+    /* Palette du bloc : suit le style Chroma du site. Depuis le retrait de
+       markup.highlight.style (nord), Hugo colore avec son thème par défaut
+       CLAIR : fonds et couleurs de tokens sont des hexadécimaux fixes posés
+       en styles inline sur le <pre> — ils ne s'adaptent pas au dark mode.
+       Le bloc est donc épinglé sur une palette claire dans les deux modes :
+       les gris de @uncinq/design-tokens sont fixes entre light et dark
+       (voir le fix --color-text-on-muted ci-dessous), comme la coloration.
+       Figure, figcaption et code partagent le même fond. Si un style Chroma
+       sombre revient, réajuster ces tokens. */
+    --code-block-color-background: var(--color-gray-100);
     --code-block-color-border: var(--color-border);
     --code-block-color-header-background: var(--code-block-color-background);
-    --code-block-color-header-text: #d8dee9;
+    --code-block-color-header-text: var(--color-gray-900);
     --code-block-header-font-family: var(--font-family-mono);
     --code-block-header-font-size: var(--font-size-xs);
     --code-block-header-gap: var(--spacing-xs);
@@ -63,9 +66,9 @@
     overflow: hidden;
 
     /* Même fond que le figure pour la zone de code : !important est
-       nécessaire car Chroma (nord) pose background-color en styles inline
-       sur le <pre>, et le socle @uncinq/css-base en pose un autre
-       (pre { background-color: var(--color-background-muted) }). */
+       nécessaire car Chroma pose background-color en styles inline sur le
+       <pre> (hexadécimal du style), et le socle @uncinq/css-base en pose un
+       autre (pre { background-color: var(--color-background-muted) }). */
     > .highlight,
     > .highlight pre {
       background-color: var(--code-block-color-background) !important;
@@ -136,5 +139,12 @@
         }
       }
     }
+  }
+
+  /* Deux blocs de code qui se suivent (sans paragraphe entre eux) ne doivent
+     pas être collés bord à bord — leurs bordures se touchaient (margin: 0
+     sur .code-block, aucun élément intermédiaire en markdown). */
+  .code-block + .code-block {
+    margin-block-start: var(--spacing-md);
   }
 }
