@@ -62,8 +62,10 @@
       {{- end }}
       {{- if $title }}
         <span class="code-block-title">{{ $title }}</span>
-      {{- else with $.Type }}
-        <span class="code-block-lang">{{ . }}</span>
+      {{- else }}
+        {{- with $.Type }}
+          <span class="code-block-lang">{{ . }}</span>
+        {{- end }}
       {{- end }}
       {{- if $copy }}
         <button type="button" class="code-copy js-code-copy" aria-label="{{ i18n "code.copy" }}">
