@@ -2,7 +2,7 @@
    Importé en fin de css/main.css (hugolify-theme-design-system), juste avant site.css.
    Le fichier du projet éclipse celui (vide) du module, sans le forker. */
 
-/* Débordement horizontal mobile — voir le diagnostic dans la PR #13.
+/* Débordement horizontal mobile — voir le diagnostic dans les PR #13/#14.
    Le socle (@uncinq/css-base, layouts/row.css) définit .row en
    flex-direction: column + flex-wrap: wrap. En colonne AVEC wrap, la
    largeur de chaque colonne est fixée par le contenu (max-content) : un
@@ -20,6 +20,52 @@
   @media not (--tablet) {
     .row {
       flex-wrap: nowrap;
+    }
+  }
+}
+
+/* Layout desktop des pages de contenu.
+   Le socle passe .row en flex row dès --tablet, mais ni le socle ni le
+   design system ne donnent de largeur aux items rendus par les partials
+   Hugolify (commons/content.html → <div class="content">,
+   commons/sidebar.html → <div class="sidebar"> : jamais de classes
+   .col-*). En flex-basis auto, un item flex prend la taille de son
+   max-content — le max-content d'un paragraphe étant sa ligne entière
+   non repliée, le contenu remplit la ligne et la TOC (sidebar) wrap
+   en dessous. Les proportions prévues par le design system vivent dans
+   layouts/grid.css (content span 8, sidebar span 4, sidebar--menu
+   span 2, « .sidebar--menu + div » span 10)… mais sont scopées .grid,
+   une structure que le markup ne rend pas.
+   On réplique donc ces proportions sur les .row réellement rendues,
+   avec la même formule que les .col-* du socle. min-width: 0 (voir
+   plus bas) laisse un contenu trop large rétrécir et scroller chez
+   lui plutôt que repousser la page. */
+@layer layouts {
+  /* À partir de --tablet (.row passe en flex row) :
+     contenu 8/12, TOC 4/12, côte à côte. */
+  @media (--tablet) {
+    .row > .content {
+      flex: 0 0 calc(8 / 12 * 100% - (1 - 8 / 12) * var(--grid-gap, var(--gap)));
+    }
+
+    .row > .sidebar:not(.sidebar--menu) {
+      flex: 0 0 calc(4 / 12 * 100% - (1 - 4 / 12) * var(--grid-gap, var(--gap)));
+    }
+
+    /* Pages avec sommaire de section (docs) : le wrapper du contenu
+       prend le reste de la ligne à côté du menu. */
+    .sidebar--menu + div {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+  }
+
+  /* Largeur fixe pour le menu de section dès tablet-wide
+     (équivalent du span 2 du design system) ; en dessous, il garde
+     sa largeur de contenu, le wrapper absorbant le reste. */
+  @media (--tablet-wide) {
+    .row > .sidebar--menu {
+      flex: 0 0 calc(2 / 12 * 100% - (1 - 2 / 12) * var(--grid-gap, var(--gap)));
     }
   }
 }
