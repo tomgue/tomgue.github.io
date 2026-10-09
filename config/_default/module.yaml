@@ -1,6 +1,6 @@
 imports:
   # Content
-  - path: github.com/hugolify/hugolify-example-site/v2
+  # - path: github.com/hugolify/hugolify-example-site/v2
   
   # Modules
   - path: github.com/hugolify/hugolify-theme-awards/v2
