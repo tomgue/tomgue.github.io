@@ -1,31 +1,37 @@
 ---
-title: Test blocs de code
-description: Options des blocs de code — titre, icône du langage, bouton copier.
-build:
-  list: never
+isIndex: false
+draft: false
+title: "Blocs de code : titre, icône et bouton copier"
+description: "Page d'exemple du render hook codeblock : titre ou nom de fichier, icône du langage et bouton « copier le code » sur les blocs de code Markdown."
 ---
 
-Page de test des options des blocs de code, ajoutées par le render hook `layouts/_markup/render-codeblock.html`.
+Cette page illustre le render hook `layouts/_markup/render-codeblock.html` : chaque bloc de code fenced Markdown peut afficher un en-tête avec un titre ou un nom de fichier, l'icône de son langage et un bouton « copier le code ». Les options se passent dans l'info string du bloc, sans shortcode.
 
-## 1. Titre / nom de fichier
+## Titre / nom de fichier
+
+L'attribut `title="..."` affiche un en-tête avec un titre ou un nom de fichier :
 
 ```html {title="index.html"}
 <p>Hello World</p>
 ```
 
-## 2. Icône du langage (mapping auto)
+## Icône du langage (mapping auto)
+
+L'attribut `icon=true` affiche l'icône du langage du bloc, résolue par le partial `layouts/_partials/func/GetCodeIcon.html` (slugs Simple Icons, alias inclus) :
 
 ```js {icon=true}
 console.log('Hello');
 ```
 
-## 3. Bouton copier
+## Bouton copier
+
+L'attribut `copy=true` ajoute un bouton « copier le code », avec un retour visuel de 2 s à la copie :
 
 ```bash {copy=true}
 echo "Hello World"
 ```
 
-## 4. Tout combiné
+## Tout combiné
 
 ```scss {title="styles.scss" icon=true copy=true}
 body {
@@ -33,32 +39,59 @@ body {
 }
 ```
 
-## 5. Sans option (rendu Hugo par défaut)
+## Sans option (rendu Hugo par défaut)
+
+Un bloc sans option passe par `transform.HighlightCodeBlock` : rendu strictement identique à celui de Hugo, aucune régression.
 
 ```html
 <p>Hello World</p>
 ```
 
-## 6. Icône explicite (Simple Icons)
+## Icône explicite (Simple Icons)
+
+L'attribut `icon="..."` force une icône donnée (slug Simple Icons) — utile pour un langage non mappé ou pour le texte brut :
 
 ```text {icon="hugo"}
 content/
 layouts/
 ```
 
-## 7. Langage non mappé (pas d'icône)
+## Langage non mappé (pas d'icône)
+
+Un langage absent du mapping n'affiche pas d'icône (`zig` ici) :
 
 ```zig {icon=true}
 const std = @import("std");
 ```
 
-## 8. Opt-out explicite du bouton copier
+## Opt-out explicite
+
+`copy=false` (resp. `icon=false`) désactive l'option même si elle est activée globalement dans la configuration du site :
 
 ```js {copy=false}
 console.log('pas de bouton copier');
 ```
 
-## 9. Icônes — un exemple par langage du mapping
+## Récapitulatif
+
+| Syntaxe                  | Effet                                     |
+| ------------------------ | ----------------------------------------- |
+| `{title="index.html"}`   | En-tête avec titre / nom de fichier       |
+| `{icon=true}`            | Icône du langage (mapping auto)           |
+| `{icon="python"}`        | Icône explicite (slug Simple Icons)       |
+| `{icon=false}`           | Désactive l'icône                          |
+| `{copy=true}`            | Bouton « copier le code »                 |
+| `{copy=false}`           | Désactive le bouton copier                 |
+
+## Notes
+
+- **Défauts globaux** : `params.code.copy` et `params.code.icon` (`config/_default/params.yaml`) activent les options pour tout le site ; l'info string du bloc gagne toujours.
+- **Syntaxe** : un attribut sans valeur (`{icon}`, `{copy}`) est invalide pour le parseur d'attributs Markdown (Goldmark) — toujours écrire `icon=true` / `copy=true`.
+- **Langages non reconnus par Chroma** (drupal, flutter, mongodb…) : rendus en texte brut, mais l'icône du mapping s'affiche ; une icône explicite (`{icon="drupal"}`) reste la solution la plus propre.
+- **Accessibilité** : vrai `<button>` avec `aria-label` basculé vers « Code copié » pendant 2 s, fallback `execCommand` pour les contextes non sécurisés.
+- **Icônes du bouton** : Lucide `copy` / `check`, émises via le partial `icon` du module `hugolify-theme-icons` ; sans ce module, le bouton reste fonctionnel avec son libellé texte.
+
+## Icônes — un exemple par langage du mapping
 
 Un bloc pour chaque langage mappé dans `layouts/_partials/func/GetCodeIcon.html`, dans l'ordre du mapping, alias inclus (`js` et `javascript` partagent la même icône). Les langages non reconnus par Chroma sont rendus en texte brut — l'icône du mapping s'affiche quand même.
 
