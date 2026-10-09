@@ -25,7 +25,7 @@ admin:
   cms: sveltiacms
   name: github
   repo: tomgue/tomgue.github.io
-  publish_mode: editorial_workflow
+  # publish_mode: editorial_workflow
   netlify:
     identity: false
   collections:
