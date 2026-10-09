@@ -1,0 +1,91 @@
+/* site.css — surcharges du site, importé en fin de css/main.css */
+/* Design System : https://www.hugolify.io/docs/customization/design/design-system/css/ */
+
+@layer tokens {
+  :root {
+    --code-block-border-radius: var(--radius-surface);
+    --code-block-border-style: var(--border-style-normal);
+    --code-block-border-width: 1px;
+    --code-block-color-background: var(--color-background);
+    --code-block-color-border: var(--color-border);
+    --code-block-color-copied: var(--color-success);
+    --code-block-color-header-background: var(--color-background-muted);
+    --code-block-color-header-text: var(--color-text-muted);
+    --code-block-header-font-family: var(--font-family-mono);
+    --code-block-header-font-size: var(--font-size-xs);
+    --code-block-header-gap: var(--spacing-xs);
+    --code-block-header-padding: var(--spacing-xs);
+    --code-block-copy-gap: var(--spacing-2xs);
+  }
+}
+
+@layer components {
+  /* Fenced code block with an optional header — see layouts/_markup/render-codeblock.html
+     figure.code-block
+       figcaption.code-block-header
+         i.icon (langage) • span.code-block-title | span.code-block-lang
+         button.code-copy.js-code-copy (i.icon-copy + i.icon-check + span.code-copy-text)
+       div.highlight > pre */
+  .code-block {
+    /* spacing follows the content flow, like the .highlight div it replaces */
+    margin: 0;
+    background-color: var(--code-block-color-background);
+    border: var(--code-block-border-width) var(--code-block-border-style) var(--code-block-color-border);
+    border-radius: var(--code-block-border-radius);
+    overflow: hidden;
+
+    > .highlight {
+      margin: 0;
+    }
+
+    .code-block-header {
+      align-items: center;
+      background-color: var(--code-block-color-header-background);
+      color: var(--code-block-color-header-text);
+      display: flex;
+      font-family: var(--code-block-header-font-family);
+      font-size: var(--code-block-header-font-size);
+      gap: var(--code-block-header-gap);
+      padding: var(--code-block-header-padding);
+    }
+
+    .code-block-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .code-block-lang {
+      text-transform: uppercase;
+    }
+
+    .code-copy {
+      align-items: center;
+      background: none;
+      border: 0;
+      color: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      font: inherit;
+      gap: var(--code-block-copy-gap);
+      margin-inline-start: auto;
+      padding: 0;
+
+      .icon-check {
+        display: none;
+      }
+
+      &.is-copied {
+        color: var(--code-block-color-copied);
+
+        .icon-copy {
+          display: none;
+        }
+
+        .icon-check {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

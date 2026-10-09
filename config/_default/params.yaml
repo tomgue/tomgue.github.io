@@ -31,3 +31,10 @@ admin:
   collections:
     indexes:
       enable: false
+
+# Code blocks — options des blocs de code (render hook layouts/_markup/render-codeblock.html)
+# copy : bouton copier le code (JS dans assets/js/components/custom.js)
+# icon : icône du langage dans l'en-tête (hugolify-theme-icons)
+code:
+  copy: true
+  icon: true
