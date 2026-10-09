@@ -15,19 +15,19 @@ Page de test des options des blocs de code, ajoutées par le render hook `layout
 
 ## 2. Icône du langage (mapping auto)
 
-```js {icon}
+```js {icon=true}
 console.log('Hello');
 ```
 
 ## 3. Bouton copier
 
-```bash {copy}
+```bash {copy=true}
 echo "Hello World"
 ```
 
 ## 4. Tout combiné
 
-```scss {title="styles.scss" icon copy}
+```scss {title="styles.scss" icon=true copy=true}
 body {
   color: rebeccapurple;
 }
@@ -48,7 +48,7 @@ layouts/
 
 ## 7. Langage non mappé (pas d'icône)
 
-```zig {icon}
+```zig {icon=true}
 const std = @import("std");
 ```
 
@@ -62,87 +62,87 @@ console.log('pas de bouton copier');
 
 Un bloc pour chaque langage mappé dans `layouts/_partials/func/GetCodeIcon.html`, dans l'ordre du mapping, alias inclus (`js` et `javascript` partagent la même icône). Les langages non reconnus par Chroma sont rendus en texte brut — l'icône du mapping s'affiche quand même.
 
-```angular {icon}
+```angular {icon=true}
 <button [disabled]="isLoading">Valider</button>
 ```
 
-```astro {icon}
+```astro {icon=true}
 ---
 layout: ../layouts/Base.astro
 ---
 <h1>Bonjour</h1>
 ```
 
-```bash {icon}
+```bash {icon=true}
 echo "Hello World"
 ```
 
-```bootstrap {icon}
+```bootstrap {icon=true}
 <button class="btn btn-primary">Valider</button>
 ```
 
-```css {icon}
+```css {icon=true}
 .title { color: rebeccapurple; }
 ```
 
-```dart {icon}
+```dart {icon=true}
 void main() { print('Bonjour'); }
 ```
 
-```docker {icon}
+```docker {icon=true}
 FROM alpine:3
 RUN apk add curl
 ```
 
-```dockerfile {icon}
+```dockerfile {icon=true}
 FROM node:20-alpine
 COPY . .
 RUN npm ci
 ```
 
-```drupal {icon}
+```drupal {icon=true}
 function demo_form_alter(&$form, $form_state) {
   $form['#validate'][] = 'demo_validate';
 }
 ```
 
-```elixir {icon}
+```elixir {icon=true}
 def hello, do: IO.puts("Bonjour")
 ```
 
-```elm {icon}
+```elm {icon=true}
 main =
   text "Bonjour"
 ```
 
-```erlang {icon}
+```erlang {icon=true}
 hello() ->
   io:format("Bonjour~n").
 ```
 
-```flutter {icon}
+```flutter {icon=true}
 const Text('Bonjour')
 ```
 
-```git {icon}
+```git {icon=true}
 git commit -m "feat: blocs de code"
 ```
 
-```gitlab {icon}
+```gitlab {icon=true}
 image: node:20
 script:
   - npm test
 ```
 
-```go {icon}
+```go {icon=true}
 fmt.Println("Bonjour")
 ```
 
-```golang {icon}
+```golang {icon=true}
 func main() { fmt.Println("Bonjour") }
 ```
 
-```gql {icon}
+```gql {icon=true}
 query {
   user(id: 1) {
     name
@@ -150,264 +150,264 @@ query {
 }
 ```
 
-```graphql {icon}
+```graphql {icon=true}
 type Query {
   hello: String
 }
 ```
 
-```haskell {icon}
+```haskell {icon=true}
 main = putStrLn "Bonjour"
 ```
 
-```htm {icon}
+```htm {icon=true}
 <p>Bonjour</p>
 ```
 
-```html {icon}
+```html {icon=true}
 <p>Bonjour le monde</p>
 ```
 
-```hugo {icon}
+```hugo {icon=true}
 {{ range .Pages }}{{ .Title }}{{ end }}
 ```
 
-```java {icon}
+```java {icon=true}
 System.out.println("Bonjour");
 ```
 
-```javascript {icon}
+```javascript {icon=true}
 console.log("Bonjour");
 ```
 
-```js {icon}
+```js {icon=true}
 const somme = (a, b) => a + b;
 ```
 
-```jsx {icon}
+```jsx {icon=true}
 <Bouton label="Bonjour" onClick={valider} />
 ```
 
-```tsx {icon}
+```tsx {icon=true}
 <Bouton label="Bonjour" onClick={valider} />
 ```
 
-```k8s {icon}
+```k8s {icon=true}
 apiVersion: v1
 kind: Pod
 ```
 
-```kotlin {icon}
+```kotlin {icon=true}
 fun main() = println("Bonjour")
 ```
 
-```kubernetes {icon}
+```kubernetes {icon=true}
 kubectl get pods -n prod
 ```
 
-```laravel {icon}
+```laravel {icon=true}
 Route::get('/bonjour', fn () => 'Bonjour');
 ```
 
-```less {icon}
+```less {icon=true}
 @primaire: rebeccapurple;
 .title { color: @primaire; }
 ```
 
-```lua {icon}
+```lua {icon=true}
 print("Bonjour")
 ```
 
-```markdown {icon}
+```markdown {icon=true}
 **Bonjour le monde**
 ```
 
-```md {icon}
+```md {icon=true}
 ## Bonjour
 
 Un titre de section.
 ```
 
-```mongodb {icon}
+```mongodb {icon=true}
 db.utilisateurs.find({ actif: true })
 ```
 
-```mysql {icon}
+```mysql {icon=true}
 SELECT * FROM utilisateurs WHERE actif = 1;
 ```
 
-```next {icon}
+```next {icon=true}
 export default function Page() {
   return <h1>Bonjour</h1>;
 }
 ```
 
-```nextjs {icon}
+```nextjs {icon=true}
 export const metadata = { title: "Bonjour" };
 ```
 
-```nginx {icon}
+```nginx {icon=true}
 location / {
   proxy_pass http://app:3000;
 }
 ```
 
-```perl {icon}
+```perl {icon=true}
 print "Bonjour\n";
 ```
 
-```php {icon}
+```php {icon=true}
 <?php echo "Bonjour";
 ```
 
-```postgres {icon}
+```postgres {icon=true}
 SELECT count(*) FROM utilisateurs;
 ```
 
-```postgresql {icon}
+```postgresql {icon=true}
 SELECT NOW();
 ```
 
-```powershell {icon}
+```powershell {icon=true}
 Get-ChildItem -Recurse -Filter *.log
 ```
 
-```ps1 {icon}
+```ps1 {icon=true}
 Write-Host "Bonjour"
 ```
 
-```py {icon}
+```py {icon=true}
 print("Bonjour")
 ```
 
-```python {icon}
+```python {icon=true}
 print("Bonjour le monde")
 ```
 
-```r {icon}
+```r {icon=true}
 x <- c(1, 2, 3)
 mean(x)
 ```
 
-```rb {icon}
+```rb {icon=true}
 puts "Bonjour"
 ```
 
-```react {icon}
+```react {icon=true}
 <button onClick={valider}>Valider</button>
 ```
 
-```redis {icon}
+```redis {icon=true}
 SET salut "Bonjour"
 ```
 
-```rs {icon}
+```rs {icon=true}
 println!("Bonjour");
 ```
 
-```rust {icon}
+```rust {icon=true}
 fn main() {
     println!("Bonjour le monde");
 }
 ```
 
-```sass {icon}
+```sass {icon=true}
 $primaire: rebeccapurple
 ```
 
-```scss {icon}
+```scss {icon=true}
 .title {
   color: $primaire;
 }
 ```
 
-```sh {icon}
+```sh {icon=true}
 ls -la
 ```
 
-```shell {icon}
+```shell {icon=true}
 echo "Bonjour"
 ```
 
-```solidity {icon}
+```solidity {icon=true}
 contract Bonjour {
     string public salut = "Bonjour";
 }
 ```
 
-```sqlite {icon}
+```sqlite {icon=true}
 SELECT * FROM utilisateurs LIMIT 5;
 ```
 
-```svg {icon}
+```svg {icon=true}
 <svg xmlns="http://www.w3.org/2000/svg"><circle r="10" /></svg>
 ```
 
-```svelte {icon}
+```svelte {icon=true}
 <h1>{titre}</h1>
 ```
 
-```swift {icon}
+```swift {icon=true}
 print("Bonjour")
 ```
 
-```symfony {icon}
+```symfony {icon=true}
 #[Route('/bonjour', name: 'bonjour')]
 public function bonjour(): Response {}
 ```
 
-```tailwind {icon}
+```tailwind {icon=true}
 <div class="flex items-center gap-2">Bonjour</div>
 ```
 
-```tailwindcss {icon}
+```tailwindcss {icon=true}
 @tailwind utilities;
 ```
 
-```terraform {icon}
+```terraform {icon=true}
 resource "aws_instance" "web" {
   ami = "ami-123456"
 }
 ```
 
-```tf {icon}
+```tf {icon=true}
 resource "aws_s3_bucket" "cdn" {
   bucket = "cdn"
 }
 ```
 
-```ts {icon}
+```ts {icon=true}
 const id: number = 1;
 ```
 
-```typescript {icon}
+```typescript {icon=true}
 function direBonjour(nom: string): string {
   return "Bonjour " + nom;
 }
 ```
 
-```vite {icon}
+```vite {icon=true}
 import { defineConfig } from "vite";
 
 export default defineConfig({});
 ```
 
-```vue {icon}
+```vue {icon=true}
 <template>
   <p>{{ msg }}</p>
 </template>
 ```
 
-```wordpress {icon}
+```wordpress {icon=true}
 add_action("init", "mon_init");
 ```
 
-```xml {icon}
+```xml {icon=true}
 <utilisateur>
   <nom>Thomas</nom>
 </utilisateur>
 ```
 
-```zsh {icon}
+```zsh {icon=true}
 echo $SHELL
 ```
