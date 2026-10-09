@@ -5,7 +5,7 @@ title: "Titres ancrables et icônes"
 description: "Page d'exemple du render hook heading : ancres cliquables sur tous les titres Markdown, avec icône Lucide optionnelle."
 ---
 
-Cette page illustre le render hook `layouts/_markup/render-heading.html` : chaque titre Markdown (H1 à H6) est rendu comme une ancre cliquable, avec en option une icône Lucide placée devant le texte.
+Cette page illustre le render hook `layouts/_markup/render-heading.html` : chaque titre Markdown (H1 à H6) est rendu comme une ancre cliquable, avec en option une icône Lucide placée **devant le texte du titre**.
 
 Survolez n'importe quel titre ci-dessous : un marqueur `#` apparaît, et l'URL du navigateur pointe vers la section.
 
@@ -17,9 +17,11 @@ Aucune option nécessaire : l'identifiant de l'ancre est généré automatiqueme
 
 L'attribut `icon="..."` ajoute une icône devant le titre. Le nom doit être un nom Lucide (`rocket`, `wrench`, `map-pin`, `link`...) : c'est le nom du fichier SVG résolu par le module `hugolify-theme-icons`.
 
+L'icône est dimensionnée en `em` (voir `assets/css/site.css`) : elle grandit avec le titre — grande sur un H2, plus petite sur un H4, sans aucune règle par niveau.
+
 ### Niveau 3 {icon="git-branch"}
 
-L'icône fonctionne sur tous les niveaux de titres, pas seulement les H2.
+L'icône fonctionne sur tous les niveaux de titres, pas seulement les H2. Remarquez que l'icône de ce H3 est plus petite que celle du H2 ci-dessus.
 
 #### Niveau 4 {icon="wrench"}
 
@@ -37,7 +39,7 @@ L'attribut `{#id}` remplace l'identifiant généré automatiquement. Utile pour 
 
 ## Classe personnalisée {.demo-heading}
 
-L'attribut `{.ma-classe}` est fusionné avec les classes `heading` et `heading-{n}` (une par niveau) déjà posées par le hook, ce qui permet un styling CSS fin sans toucher aux modules.
+L'attribut `{.ma-classe}` est fusionné avec les classes `anchor-heading` et `anchor-heading-{n}` (une par niveau) posées par le hook. Le préfixe `anchor-heading` évite toute collision avec le composant `.heading` du design system Hugolify (bloc d'en-tête de section).
 
 ## Toutes les options combinées {#toutes-options icon="sparkles" .demo-heading}
 
@@ -61,5 +63,6 @@ Tout peut être combiné dans un seul bloc d'attributs :
 
 - **Accessibilité** : l'icône est décorative (`aria-hidden="true"`) ; le lien d'ancre porte un `aria-label` explicite (`Lien vers cette section : {titre}`).
 - **Sans le module d'icônes** : le hook garde l'appel avec `templates.Exists "partials/icon.html"` ; si `hugolify-theme-icons` n'est pas importé, les titres s'affichent normalement, sans icône.
+- **Taille de l'icône** : `--icon-size: 0.9em` sur `.anchor-heading-icon .icon` (`assets/css/site.css`) — ajustable en un seul endroit, toutes les icônes suivent.
 - **Épaisseur de trait** : les icônes suivent le paramètre site `icons: strokeWidth` du module (défaut Hugolify : 1 ; 1.5 recommandé pour 1 em).
 - **Icônes de marque** : réservées aux menus sociaux (`brand:github`) ; pour les titres, utilisez les noms Lucide.
