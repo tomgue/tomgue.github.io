@@ -29,6 +29,20 @@
   }
 }
 
+@layer base {
+  /* Code inline : autoriser la césure à l'intérieur d'un token trop long
+     pour la ligne. Sans cette règle, un token non-sécable (chemin de
+     fichier, variable CSS…) dépasse son paragraphe — ou pousse une cellule
+     de tableau au-delà du viewport, une table width:100% restant
+     dimensionnée par son contenu — et la page entière devient scrollable
+     horizontalement. `anywhere` agit aussi sur la taille min-content,
+     ce que `break-word` ne fait pas. Le code des blocs n'est pas
+     concerné : il scrolle déjà via pre { overflow-x: auto }. */
+  :where(code):not(pre > code) {
+    overflow-wrap: anywhere;
+  }
+}
+
 @layer components {
   /* Fenced code block with an optional header — see layouts/_markup/render-codeblock.html
      figure.code-block
