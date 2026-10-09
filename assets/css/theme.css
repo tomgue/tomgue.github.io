@@ -2,6 +2,21 @@
    Importé en fin de css/main.css (hugolify-theme-design-system), juste avant site.css.
    Le fichier du projet éclipse celui (vide) du module, sans le forker. */
 
+/* Débordement horizontal — la colonne de contenu peut rétrécir sous son
+   min-content. Sans min-width: 0, un item flex/grid garde min-width: auto
+   (= min-content) : au breakpoint où .row passe en flex row (socle
+   @uncinq/css-base), une ligne de code plus large que la colonne pousse
+   .row — donc la page — au-delà du viewport. Avec min-width: 0, les
+   éléments trop larges (pre, table) scrolleront chez eux via leur propre
+   overflow-x: auto. Sans effet en mobile : en flex column, l'axe main est
+   vertical. */
+@layer layouts {
+  .row > .content,
+  .grid > .content {
+    min-width: 0;
+  }
+}
+
 /* Titres ancrables — voir layouts/_markup/render-heading.html */
 @layer components {
   /* Icône de titre : placée devant le texte, taille proportionnelle au titre. */
