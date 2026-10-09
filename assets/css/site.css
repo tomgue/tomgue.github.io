@@ -6,16 +6,23 @@
     --code-block-border-radius: var(--radius-surface);
     --code-block-border-style: var(--border-style-normal);
     --code-block-border-width: 1px;
-    --code-block-color-background: var(--color-background);
+    /* Palette du bloc : suit le style Chroma du site. Depuis le retrait de
+       markup.highlight.style (nord), Hugo colore avec son thème par défaut
+       CLAIR : fonds et couleurs de tokens sont des hexadécimaux fixes posés
+       en styles inline sur le <pre> — ils ne s'adaptent pas au dark mode.
+       Le bloc est donc épinglé sur une palette claire dans les deux modes :
+       les gris de @uncinq/design-tokens sont fixes entre light et dark
+       (voir le fix --color-text-on-muted ci-dessous), comme la coloration.
+       Figure, figcaption et code partagent le même fond. Si un style Chroma
+       sombre revient, réajuster ces tokens. */
+    --code-block-color-background: var(--color-gray-100);
     --code-block-color-border: var(--color-border);
-    --code-block-color-copied: var(--color-success);
-    --code-block-color-header-background: var(--color-background-muted);
-    --code-block-color-header-text: var(--color-text-muted);
+    --code-block-color-header-background: var(--code-block-color-background);
+    --code-block-color-header-text: var(--color-gray-900);
     --code-block-header-font-family: var(--font-family-mono);
     --code-block-header-font-size: var(--font-size-xs);
     --code-block-header-gap: var(--spacing-xs);
     --code-block-header-padding: var(--spacing-xs);
-    --code-block-copy-gap: var(--spacing-2xs);
   }
 
   /* Correction du code inline invisible en dark mode :
@@ -48,7 +55,7 @@
      figure.code-block
        figcaption.code-block-header
          i.icon (langage) • span.code-block-title | span.code-block-lang
-         button.code-copy.js-code-copy (i.icon-copy + i.icon-check + span.code-copy-text)
+         button.code-copy.js-code-copy (i.icon-copy ⇄ i.icon-check, icône seule)
        div.highlight > pre */
   .code-block {
     /* spacing follows the content flow, like the .highlight div it replaces */
@@ -58,6 +65,15 @@
     border-radius: var(--code-block-border-radius);
     overflow: hidden;
 
+    /* Même fond que le figure pour la zone de code : !important est
+       nécessaire car Chroma pose background-color en styles inline sur le
+       <pre> (hexadécimal du style), et le socle @uncinq/css-base en pose un
+       autre (pre { background-color: var(--color-background-muted) }). */
+    > .highlight,
+    > .highlight pre {
+      background-color: var(--code-block-color-background) !important;
+    }
+
     > .highlight {
       margin: 0;
     }
@@ -65,12 +81,21 @@
     .code-block-header {
       align-items: center;
       background-color: var(--code-block-color-header-background);
+      border-bottom: var(--code-block-border-width) var(--code-block-border-style) var(--code-block-color-border);
       color: var(--code-block-color-header-text);
       display: flex;
       font-family: var(--code-block-header-font-family);
       font-size: var(--code-block-header-font-size);
       gap: var(--code-block-header-gap);
+      line-height: 1;
       padding: var(--code-block-header-padding);
+
+      /* icônes alignées sur le texte de l'en-tête, quelle que soit la
+         taille globale des icônes du site (--icon-size) */
+      .icon {
+        --icon-size: 1.25em;
+        flex: none;
+      }
     }
 
     .code-block-title {
@@ -90,18 +115,21 @@
       color: inherit;
       cursor: pointer;
       display: inline-flex;
-      font: inherit;
-      gap: var(--code-block-copy-gap);
       margin-inline-start: auto;
       padding: 0;
 
+      .icon {
+        --icon-size: 1.25em;
+        flex: none;
+      }
+
+      /* l'icône "check" remplace l'icône "copy" pendant l'état copié,
+         sans changement de couleur */
       .icon-check {
         display: none;
       }
 
       &.is-copied {
-        color: var(--code-block-color-copied);
-
         .icon-copy {
           display: none;
         }
@@ -111,5 +139,12 @@
         }
       }
     }
+  }
+
+  /* Deux blocs de code qui se suivent (sans paragraphe entre eux) ne doivent
+     pas être collés bord à bord — leurs bordures se touchaient (margin: 0
+     sur .code-block, aucun élément intermédiaire en markdown). */
+  .code-block + .code-block {
+    margin-block-start: var(--spacing-md);
   }
 }

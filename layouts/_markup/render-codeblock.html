@@ -3,9 +3,9 @@
 
   Opt-in extras, written in the info string:
     {title="index.html"}   → header bar with a title or a file name
-    {icon}                 → icon of the code language
+    {icon=true}            → icon of the code language
     {icon="python"}        → explicit icon (Simple Icons name, "ui:x" for Lucide)
-    {copy}                 → copy-to-clipboard button
+    {copy=true}            → copy-to-clipboard button (icon only, labelled via aria-label)
 
   Site-wide defaults (config/_default/params.yaml), the info string always wins.
 
@@ -70,7 +70,6 @@
       {{- if $copy }}
         <button type="button" class="code-copy js-code-copy" aria-label="{{ i18n "code.copy" }}">
           {{- if templates.Exists "partials/icon.html" }}{{ partial "icon" "copy" }}{{ partial "icon" "check" }}{{ end }}
-          <span class="code-copy-text">{{ i18n "code.copy" }}</span>
         </button>
       {{- end }}
     </figcaption>

@@ -3,20 +3,19 @@
  *
  * Markup (layouts/_markup/render-codeblock.html):
  *   figure.code-block
- *     button.code-copy.js-code-copy
- *       i.icon.icon-copy + i.icon.icon-check (swapped while .is-copied)
- *       span.code-copy-text
+ *     button.code-copy.js-code-copy (i.icon-copy ⇄ i.icon-check while .is-copied)
+ *
+ * Icon-only button: the label lives in the aria-label attribute only,
+ * switched to the "copied" state for 2s (texts from window.i18n.code,
+ * footer/js-i18n.html). No text node inside the button.
  */
 
 const label = (key, fallback) =>
   (window.i18n && window.i18n.code && window.i18n.code[key]) || fallback;
 
 const setState = (btn, copied) => {
-  const text = label(copied ? 'copied' : 'copy', copied ? 'Copié' : 'Copier');
   btn.classList.toggle('is-copied', copied);
-  btn.setAttribute('aria-label', text);
-  const span = btn.querySelector('.code-copy-text');
-  if (span) span.textContent = text;
+  btn.setAttribute('aria-label', label(copied ? 'copied' : 'copy', copied ? 'Copié' : 'Copier'));
 };
 
 const copy = (btn) => {
