@@ -17,7 +17,7 @@ Aucune option nécessaire : l'identifiant de l'ancre est généré automatiqueme
 
 L'attribut `icon="..."` ajoute une icône devant le titre. Le nom doit être un nom Lucide (`rocket`, `wrench`, `map-pin`, `link`...) : c'est le nom du fichier SVG résolu par le module `hugolify-theme-icons`.
 
-L'icône est dimensionnée en `em` (voir `assets/css/site.css`) : elle grandit avec le titre — grande sur un H2, plus petite sur un H4, sans aucune règle par niveau.
+L'icône est dimensionnée en `em` (voir `assets/css/theme.css`) : elle grandit avec le titre — grande sur un H2, plus petite sur un H4, sans aucune règle par niveau.
 
 ### Niveau 3 {icon="git-branch"}
 
@@ -63,6 +63,6 @@ Tout peut être combiné dans un seul bloc d'attributs :
 
 - **Accessibilité** : l'icône est décorative (`aria-hidden="true"`) ; le lien d'ancre porte un `aria-label` explicite (`Lien vers cette section : {titre}`).
 - **Sans le module d'icônes** : le hook garde l'appel avec `templates.Exists "partials/icon.html"` ; si `hugolify-theme-icons` n'est pas importé, les titres s'affichent normalement, sans icône.
-- **Taille de l'icône** : `--icon-size: 0.9em` sur `.anchor-heading-icon .icon` (`assets/css/site.css`) — ajustable en un seul endroit, toutes les icônes suivent.
-- **Épaisseur de trait** : les icônes suivent le paramètre site `icons: strokeWidth` du module (défaut Hugolify : 1 ; 1.5 recommandé pour 1 em).
+- **Taille de l'icône** : `--icon-size: 0.9em` sur `.anchor-heading-icon .icon` (`assets/css/theme.css`) — ajustable en un seul endroit, toutes les icônes suivent.
+- **Épaisseur de trait** : réglable via `icons: strokeWidth` dans `config/_default/params.yaml` (défaut Hugolify : 1). Attention : à 0.9em, un trait de 1 rend environ 0.6px à 16px — 1.5 est plus sûr pour les icônes de titres.
 - **Icônes de marque** : réservées aux menus sociaux (`brand:github`) ; pour les titres, utilisez les noms Lucide.
