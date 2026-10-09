@@ -6,16 +6,18 @@
     --code-block-border-radius: var(--radius-surface);
     --code-block-border-style: var(--border-style-normal);
     --code-block-border-width: 1px;
-    --code-block-color-background: var(--color-background);
+    /* Fond Chroma du site (markup.highlight.style: nord, styles inline sur le
+       <pre>) : le figure et le figcaption reprennent le même fond pour un bloc
+       entièrement sombre, lisible en light et dark mode. À ajuster si le style
+       de coloration change. #d8dee9 = texte nord (nord4). */
+    --code-block-color-background: #2e3440;
     --code-block-color-border: var(--color-border);
-    --code-block-color-copied: var(--color-success);
-    --code-block-color-header-background: var(--color-background-muted);
-    --code-block-color-header-text: var(--color-text-muted);
+    --code-block-color-header-background: var(--code-block-color-background);
+    --code-block-color-header-text: #d8dee9;
     --code-block-header-font-family: var(--font-family-mono);
     --code-block-header-font-size: var(--font-size-xs);
     --code-block-header-gap: var(--spacing-xs);
     --code-block-header-padding: var(--spacing-xs);
-    --code-block-copy-gap: var(--spacing-2xs);
   }
 
   /* Correction du code inline invisible en dark mode :
@@ -48,7 +50,7 @@
      figure.code-block
        figcaption.code-block-header
          i.icon (langage) • span.code-block-title | span.code-block-lang
-         button.code-copy.js-code-copy (i.icon-copy + i.icon-check + span.code-copy-text)
+         button.code-copy.js-code-copy (i.icon-copy ⇄ i.icon-check, icône seule)
        div.highlight > pre */
   .code-block {
     /* spacing follows the content flow, like the .highlight div it replaces */
@@ -65,12 +67,21 @@
     .code-block-header {
       align-items: center;
       background-color: var(--code-block-color-header-background);
+      border-bottom: var(--code-block-border-width) var(--code-block-border-style) var(--code-block-color-border);
       color: var(--code-block-color-header-text);
       display: flex;
       font-family: var(--code-block-header-font-family);
       font-size: var(--code-block-header-font-size);
       gap: var(--code-block-header-gap);
+      line-height: 1;
       padding: var(--code-block-header-padding);
+
+      /* icônes alignées sur le texte de l'en-tête, quelle que soit la
+         taille globale des icônes du site (--icon-size) */
+      .icon {
+        --icon-size: 1.25em;
+        flex: none;
+      }
     }
 
     .code-block-title {
@@ -90,18 +101,21 @@
       color: inherit;
       cursor: pointer;
       display: inline-flex;
-      font: inherit;
-      gap: var(--code-block-copy-gap);
       margin-inline-start: auto;
       padding: 0;
 
+      .icon {
+        --icon-size: 1.25em;
+        flex: none;
+      }
+
+      /* l'icône "check" remplace l'icône "copy" pendant l'état copié,
+         sans changement de couleur */
       .icon-check {
         display: none;
       }
 
       &.is-copied {
-        color: var(--code-block-color-copied);
-
         .icon-copy {
           display: none;
         }
