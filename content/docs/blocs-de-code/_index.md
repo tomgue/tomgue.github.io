@@ -1,8 +1,9 @@
 ---
 isIndex: false
 draft: false
-title: "Blocs de code : titre, icône et bouton copier"
+title: 'Blocs de code (render hook)'
 description: "Page d'exemple du render hook codeblock : titre ou nom de fichier, icône du langage et bouton « copier le code » sur les blocs de code Markdown."
+icon: code
 ---
 
 Cette page illustre le render hook `layouts/_markup/render-codeblock.html` : chaque bloc de code fenced Markdown peut afficher un en-tête avec un titre ou un nom de fichier, l'icône de son langage et un bouton « copier le code ». Les options se passent dans l'info string du bloc, sans shortcode.
@@ -74,14 +75,14 @@ console.log('pas de bouton copier');
 
 ## Récapitulatif
 
-| Syntaxe                  | Effet                                     |
-| ------------------------ | ----------------------------------------- |
-| `{title="index.html"}`   | En-tête avec titre / nom de fichier       |
-| `{icon=true}`            | Icône du langage (mapping auto)           |
-| `{icon="python"}`        | Icône explicite (slug Simple Icons)       |
-| `{icon=false}`           | Désactive l'icône                          |
-| `{copy=true}`            | Bouton « copier le code »                 |
-| `{copy=false}`           | Désactive le bouton copier                 |
+| Syntaxe                | Effet                               |
+| ---------------------- | ----------------------------------- |
+| `{title="index.html"}` | En-tête avec titre / nom de fichier |
+| `{icon=true}`          | Icône du langage (mapping auto)     |
+| `{icon="python"}`      | Icône explicite (slug Simple Icons) |
+| `{icon=false}`         | Désactive l'icône                   |
+| `{copy=true}`          | Bouton « copier le code »           |
+| `{copy=false}`         | Désactive le bouton copier          |
 
 ## Notes
 
@@ -99,6 +100,10 @@ Un bloc pour chaque langage mappé dans `layouts/_partials/func/GetCodeIcon.html
 <button [disabled]="isLoading">Valider</button>
 ```
 
+```angular2 {icon=true}
+<button [disabled]="isLoading">Valider</button>
+```
+
 ```astro {icon=true}
 ---
 layout: ../layouts/Base.astro
@@ -110,12 +115,10 @@ layout: ../layouts/Base.astro
 echo "Hello World"
 ```
 
-```bootstrap {icon=true}
-<button class="btn btn-primary">Valider</button>
-```
-
-```css {icon=true}
-.title { color: rebeccapurple; }
+```css
+.title {
+  color: rebeccapurple;
+}
 ```
 
 ```dart {icon=true}
@@ -210,7 +213,7 @@ System.out.println("Bonjour");
 ```
 
 ```javascript {icon=true}
-console.log("Bonjour");
+console.log('Bonjour');
 ```
 
 ```js {icon=true}
@@ -244,7 +247,9 @@ Route::get('/bonjour', fn () => 'Bonjour');
 
 ```less {icon=true}
 @primaire: rebeccapurple;
-.title { color: @primaire; }
+.title {
+  color: @primaire;
+}
 ```
 
 ```lua {icon=true}
@@ -415,7 +420,7 @@ const id: number = 1;
 
 ```typescript {icon=true}
 function direBonjour(nom: string): string {
-  return "Bonjour " + nom;
+  return 'Bonjour ' + nom;
 }
 ```
 

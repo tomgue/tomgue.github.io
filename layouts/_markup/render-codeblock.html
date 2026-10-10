@@ -61,22 +61,7 @@
       {{- $attrs = $attrs | append (printf `%s="%s"` $key (htmlEscape (printf "%v" $value))) -}}
     {{- end }}
   {{- end }}
-  {{- $code := highlight $.Inner $.Type $.Options -}}
-  {{- /* Auto-sync with the Chroma style: extract the colors Chroma writes
-         inline on the <pre> (3-to-8-digit hex, Chroma may compress #ffffff
-         to #fff) and cascade them to the figure via CSS custom properties. */ -}}
-  {{- $preTag := "" -}}
-  {{- with findRE `<pre[^>]*>` $code 1 }}{{- $preTag = index . 0 -}}{{- end }}
-  {{- $style := "" -}}
-  {{- with findRE `background-color: ?#[0-9a-fA-F]{3,8}` $preTag 1 }}
-    {{- $style = printf `%s--code-block-color-background: %s;` $style (index . 0 | replaceRE `.*:` ``) -}}
-  {{- end }}
-  {{- /* default text color: "color:" not preceded by "-", so background-color
-         is never mistaken for the text color */ -}}
-  {{- with findRE `(^|[^-])color: ?#[0-9a-fA-F]{3,8}` $preTag 1 }}
-    {{- $style = printf `%s--code-block-color-header-text: %s;` $style (index . 0 | replaceRE `.*:` ``) -}}
-  {{- end }}
-  <figure class="code-block"{{ with $attrs }} {{ delimit $attrs " " | safeHTML }}{{ end }}{{ with $style }} {{ printf `style="%s"` $style | safeHTML }}{{ end }}>
+    <figure class="code-block"{{ with $attrs }} {{ delimit $attrs " " | safeHTML }}{{ end }}>
     <figcaption class="code-block-header">
       {{- with $icon }}
         {{- if templates.Exists "partials/icon.html" }}
@@ -96,6 +81,6 @@
         </button>
       {{- end }}
     </figcaption>
-    {{- $code -}}
+    {{- highlight $.Inner $.Type $.Options -}}
   </figure>
 {{- end -}}

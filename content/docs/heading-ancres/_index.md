@@ -1,8 +1,9 @@
 ---
 isIndex: false
 draft: false
-title: "Titres ancrables et icônes"
+title: "Titres ancrables et icônes (render hook)"
 description: "Page d'exemple du render hook heading : ancres cliquables sur tous les titres Markdown, avec icône Lucide optionnelle."
+icon: heading
 ---
 
 Cette page illustre le render hook `layouts/_markup/render-heading.html` : chaque titre Markdown (H1 à H6) est rendu comme une ancre cliquable, avec en option une icône Lucide placée **devant le texte du titre**.
