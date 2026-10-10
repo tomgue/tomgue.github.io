@@ -6,19 +6,17 @@
     --code-block-border-radius: var(--radius-surface);
     --code-block-border-style: var(--border-style-normal);
     --code-block-border-width: 1px;
-    /* Palette du bloc : suit le style Chroma du site. Depuis le retrait de
-       markup.highlight.style (nord), Hugo colore avec son thème par défaut
-       CLAIR : fonds et couleurs de tokens sont des hexadécimaux fixes posés
-       en styles inline sur le <pre> — ils ne s'adaptent pas au dark mode.
-       Le bloc est donc épinglé sur une palette claire dans les deux modes :
-       les gris de @uncinq/design-tokens sont fixes entre light et dark
-       (voir le fix --color-text-on-muted ci-dessous), comme la coloration.
-       Figure, figcaption et code partagent le même fond. Si un style Chroma
-       sombre revient, réajuster ces tokens. */
-    --code-block-color-background: var(--color-gray-100);
+    /* Fond de la zone de code : Chroma (styles inline sur le <pre>). Le
+       render hook extrait le bg — et le fg quand l'entrée Background du
+       style en définit un — du <pre> au build et les injecte en variables
+       inline sur le figure : bloc et figcaption suivent automatiquement
+       tout changement de markup.highlight.style. Les deux hex ci-dessous ne
+       sont que le FALLBACK si l'extraction échoue (monokai, style Hugo par
+       défaut). */
+    --code-block-color-background: #272822;
     --code-block-color-border: var(--color-border);
     --code-block-color-header-background: var(--code-block-color-background);
-    --code-block-color-header-text: var(--color-gray-900);
+    --code-block-color-header-text: #f8f8f2;
     --code-block-header-font-family: var(--font-family-mono);
     --code-block-header-font-size: var(--font-size-xs);
     --code-block-header-gap: var(--spacing-xs);
@@ -65,20 +63,16 @@
     border-radius: var(--code-block-border-radius);
     overflow: hidden;
 
-    /* Même fond que le figure pour la zone de code : !important est
-       nécessaire car Chroma pose background-color en styles inline sur le
-       <pre> (hexadécimal du style), et le socle @uncinq/css-base en pose un
-       autre (pre { background-color: var(--color-background-muted) }). */
-    > .highlight,
-    > .highlight pre {
-      background-color: var(--code-block-color-background) !important;
-    }
+    /* Pas d'override du fond du <pre> : Chroma pose le sien en styles
+       inline, assorti aux couleurs de ses tokens — l'écraser rendrait le
+       code illisible (c'est ce qui s'est produit avec le pin clair). */
 
     > .highlight {
       margin: 0;
     }
 
     .code-block-header {
+      /* icône du langage + titre sur une seule ligne, alignés à gauche */
       align-items: center;
       background-color: var(--code-block-color-header-background);
       border-bottom: var(--code-block-border-width) var(--code-block-border-style) var(--code-block-color-border);
@@ -87,6 +81,7 @@
       font-family: var(--code-block-header-font-family);
       font-size: var(--code-block-header-font-size);
       gap: var(--code-block-header-gap);
+      justify-content: flex-start;
       line-height: 1;
       padding: var(--code-block-header-padding);
 
