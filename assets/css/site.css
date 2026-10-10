@@ -6,13 +6,13 @@
     --code-block-border-radius: var(--radius-surface);
     --code-block-border-style: var(--border-style-normal);
     --code-block-border-width: 1px;
-    /* Le fond de la zone de code vient de Chroma (styles inline sur le
-       <pre>) : sans markup.highlight.style, Hugo colore avec monokai par
-       défaut — fond #272822, texte #f8f8f2. Le figure et le figcaption se
-       calent sur ce fond (aucun override sur le <pre> : la coloration reste
-       toujours lisible, son fond étant par définition assorti à ses tokens).
-       Si markup.highlight.style change, ajuster ces deux valeurs au nouveau
-       style (bg du Background, fg du Text). */
+    /* Fond de la zone de code : Chroma (styles inline sur le <pre>). Le
+       render hook extrait le bg — et le fg quand l'entrée Background du
+       style en définit un — du <pre> au build et les injecte en variables
+       inline sur le figure : bloc et figcaption suivent automatiquement
+       tout changement de markup.highlight.style. Les deux hex ci-dessous ne
+       sont que le FALLBACK si l'extraction échoue (monokai, style Hugo par
+       défaut). */
     --code-block-color-background: #272822;
     --code-block-color-border: var(--color-border);
     --code-block-color-header-background: var(--code-block-color-background);

@@ -12,6 +12,14 @@
   A block that asks for none of these goes through transform.HighlightCodeBlock,
   Hugo’s own default rendering.
 
+  The figure is auto-synced with the Chroma style: in inline mode (noClasses,
+  the Hugo default) Chroma writes the theme background — and its default text
+  color, when the Background entry defines one — inline on the <pre>. The
+  hook extracts those colors and injects them as CSS custom properties on the
+  figure, so figure and figcaption follow any markup.highlight.style change
+  automatically. The static tokens in assets/css/site.css are only the
+  fallback if this extraction fails.
+
   @see layouts/_partials/func/GetCodeIcon.html for the language → icon mapping.
 */ -}}
 {{- $title := "" -}}
@@ -53,7 +61,22 @@
       {{- $attrs = $attrs | append (printf `%s="%s"` $key (htmlEscape (printf "%v" $value))) -}}
     {{- end }}
   {{- end }}
-  <figure class="code-block"{{ with $attrs }} {{ delimit $attrs " " | safeHTML }}{{ end }}>
+  {{- $code := highlight $.Inner $.Type $.Options -}}
+  {{- /* Auto-sync with the Chroma style: extract the colors Chroma writes
+         inline on the <pre> (3-to-8-digit hex, Chroma may compress #ffffff
+         to #fff) and cascade them to the figure via CSS custom properties. */ -}}
+  {{- $preTag := "" -}}
+  {{- with findRE `<pre[^>]*>` $code 1 }}{{- $preTag = index . 0 -}}{{- end }}
+  {{- $style := "" -}}
+  {{- with findRE `background-color: ?#[0-9a-fA-F]{3,8}` $preTag 1 }}
+    {{- $style = printf `%s--code-block-color-background: %s;` $style (index . 0 | replaceRE `.*:` ``) -}}
+  {{- end }}
+  {{- /* default text color: "color:" not preceded by "-", so background-color
+         is never mistaken for the text color */ -}}
+  {{- with findRE `(^|[^-])color: ?#[0-9a-fA-F]{3,8}` $preTag 1 }}
+    {{- $style = printf `%s--code-block-color-header-text: %s;` $style (index . 0 | replaceRE `.*:` ``) -}}
+  {{- end }}
+  <figure class="code-block"{{ with $attrs }} {{ delimit $attrs " " | safeHTML }}{{ end }}{{ with $style }} {{ printf `style="%s"` $style | safeHTML }}{{ end }}>
     <figcaption class="code-block-header">
       {{- with $icon }}
         {{- if templates.Exists "partials/icon.html" }}
@@ -73,6 +96,6 @@
         </button>
       {{- end }}
     </figcaption>
-    {{- highlight $.Inner $.Type $.Options -}}
+    {{- $code -}}
   </figure>
 {{- end -}}
