@@ -1,0 +1,118 @@
+/* theme.css — surcharges projet.
+   Importé en fin de css/main.css (hugolify-theme-design-system), juste avant site.css.
+   Le fichier du projet éclipse celui (vide) du module, sans le forker. */
+
+/* Débordement horizontal mobile — voir le diagnostic dans les PR #13/#14.
+   Le socle (@uncinq/css-base, layouts/row.css) définit .row en
+   flex-direction: column + flex-wrap: wrap. En colonne AVEC wrap, la
+   largeur de chaque colonne est fixée par le contenu (max-content) : un
+   élément plus large que la colonne — figure.code-block (largeur auto),
+   pre… — élargit toute la colonne flex, donc .row, donc la page, au-delà
+   du viewport. Symptôme mesuré en console : les deux items de .row
+   (.sidebar--menu et le wrapper du contenu) débordent alors que .row
+   elle-même tient dans le viewport.
+   nowrap dans l'état column (sous --tablet) : une seule colonne,
+   étirée à la largeur du conteneur ; les contenus trop larges
+   scrolleront chez eux (pre { overflow-x: auto },
+   figure.code-block { overflow: hidden }). Aucun effet au-dessus de
+   --tablet, où .row repasse en flex row et retrouve son wrap. */
+@layer layouts {
+  @media not (--tablet) {
+    .row {
+      flex-wrap: nowrap;
+    }
+  }
+}
+
+/* Layout desktop des pages de contenu.
+   Le socle passe .row en flex row dès --tablet, mais ni le socle ni le
+   design system ne donnent de largeur aux items rendus par les partials
+   Hugolify (commons/content.html → <div class="content">,
+   commons/sidebar.html → <div class="sidebar"> : jamais de classes
+   .col-*). En flex-basis auto, un item flex prend la taille de son
+   max-content — le max-content d'un paragraphe étant sa ligne entière
+   non repliée, le contenu remplit la ligne et la TOC (sidebar) wrap
+   en dessous. Les proportions prévues par le design system vivent dans
+   layouts/grid.css (content span 8, sidebar span 4, sidebar--menu
+   span 2, « .sidebar--menu + div » span 10)… mais sont scopées .grid,
+   une structure que le markup ne rend pas.
+   On réplique donc ces proportions sur les .row réellement rendues,
+   avec la même formule que les .col-* du socle. min-width: 0 (voir
+   plus bas) laisse un contenu trop large rétrécir et scroller chez
+   lui plutôt que repousser la page. */
+@layer layouts {
+  /* À partir de --tablet (.row passe en flex row) :
+     contenu 8/12, TOC 4/12, côte à côte. */
+  @media (--tablet) {
+    .row > .content {
+      flex: 0 0 calc(8 / 12 * 100% - (1 - 8 / 12) * var(--grid-gap, var(--gap)));
+    }
+
+    .row > .sidebar:not(.sidebar--menu) {
+      flex: 0 0 calc(4 / 12 * 100% - (1 - 4 / 12) * var(--grid-gap, var(--gap)));
+    }
+
+    /* Pages avec sommaire de section (docs) : le wrapper du contenu
+       prend le reste de la ligne à côté du menu. */
+    .sidebar--menu + div {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+  }
+
+  /* Largeur fixe pour le menu de section dès tablet-wide
+     (équivalent du span 2 du design system) ; en dessous, il garde
+     sa largeur de contenu, le wrapper absorbant le reste. */
+  @media (--tablet-wide) {
+    .row > .sidebar--menu {
+      flex: 0 0 calc(2 / 12 * 100% - (1 - 2 / 12) * var(--grid-gap, var(--gap)));
+    }
+  }
+}
+
+/* Débordement horizontal (tablette+) — la colonne de contenu peut
+   rétrécir sous son min-content. Sans min-width: 0, un item flex/grid
+   garde min-width: auto (= min-content) : au breakpoint où .row passe
+   en flex row, une ligne de code plus large que la colonne pousse la
+   ligne flex — donc la page — au-delà du viewport. Avec min-width: 0,
+   les éléments trop larges (pre, table) scrolleront chez eux via leur
+   propre overflow-x: auto. */
+@layer layouts {
+  .row > .content,
+  .grid > .content {
+    min-width: 0;
+  }
+}
+
+/* Titres ancrables — voir layouts/_markup/render-heading.html */
+@layer components {
+  /* Icône de titre : placée devant le texte, taille proportionnelle au titre. */
+  .anchor-heading-icon {
+    display: inline-block;
+    margin-inline-end: 0.4em;
+    vertical-align: -0.15em;
+
+    .icon {
+      /* 1em = font-size du titre : l'icône suit automatiquement
+         la taille de chaque niveau (H1 à H6), sans règle par niveau. */
+      --icon-size: 0.9em;
+    }
+  }
+
+  /* Lien d'ancre englobant le titre : visuellement neutre. */
+  .anchor-heading-link {
+    color: inherit;
+    text-decoration: none;
+
+    &::after {
+      content: ' #';
+      opacity: 0;
+      text-decoration: none;
+      transition: opacity 200ms ease-in-out;
+    }
+  }
+
+  .anchor-heading:hover .anchor-heading-link::after {
+    opacity: 0.5;
+  }
+}
