@@ -19,16 +19,6 @@
     --code-block-copy-border-radius: var(--radius-xs);
     --code-block-copy-background: var(--color-background-muted-hover);
   }
-
-  /* Correction du code inline invisible en dark mode :
-     le thème sombre de @uncinq/design-tokens 1.8.x remappe --color-background-muted
-     (gray-900) mais pas --color-text-on-muted, qui reste à sa valeur claire (gray-900).
-     Voir https://github.com/Hugolify/hugolify-theme-design-system/issues/1 */
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-color-scheme='light']) {
-      --color-text-on-muted: var(--color-gray-200);
-    }
-  }
 }
 
 @layer base {
@@ -46,6 +36,37 @@
 }
 
 @layer components {
+
+  /* Icône de titre : placée devant le texte, taille proportionnelle au titre. */
+  .anchor-heading-icon {
+    display: inline-block;
+    margin-inline-end: 0.4em;
+    vertical-align: -0.15em;
+
+    .icon {
+      /* 1em = font-size du titre : l'icône suit automatiquement
+         la taille de chaque niveau (H1 à H6), sans règle par niveau. */
+      --icon-size: 0.9em;
+    }
+  }
+
+  /* Lien d'ancre englobant le titre : visuellement neutre. */
+  .anchor-heading-link {
+    color: inherit;
+    text-decoration: none;
+
+    &::after {
+      content: ' #';
+      opacity: 0;
+      text-decoration: none;
+      transition: opacity 200ms ease-in-out;
+    }
+  }
+
+  .anchor-heading:hover .anchor-heading-link::after {
+    opacity: 0.5;
+  }
+
   .code-block {
     margin-block-start: var(--spacing-md);
     overflow: hidden;
