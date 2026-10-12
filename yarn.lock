@@ -222,24 +222,24 @@
     "@jsonjoy.com/codegen" "^1.0.0"
 
 "@uncinq/component-tokens@^1.0.0":
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/@uncinq/component-tokens/-/component-tokens-1.11.0.tgz#38d2065fd134fd7d7650844398f817ac48e46bb2"
-  integrity sha512-/3mtUa9chDYCavwbtQuTc5yBxeu6mJcFC/4HPgV0qI8K7EqDAnTYGxNTOGZeNLjsoB2RxXos8vqbpJWwZdoclA==
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/@uncinq/component-tokens/-/component-tokens-1.12.0.tgz#d4b92b31c75d26c0a9a20605d33f10d8b262880d"
+  integrity sha512-GRxMDd+f91LjQogZ2C5oUiIyz9rrdHkoBXpol1if3kghkFNqt8hVs62xiwr0RKOp3gCQznuiBv+2qZoW5zV4Xg==
 
 "@uncinq/css-base@^1.0.0":
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/@uncinq/css-base/-/css-base-1.11.1.tgz#53278b8da86ca97acd71cc43b930d9aa46d0deb2"
-  integrity sha512-6wP+f0HJdAA21KNBqHzVsjGT3QcOp5ZR2fxdrFHrmesfxMnjaVSPN5+QvC8xr7d1cbgwP5b+Qc5xoMPuxLOF3A==
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/@uncinq/css-base/-/css-base-1.12.0.tgz#9f573417d6dbed836de92918307f866953664220"
+  integrity sha512-jVFzyWUBJ1BDp3dIHvxbPxmzxwx47AyedW9WBL3bg8D9CxLocEykrXwcgMgmUOTez9Ife5NpXEJ78paOYw5mHQ==
 
 "@uncinq/css-components@^1.0.0":
-  version "1.21.0"
-  resolved "https://registry.yarnpkg.com/@uncinq/css-components/-/css-components-1.21.0.tgz#1f79912159ddf52cfacf0fdb5f29332170c9144a"
-  integrity sha512-DTDjzOKSoNmiYcGde7QHOgn/0KaikS4TAZy6D9GETGrl4T+dYExYNg7fAqInv0V2P+5iZG+7D0h6YNfJLEjtJw==
+  version "1.22.0"
+  resolved "https://registry.yarnpkg.com/@uncinq/css-components/-/css-components-1.22.0.tgz#23e8369b0f6aee9de4fb78ace2ef272ca5ce009f"
+  integrity sha512-f08WlKzX4oAubiNUBGeTGxltVKOS8ZOnE+MPQKCZnE1AeiFqo3QaPlef6kjN+t0lWD/T+SZhH34NqSfDWkUo3w==
 
 "@uncinq/design-tokens@^1.0.0":
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/@uncinq/design-tokens/-/design-tokens-1.8.3.tgz#cd2940ca7fcc31aefd24c4bb552322dd5783e999"
-  integrity sha512-JyuJwKQ3FjkQj5N7RAEMfR/rQ1HXtfh/yDaO3v41k8QMxoD4d/bXU1DyNnjqtHlDDuTYj9zfMFJqElI7vDzLoA==
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/@uncinq/design-tokens/-/design-tokens-1.8.4.tgz#ea394583f11e67dbf629b83e2f2a4ae72ba3f256"
+  integrity sha512-kE1Q80Zv7lpm2hBslxvIPfxEQYc0vNluaxPj7sTkkSrMSykFqPGysalv28u2ZbAeK+UZTMXSiTF04SlXqEPsiA==
 
 "@zip.js/zip.js@^2.7.44":
   version "2.23.0"
