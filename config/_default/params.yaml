@@ -1,6 +1,6 @@
 _merge: deep
 
-# Analytics — services alternatifs (Umami, Plausible, Matomo, Seline, Fathom, Simple Analytics, Cabin)
+# Analytics — services alternatifs (Umami, Plausible, Matomo, Seline, Fathom, GoatCounter, Simple Analytics, Cabin)
 # Activation par présence du bloc ; un bloc incomplet fait échouer le build (errorf dans le partial).
 # Scripts rendus uniquement en production (hugo.IsProduction dans layouts/_partials/footer/analytics.html).
 services:
@@ -21,6 +21,10 @@ services:
   # fathom:
   #   site_id: 'ABCDEFG'
   #   url: '' # optionnel, défaut https://cdn.usefathom.com/script.js
+  # goatcounter:
+  #   code: 'yoursite' # SaaS : sous-domaine MYCODE.goatcounter.com (code = MYCODE)
+  #   endpoint: '' # optionnel, self-hosted, ex: 'https://stats.exemple.com/count' (prioritaire sur code)
+  #   src: '' # optionnel, script self-hosted, ex: '/count.js' ; défaut https://gc.zgo.at/count.js
   simpleanalytics: false # true pour activer, aucun ID requis
   cabin: false # true pour activer, aucun ID requis (domaine à déclarer dans le dashboard Cabin)
 
