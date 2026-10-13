@@ -1,11 +1,28 @@
 _merge: deep
 
-# Umami Analytics Configuration
-umami:
-  enabled: false
-  website_id: ''
-  src: 'https://cloud.umami.is/script.js'
-
+# Analytics — services alternatifs (Umami, Plausible, Matomo, Seline, Fathom, Simple Analytics, Cabin)
+# Activation par présence du bloc ; un bloc incomplet fait échouer le build (errorf dans le partial).
+# Scripts rendus uniquement en production (hugo.IsProduction dans layouts/_partials/footer/analytics.html).
+services:
+  # Décommentez un bloc pour activer le service correspondant :
+  # umami:
+  #   website_id: '94db1cb1-74f4-4a40-ad6c-962362670409'
+  #   url: '' # optionnel, self-hosted, ex: https://analytics.exemple.com/script.js
+  #   domains: '' # optionnel, data-domains, ex: 'exemple.com,www.exemple.com' (protection deploy previews)
+  # plausible:
+  #   domain: '' # optionnel, défaut = hostname de baseURL
+  #   url: '' # optionnel, self-hosted, ex: https://plausible.exemple.com/js/script.js
+  # matomo:
+  #   url: 'https://matomo.exemple.com'
+  #   site_id: '1'
+  #   cookies: false # true = nécessite CookieConsent (bannière)
+  # seline:
+  #   token: 'PROJECT_TOKEN'
+  # fathom:
+  #   site_id: 'ABCDEFG'
+  #   url: '' # optionnel, défaut https://cdn.usefathom.com/script.js
+  simpleanalytics: false # true pour activer, aucun ID requis
+  cabin: false # true pour activer, aucun ID requis (domaine à déclarer dans le dashboard Cabin)
 
 css:
   darkmode: true
