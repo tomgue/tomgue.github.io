@@ -34,6 +34,27 @@ admin:
     config:
       # files : surcharge la liste par défaut du module (nav-primary, nav-legal, seo)
       files: [nav-primary, nav-legal, seo, abbr]
+  shortcodes:
+    # enable : surcharge la liste par défaut du module (+ notre shortcode abbr)
+    enable:
+      - alert
+      - alert-block
+      - badge
+      - blank_link
+      - blockquote
+      - dailymotion
+      - button
+      - details
+      - figure
+      - map
+      - qr
+      - span_lang
+      - twitch
+      - twitter
+      - video
+      - vimeo
+      - youtube
+      - abbr
 
 # Code blocks — options des blocs de code (render hook layouts/_markup/render-codeblock.html)
 # copy : bouton copier le code (JS dans assets/js/components/custom.js)
