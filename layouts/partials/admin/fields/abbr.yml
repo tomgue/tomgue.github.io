@@ -1,0 +1,6 @@
+{{- $args := dict
+  "label" "Abréviation"
+  "name" "abbr"
+  -}}
+
+{{ partial "admin/widgets/string.js" $args }}
