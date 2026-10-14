@@ -1,7 +1,6 @@
 {{- $fields := slice
   "abbr"
   "title" -}}
-{{- $fields = partial "admin/func/GetFields.html" (dict "field" . "fields" $fields) -}}
 
 {{- $args := dict
   "label" "Abréviations"
