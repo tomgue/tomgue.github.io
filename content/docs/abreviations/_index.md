@@ -15,7 +15,7 @@ Survolez les exemples ci-dessous : le curseur affiche le `title` de chaque abré
 Pour une définition ponctuelle :
 
 ```markdown
-Le {{< abbr text="CSS" title="Cascading Style Sheets" >}} met en forme la page.
+Le {{</* abbr text="CSS" title="Cascading Style Sheets" */>}} met en forme la page.
 ```
 
 Rendu : Le {{< abbr text="CSS" title="Cascading Style Sheets" >}} met en forme la page.
@@ -35,7 +35,7 @@ abbreviations:
 Le même appel, sans `title` : Hugo cherche la définition dans ce fichier.
 
 ```markdown
-Le {{< abbr text="HTML" >}} structure le document.
+Le {{</* abbr text="HTML" */>}} structure le document.
 ```
 
 Rendu : Le {{< abbr text="HTML" >}} structure le document.
@@ -43,7 +43,7 @@ Rendu : Le {{< abbr text="HTML" >}} structure le document.
 La correspondance est insensible à la casse et la forme affichée est celle de l'entrée du fichier :
 
 ```markdown
-Le {{< abbr text="css" >}}, saisi en minuscules dans l'appel.
+Le {{</* abbr text="css" */>}}, saisi en minuscules dans l'appel.
 ```
 
 Rendu : Le {{< abbr text="css" >}}, saisi en minuscules — affiché « CSS », la forme canonique du fichier data.
@@ -53,7 +53,7 @@ Rendu : Le {{< abbr text="css" >}}, saisi en minuscules — affiché « CSS », 
 L'option `lang` ajoute l'attribut HTML correspondant — utile pour la prononciation par les lecteurs d'écran :
 
 ```markdown
-En allemand : {{< abbr text="z. B." title="zum Beispiel" lang="de" >}}
+En allemand : {{</* abbr text="z. B." title="zum Beispiel" lang="de" */>}}
 ```
 
 Rendu : En allemand : {{< abbr text="z. B." title="zum Beispiel" lang="de" >}}
@@ -78,10 +78,10 @@ Le fichier `data/abbr/fr.yaml` est éditable dans le CMS : collection **config**
 
 | Syntaxe                                | Résultat                        |
 | -------------------------------------- | ------------------------------- |
-| `{{< abbr text="CSS" >}}`              | Title depuis `data/abbr/fr.yaml` |
-| `{{< abbr text="CSS" title="…" >}}`    | Title inline, prioritaire        |
-| `{{< abbr text="z. B." lang="de" … >}}` | Attribut `lang` optionnel       |
-| `{{< abbr text="XYZ" >}}`              | Sans title + warning au build    |
+| `{{</* abbr text="CSS" */>}}`              | Title depuis `data/abbr/fr.yaml` |
+| `{{</* abbr text="CSS" title="…" */>}}`    | Title inline, prioritaire        |
+| `{{</* abbr text="z. B." lang="de" */>}}` | Attribut `lang` optionnel       |
+| `{{</* abbr text="XYZ" */>}}`              | Sans title + warning au build    |
 
 ## Notes
 
