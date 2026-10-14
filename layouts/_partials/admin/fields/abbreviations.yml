@@ -1,0 +1,14 @@
+{{- $fields := slice
+  "abbr"
+  "title" -}}
+{{- $fields = partial "admin/func/GetFields.html" (dict "field" . "fields" $fields) -}}
+
+{{- $args := dict
+  "label" "Abréviations"
+  "label_singular" "Abréviation"
+  "name" "abbreviations"
+  "collapsed" false
+  "fields" $fields
+  -}}
+
+{{ partial "admin/widgets/list.js" $args }}

@@ -1,16 +1,8 @@
-{{- $fields := slice "abbr" "title" -}}
+{{- $fields := slice "abbreviations" -}}
 {
   label: 'Abréviations',
   name: 'abbr',
   file: 'data/abbr/{{ site.Language.Lang }}.yaml',
   i18n: true,
-  fields: [
-    {{ partial "admin/widgets/list.js" (dict
-      "label" "Abréviations"
-      "label_singular" "Abréviation"
-      "name" "abbreviations"
-      "collapsed" false
-      "fields" $fields
-    ) }}
-  ]
+  {{ partial "admin/fields/_fields.yml" $fields }}
 }
