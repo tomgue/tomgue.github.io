@@ -3,7 +3,7 @@ _merge: deep
 # Analytics — services alternatifs (Umami, Plausible, Matomo, Seline, Fathom, GoatCounter, Simple Analytics, Cabin)
 # Activation par présence du bloc ; un bloc incomplet fait échouer le build (errorf dans le partial).
 # Scripts rendus uniquement en production (hugo.IsProduction dans layouts/_partials/footer/analytics.html).
-services:
+analytics:
   # Décommentez un bloc pour activer le service correspondant :
   # umami:
   #   website_id: '94db1cb1-74f4-4a40-ad6c-962362670409'
