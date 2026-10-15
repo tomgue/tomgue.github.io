@@ -10,8 +10,9 @@ analytics:
   #   url: '' # optionnel, self-hosted, ex: https://analytics.exemple.com/script.js
   #   domains: '' # optionnel, data-domains, ex: 'exemple.com,www.exemple.com' (protection deploy previews)
   # plausible:
-  #   domain: '' # optionnel, défaut = hostname de baseURL
-  #   url: '' # optionnel, self-hosted, ex: https://plausible.exemple.com/js/script.js
+  #   script_id: 'pa-XXXXXXXXX' # nouveau format par site (Site settings → Site installation)
+  #   domain: '' # optionnel, legacy script.js ; défaut = hostname de baseURL
+  #   url: '' # optionnel, instance Plausible avec script_id, ou URL complète du script legacy
   # matomo:
   #   url: 'https://matomo.exemple.com'
   #   site_id: '1'
@@ -20,7 +21,6 @@ analytics:
   #   token: 'PROJECT_TOKEN'
   # fathom:
   #   site_id: 'ABCDEFG'
-  #   url: '' # optionnel, défaut https://cdn.usefathom.com/script.js
   # goatcounter:
   #   code: 'yoursite' # SaaS : sous-domaine MYCODE.goatcounter.com (code = MYCODE)
   #   endpoint: '' # optionnel, self-hosted, ex: 'https://stats.exemple.com/count' (prioritaire sur code)
