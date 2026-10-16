@@ -1,2 +1,22 @@
 credit:
   hugolify: un site éco-conçu produit avec <a href="https://www.hugolify.io" target="_blank" rel="noopener noreferrer" title="Hugolify">Hugolify</a>  et <a href="https://www.gohugo.io" target="_blank" rel="noopener noreferrer" title="Hugo">Hugo</a>.
+
+# Albums — libellés admin : la collection publications devient « Albums »
+# (clés du site prioritaires sur hugolify-admin ; format identique à i18n/fr.yml du module)
+admin:
+  collections:
+    publications:
+      _description: Tous les albums
+      label:
+        one: Album
+        other: Albums
+    publications_categories:
+      _description: Tous les lieux
+      label:
+        one: Lieu
+        other: Lieux
+    publications_persons:
+      _description: Tous les auteurs
+      label:
+        one: Auteur
+        other: Auteurs
