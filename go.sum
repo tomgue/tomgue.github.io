@@ -6,8 +6,8 @@ github.com/hugolify/hugolify-admin/v2 v2.0.0-32 h1:0YUzjj2k2xL8Uk5Tz4+5qI7cLEa1m
 github.com/hugolify/hugolify-admin/v2 v2.0.0-32/go.mod h1:lPDkZn5SuJ2zB96xU/kKH3gNWOovqgxutjgnBOin48M=
 github.com/hugolify/hugolify-theme-awards/v2 v2.0.0-20261013101942-50991e9200d0 h1:PKu+/eEu4iQqwxKwzMm4NuVoqN9/YO4lvC0PHMQlj+Q=
 github.com/hugolify/hugolify-theme-awards/v2 v2.0.0-20261013101942-50991e9200d0/go.mod h1:mOaCpWj77xBVwyu3C7ftCyEGgEQXjPYtd9Y4VPYQuaQ=
-github.com/hugolify/hugolify-theme-design-system v0.0.0-20261015214439-2c8a1dd7b056 h1:UDMzvIu6glRk17jZFVJzR4WyXIafQ9YDMx8AM6nzGm8=
-github.com/hugolify/hugolify-theme-design-system v0.0.0-20261015214439-2c8a1dd7b056/go.mod h1:pmx1M5Ej9OhNx59jVsqRWhWHSv0JVx6U9txsqTWauTQ=
+github.com/hugolify/hugolify-theme-design-system v0.0.0-20261016091517-6210ee1646d2 h1:dBxu9mBxsDJ7QXzfMtKbfPV9YcK3wovNoKoIiVv28Ls=
+github.com/hugolify/hugolify-theme-design-system v0.0.0-20261016091517-6210ee1646d2/go.mod h1:pmx1M5Ej9OhNx59jVsqRWhWHSv0JVx6U9txsqTWauTQ=
 github.com/hugolify/hugolify-theme-docs/v2 v2.0.0-20261009094139-a5b427476ff4 h1:C+i1AcinZN0AWS5R3eFeug9/foG8p74QEmPjsOb4imc=
 github.com/hugolify/hugolify-theme-docs/v2 v2.0.0-20261009094139-a5b427476ff4/go.mod h1:L+idmDTe/Y+zi2lxe7BakjDgywPvNJ5NISKvEb/DwrU=
 github.com/hugolify/hugolify-theme-expertises/v2 v2.4.0 h1:t48lgo+uBBZjWfs7piPlFxCq7lIRgvrLTgYd+4mJKNA=

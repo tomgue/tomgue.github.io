@@ -7,7 +7,7 @@ require (
 	github.com/dixonandmoe/rellax v0.0.0-20240824005335-9ed6cb0aae03 // indirect
 	github.com/hugolify/hugolify-admin/v2 v2.0.0-32 // indirect
 	github.com/hugolify/hugolify-theme-awards/v2 v2.0.0-20261013101942-50991e9200d0 // indirect
-	github.com/hugolify/hugolify-theme-design-system v0.0.0-20261015214439-2c8a1dd7b056 // indirect
+	github.com/hugolify/hugolify-theme-design-system v0.0.0-20261016091517-6210ee1646d2 // indirect
 	github.com/hugolify/hugolify-theme-docs/v2 v2.0.0-20261009094139-a5b427476ff4 // indirect
 	github.com/hugolify/hugolify-theme-expertises/v2 v2.4.0 // indirect
 	github.com/hugolify/hugolify-theme-icons v0.0.0-20261012161711-e37d4d1546f6 // indirect
