@@ -22,7 +22,6 @@
 }
 
 @layer components {
-
   /* Icône de titre : placée devant le texte, taille proportionnelle au titre. */
   .anchor-heading-icon {
     display: inline-block;
@@ -112,12 +111,5 @@
         }
       }
     }
-  }
-
-  .alert {
-    margin-block: var(--spacing-xs);
-  }
-  .btn {
-    margin-block-start: var(--spacing-xs);
   }
 }
