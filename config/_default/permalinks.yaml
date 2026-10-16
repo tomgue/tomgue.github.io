@@ -1,1 +1,15 @@
 _merge: deep
+
+# Albums — la section publications est requalifiée « Albums »
+# (public URLs ; les noms internes restent publications)
+permalinks:
+  page:
+    publications: /albums/:slug/
+  section:
+    publications: /albums/
+  taxonomy:
+    publications_persons: /albums/auteurs/
+    publications_categories: /albums/lieux/
+  term:
+    publications_persons: /albums/auteurs/:slug/
+    publications_categories: /albums/lieux/:slug/
