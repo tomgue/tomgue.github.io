@@ -1,47 +1,55 @@
 ---
-isIndex: false
 isPage: true
 draft: false
 title: Shortcodes
+isIndex: false
 ---
 
 ## Hugolify shortcodes
 
 ### Alert
 
-{{< alert text="Curabitur scelerisque sollicitudin lobortis" >}}
+{{< alert text="Curabitur scelerisque sollicitudin lobortis" state="dark" >}}
+
 {{< alert text="Suspendisse egestas augue a egestas consectetur" state="light" >}}
+
 {{< alert text="Sed pharetra, massa eu varius egestas" state="warning" >}}
+
 {{< alert text="Donec varius velit nisi, a accumsan odio molestie ut" state="info" >}}
+
 {{< alert text="Maecenas at quam vel lorem malesuada euismod nec vel nibh" state="success" >}}
+
 {{< alert text="Cras ac facilisis nunc" state="danger" >}}
 
 ### Alert block
 
-{{< alert-block icon="info" title="Lorem ipsum" state="info" >}}
-Curabitur scelerisque sollicitudin lobortis. Sed pharetra, massa eu varius
+{{< alert-block state="info" >}}Curabitur scelerisque sollicitudin lobortis. Sed pharetra, massa eu varius
 egestas, metus nulla rutrum diam, et accumsan purus lacus vel ante.
 
 - Suspendisse egestas augue a egestas consectetur.
 - Aliquam interdum hendrerit porta.
 - Maecenas at quam vel lorem malesuada euismod nec vel nibh.
-- Cras ac facilisis nunc.
-{{< /alert-block >}}
+- Cras ac facilisis nunc.{{< /alert-block >}}
 
-{{< alert-block state="warning" >}}
-Hugolify uses {{< blank_link link="https://github.com/twbs/bootstrap/blob/v5.3.8/scss/_variables.scss" text="Bootstrap variables" >}} and {{< blank_link link="https://github.com/Hugolify/hugolify-theme/blob/main/assets/sass/abstracts/_variables.default.sass" text="Hugolify variables" >}}.
-{{< /alert-block >}}
+{{< alert-block state="warning" >}}Hugolify uses Bootstrap variables and Hugolify variables.{{< /alert-block >}}
 
 ### Badge
 
-{{< badge state="danger" text="Danger" >}}
-{{< badge state="dark" text="Dark" >}}
-{{< badge state="info" text="Info" >}}
-{{< badge state="light" text="Light" >}}
-{{< badge state="primary" text="Primary" >}}
-{{< badge state="secondary" text="Secondary" >}}
-{{< badge state="success" text="Success" >}}
-{{< badge state="warning" text="Warning" >}}
+{{< badge text="Danger" state="danger" >}}
+
+{{< badge text="Dark" state="dark" >}}
+
+{{< badge text="Info" state="info" >}}
+
+{{< badge text="Light" state="light" >}}
+
+{{< badge text="Primary" state="primary" >}}
+
+{{< badge text="Secondary" state="secondary" >}}
+
+{{< badge text="Success" state="success" >}}
+
+{{< badge text="Warning" state="warning" >}}
 
 ### Blank link
 
@@ -50,23 +58,36 @@ Hugolify uses {{< blank_link link="https://github.com/twbs/bootstrap/blob/v5.3.8
 ### Blockquote
 
 {{< blockquote quote="Donec varius velit nisi, a accumsan odio molestie ut" >}}
+
 {{< blockquote quote="Donec varius velit nisi, a accumsan odio molestie ut" title="Sed Pharetra" >}}
+
 {{< blockquote quote="Donec varius velit nisi, a accumsan odio molestie ut" title="Sed Pharetra" text="Egestas augue a egestas" >}}
-{{< blockquote quote="Donec varius velit nisi, a accumsan odio molestie ut" title="Sed Pharetra" text="Egestas augue a egestas" image="https://res.cloudinary.com/uncinq/image/upload/v1783352602/bernd-dittrich-tfwcwynxibw-unsplash_jkndoe.jpg" >}}
+
+{{< blockquote quote="Donec varius velit nisi, a accumsan odio molestie ut" title="Sed Pharetra" text="Egestas augue a egestas" >}}
 
 ### Button
 
-{{< button url="/" text="Back home" blank=false >}}
-{{< button url="/" text="External link button" blank=true >}}
-{{< button url="/" text="Danger button" class="btn-danger" >}}
-{{< button url="/" text="Dark button" class="btn-dark" >}}
-{{< button url="/" text="Ghost button" class="btn-ghost" >}}
-{{< button url="/" text="Info button" class="btn-info" >}}
-{{< button url="/" text="Light button" class="btn-light" >}}
-{{< button url="/" text="Link button" class="btn-link" >}}
-{{< button url="/" text="Secondary button" class="btn-secondary" >}}
-{{< button url="/" text="Success button" class="btn-success" >}}
-{{< button url="/" text="Warning button" class="btn-warning" >}}
+{{< button text="Back home" url="/" >}}
+
+{{< button text="External link button" url="/" blank=true >}}
+
+{{< button text="Danger button" url="/" class="btn-danger" >}}
+
+{{< button text="Dark button" url="/" class="btn-dark" >}}
+
+{{< button text="Ghost button" url="/" class="btn-ghost" >}}
+
+{{< button text="Info button" url="/" class="btn-info" >}}
+
+{{< button text="Light button" url="/" class="btn-light" >}}
+
+{{< button text="Link button" url="/" class="btn-link" >}}
+
+{{< button text="Secondary button" url="/" class="btn-secondary" >}}
+
+{{< button text="Success button" url="/" class="btn-success" >}}
+
+{{< button text="Warning button" url="/" class="btn-warning" >}}
 
 ### Dailymotion
 
@@ -74,25 +95,13 @@ Hugolify uses {{< blank_link link="https://github.com/twbs/bootstrap/blob/v5.3.8
 
 ### Details
 
-{{< details summary="Maecenas at quam" >}}
-Maecenas at quam vel lorem malesuada euismod nec vel nibh
-{{< /details >}}
+{{< details summary="Maecenas at quam" >}}Maecenas at quam vel lorem malesuada euismod nec vel nibh{{< /details >}}
 
 ### Figure
 
-{{< figure
-src="https://res.cloudinary.com/uncinq/image/upload/v1783352602/bernd-dittrich-tfwcwynxibw-unsplash_jkndoe.jpg"
-alt="Alternative text"
-legend="Donec varius velit nisi, a accumsan"
-credit="Donec varius velit nisi, a accumsan odio molestie ut" >}}
+{{< figure src="https://res.cloudinary.com/uncinq/image/upload/v1783352602/bernd-dittrich-tfwcwynxibw-unsplash_jkndoe.jpg" alt="Alternative text" legend="Donec varius velit nisi, a accumsan" credit="Donec varius velit nisi, a accumsan odio molestie ut" >}}
 
-{{< figure
-src="https://res.cloudinary.com/uncinq/image/upload/v1783352602/bernd-dittrich-tfwcwynxibw-unsplash_jkndoe.jpg"
-alt="Alternative text"
-link="#"
-legend="Donec varius velit nisi, a accumsan"
-credit="Donec varius velit nisi, a accumsan odio molestie ut"
-class="p-2 border border-dark bg-light" >}}
+{{< figure src="https://res.cloudinary.com/uncinq/image/upload/v1783352602/bernd-dittrich-tfwcwynxibw-unsplash_jkndoe.jpg" alt="Alternative text" legend="Donec varius velit nisi, a accumsan" credit="Donec varius velit nisi, a accumsan odio molestie ut" >}}
 
 ### Map
 
@@ -104,7 +113,7 @@ class="p-2 border border-dark bg-light" >}}
 
 ### Video
 
-{{< video mp4="/videos/lawyerify-independent.mp4" webm="/videos/lawyerify-independent.mp4" legend="Donec varius velit nisi, a accumsan" credit="Donec varius velit nisi, a accumsan odio molestie ut" controls=true screenshot=true >}}
+{{< video mp4="/videos/lawyerify-independent.mp4" webm="/videos/lawyerify-independent.mp4" controls=true screenshot=true legend="Donec varius velit nisi, a accumsan" credit="Donec varius velit nisi, a accumsan odio molestie ut" >}}
 
 ## Hugo shortcodes
 

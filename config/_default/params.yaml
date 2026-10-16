@@ -6,7 +6,6 @@ umami:
   website_id: ''
   src: 'https://cloud.umami.is/script.js'
 
-
 css:
   darkmode: true
   preload: true
@@ -28,7 +27,22 @@ admin:
   # publish_mode: editorial_workflow
   netlify:
     identity: false
+  fields:
+    text_markdown:
+      minimal: false
+      modes: "['rich_text', 'raw']"
   collections:
+    docs:
+
+    persons:
+      summary_fields:
+        - summary
+        - firstname
+        - lastname
+        - persons_places
+        - persons_expertises
+        - field: contact.email
+          label: Email
     indexes:
       enable: false
     config:
