@@ -59,7 +59,7 @@ console.log('pas de bouton copier');
 
 ## Rendu natif Hugo (tout désactivé)
 
-Un bloc sans nom de fichier ni titre, avec `{icon=false copy=false}`, passe par `transform.HighlightCodeBlock` : rendu strictement identique à celui de Hugo, aucune régression :
+Un bloc sans nom de fichier ni titre, avec `{icon=false copy=false}`, est rendu sans en-tête, comme le fait Hugo nativement — et les attributs consommés (`title`, `filename`, `icon`, `copy`) ne fuient pas dans le HTML :
 
 ```html {icon=false copy=false}
 <p>Hello World</p>
@@ -105,6 +105,7 @@ flowchart LR
 
 - **Défauts globaux** : icône et bouton copier sont **actifs par défaut** ; `params.code.icon: false` / `params.code.copy: false` (`config/_default/params.yaml`) les désactivent pour tout le site — l'info string du bloc gagne toujours.
 - **Syntaxe** : un attribut sans valeur (`{icon}`, `{copy}`) est invalide pour le parseur d'attributs Markdown (Goldmark) — écrire `icon=true` / `copy=true`, ou ne rien écrire (c'est le défaut).
+- **Attributs génériques** : les autres attributs de l'info string (`id`, `class`, `data-*`) sont ré-émis sur l'élément englobant (`figure` ou `div class="highlight"`), `class` étant fusionné à la classe de l'élément.
 - **Langages non reconnus par Chroma** (drupal, flutter, mongodb…) : rendus en texte brut, mais l'icône du mapping s'affiche ; une icône explicite (`{icon="drupal"}`) reste la solution la plus propre.
 - **Accessibilité** : vrai `<button>` icône seule, `aria-label` basculé vers « Code copié » pendant 2 s, fallback `execCommand` pour les contextes non sécurisés.
 - **Icônes du bouton** : Lucide `copy` / `check`, émises via le partial `icon` du module `hugolify-theme-icons` ; sans ce module, le bouton reste fonctionnel (libellé via `aria-label`).
