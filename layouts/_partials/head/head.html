@@ -1,0 +1,28 @@
+{{- /*
+  head/head — site override of hugolify-theme layouts/partials/head/head.html
+  (v2.48.0), one added line: partialCached "highlight.html", which links
+  the Chroma palettes required by markup.highlight.noClasses: false
+  (config/_default/hugo.yaml). Placed after css.html so the palettes
+  load after the main stylesheet.
+
+  Re-sync this copy when the theme head gains a new partial — this file
+  replaces the theme one entirely.
+*/ -}}
+{{ define "head" }}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {{ partialCached "head/color-scheme.html" . }}
+  {{ partialCached "head/preload.html" . }}
+  {{ partialCached "head/css.html" . }}
+  {{ partialCached "head/css-vars.html" . }}
+  {{ partialCached "highlight.html" . }}
+  {{ if templates.Exists "partials/head/icons.html" }}{{ partial "head/icons.html" . }}{{ end }}
+  {{ partial "head/canonical.html" . }}
+  {{ partial "head/alternates.html" . }}
+  {{ partial "head/seo.html" . }}
+  {{ partialCached "head/favicons.html" . }}
+  {{ partial "head/rss.html" . }}
+  {{ partial "head/robots.html" . }}
+  {{ partialCached "head/scripts.html" . }}
+  {{ partial "head/pagefind.html" . }}
+{{ end }}

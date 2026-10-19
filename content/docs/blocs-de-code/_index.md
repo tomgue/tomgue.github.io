@@ -2,50 +2,34 @@
 isIndex: false
 draft: false
 title: 'Blocs de code (render hook)'
-description: "Page d'exemple du render hook codeblock : titre ou nom de fichier, icône du langage et bouton « copier le code » sur les blocs de code Markdown."
+description: "Page d'exemple du render hook codeblock : par défaut, chaque bloc de code Markdown affiche un en-tête — icône du langage, nom de fichier ou titre, bouton « copier le code »."
 icon: code
 ---
 
-Cette page illustre le render hook `layouts/_markup/render-codeblock.html` : chaque bloc de code fenced Markdown peut afficher un en-tête avec un titre ou un nom de fichier, l'icône de son langage et un bouton « copier le code ». Les options se passent dans l'info string du bloc, sans shortcode.
+Cette page illustre le render hook `layouts/_markup/render-codeblock.html` : **par défaut, chaque bloc de code fenced Markdown affiche un en-tête** — icône du langage et libellé (nom de fichier > titre > langage) à gauche, bouton « copier le code » à droite. Toutes les options se passent dans l'info string du bloc, sans shortcode ; les options Chroma (`lineNos`, `hl_lines`…) passent telles quelles au coloriseur.
 
-## Titre / nom de fichier
+## Par défaut : un en-tête sur chaque bloc
 
-L'attribut `title="..."` affiche un en-tête avec un titre ou un nom de fichier :
-
-```html {title="index.html"}
-<p>Hello World</p>
-```
-
-## Icône du langage (mapping auto)
-
-L'attribut `icon=true` affiche l'icône du langage du bloc, résolue par le partial `layouts/_partials/func/GetCodeIcon.html` (slugs Simple Icons, alias inclus) :
-
-```js {icon=true}
-console.log('Hello');
-```
-
-## Bouton copier
-
-L'attribut `copy=true` ajoute un bouton « copier le code », avec un retour visuel de 2 s à la copie :
-
-```bash {copy=true}
-echo "Hello World"
-```
-
-## Tout combiné
-
-```scss {title="styles.scss" icon=true copy=true}
-body {
-  color: rebeccapurple;
-}
-```
-
-## Sans option (rendu Hugo par défaut)
-
-Un bloc sans option passe par `transform.HighlightCodeBlock` : rendu strictement identique à celui de Hugo, aucune régression.
+Sans rien écrire, un bloc affiche déjà l'icône de son langage, son nom de langage et le bouton copier :
 
 ```html
 <p>Hello World</p>
+```
+
+## Nom de fichier
+
+L'attribut `filename="..."` affiche le nom du fichier dans l'en-tête — le rendu « écran » :
+
+```python {filename="hello.py"}
+print("Hello World")
+```
+
+## Titre libre
+
+L'attribut `title="..."` affiche un libellé libre (« Installation », « Extrait »…). Si `filename` est présent, il gagne :
+
+```bash {title="Installation"}
+echo "Hello World"
 ```
 
 ## Icône explicite (Simple Icons)
@@ -57,61 +41,96 @@ content/
 layouts/
 ```
 
-## Langage non mappé (pas d'icône)
+## Langage non mappé
 
-Un langage absent du mapping n'affiche pas d'icône (`zig` ici) :
+Un langage absent du mapping (`zig` ici) n'affiche pas d'icône — l'en-tête reste complet :
 
-```zig {icon=true}
+```zig
 const std = @import("std");
 ```
 
-## Opt-out explicite
+## Opt-out par bloc
 
-`copy=false` (resp. `icon=false`) désactive l'option même si elle est activée globalement dans la configuration du site :
+`{icon=false}` / `{copy=false}` désactivent une option pour un bloc, même si elle est active par défaut :
 
 ```js {copy=false}
 console.log('pas de bouton copier');
 ```
 
+## Rendu natif Hugo (tout désactivé)
+
+Un bloc sans nom de fichier ni titre, avec `{icon=false copy=false}`, est rendu sans en-tête, comme le fait Hugo nativement — et les attributs consommés (`title`, `filename`, `icon`, `copy`) ne fuient pas dans le HTML :
+
+```html {icon=false copy=false}
+<p>Hello World</p>
+```
+
+## Options Chroma (pass-through)
+
+Toutes les options du shortcode `highlight` fonctionnent dans l'info string — `lineNos`, `hl_lines`, `lineNoStart`, `anchorLineNos`… :
+
+```go {lineNos=true, hl_lines=[2,3], lineNoStart=10}
+func main() {
+    fmt.Println("Hello")
+    fmt.Println("World")
+}
+```
+
+Les couleurs viennent de palettes générées au build (`layouts/_partials/highlight.html`) : `github` en mode clair, `github-dark` en mode sombre (l'OS pilote le choix) — et l'en-tête partage la palette du code. Paire libre via `params.code.styles.light/.dark`. NB : un `{style="..."}` par bloc est sans effet en mode classes — la palette est globale.
+
+## Diagrammes Mermaid
+
+Une fence `mermaid` rend un diagramme, pas un bloc de code (hook dédié `render-codeblock-mermaid.html`, prioritaire sur le hook générique) ; le shortcode `{{</* mermaid */>}}` continue de fonctionner à l'identique :
+
+```mermaid
+flowchart LR
+  A[Fence mermaid] --> B[Diagramme]
+  C[Bloc de code] --> D[En-tête + palette]
+```
+
 ## Récapitulatif
 
-| Syntaxe                | Effet                               |
-| ---------------------- | ----------------------------------- |
-| `{title="index.html"}` | En-tête avec titre / nom de fichier |
-| `{icon=true}`          | Icône du langage (mapping auto)     |
-| `{icon="python"}`      | Icône explicite (slug Simple Icons) |
-| `{icon=false}`         | Désactive l'icône                   |
-| `{copy=true}`          | Bouton « copier le code »           |
-| `{copy=false}`         | Désactive le bouton copier          |
+| Syntaxe | Effet |
+| --- | --- |
+| — | En-tête complet (icône + langage + copier), par défaut |
+| `{filename="hello.py"}` | Nom de fichier dans l'en-tête (prioritaire sur `title`) |
+| `{title="Installation"}` | Libellé libre |
+| `{icon="python"}` | Icône explicite (slug Simple Icons) |
+| `{icon=false}` | Pas d'icône pour ce bloc |
+| `{copy=false}` | Pas de bouton copier pour ce bloc |
+| `{icon=false copy=false}` | Rendu natif Hugo (sans libellé) |
+| `{lineNos=true}` etc. | Options Chroma passées au coloriseur |
 
 ## Notes
 
-- **Défauts globaux** : `params.code.copy` et `params.code.icon` (`config/_default/params.yaml`) activent les options pour tout le site ; l'info string du bloc gagne toujours.
-- **Syntaxe** : un attribut sans valeur (`{icon}`, `{copy}`) est invalide pour le parseur d'attributs Markdown (Goldmark) — toujours écrire `icon=true` / `copy=true`.
+- **Défauts globaux** : icône et bouton copier sont **actifs par défaut** ; `params.code.icon: false` / `params.code.copy: false` (`config/_default/params.yaml`) les désactivent pour tout le site — l'info string du bloc gagne toujours.
+- **Syntaxe** : un attribut sans valeur (`{icon}`, `{copy}`) est invalide pour le parseur d'attributs Markdown (Goldmark) — écrire `icon=true` / `copy=true`, ou ne rien écrire (c'est le défaut).
+- **Attributs génériques** : les autres attributs de l'info string (`id`, `class`, `data-*`) sont ré-émis sur l'élément englobant (`figure` ou `div class="highlight"`), `class` étant fusionné à la classe de l'élément.
 - **Langages non reconnus par Chroma** (drupal, flutter, mongodb…) : rendus en texte brut, mais l'icône du mapping s'affiche ; une icône explicite (`{icon="drupal"}`) reste la solution la plus propre.
-- **Accessibilité** : vrai `<button>` avec `aria-label` basculé vers « Code copié » pendant 2 s, fallback `execCommand` pour les contextes non sécurisés.
-- **Icônes du bouton** : Lucide `copy` / `check`, émises via le partial `icon` du module `hugolify-theme-icons` ; sans ce module, le bouton reste fonctionnel avec son libellé texte.
+- **Accessibilité** : vrai `<button>` icône seule, `aria-label` basculé vers « Code copié » pendant 2 s, fallback `execCommand` pour les contextes non sécurisés.
+- **Icônes du bouton** : Lucide `copy` / `check`, émises via le partial `icon` du module `hugolify-theme-icons` ; sans ce module, le bouton reste fonctionnel (libellé via `aria-label`).
+- **Impression** : le bouton copier est masqué à l'impression.
 
 ## Icônes — un exemple par langage du mapping
 
-Un bloc pour chaque langage mappé dans `layouts/_partials/func/GetCodeIcon.html`, dans l'ordre du mapping, alias inclus (`js` et `javascript` partagent la même icône). Les langages non reconnus par Chroma sont rendus en texte brut — l'icône du mapping s'affiche quand même.
+Un bloc pour chaque langage mappé dans `layouts/_partials/func/GetCodeIcon.html`, dans l'ordre du mapping, alias inclus (`js` et `javascript` partagent la même icône) — l'icône s'affiche sans aucune option, c'est le défaut. Les langages non reconnus par Chroma sont rendus en texte brut — l'icône du mapping s'affiche quand même.
 
-```angular {icon=true}
+```angular
 <button [disabled]="isLoading">Valider</button>
 ```
 
-```angular2 {icon=true}
+```angular2
 <button [disabled]="isLoading">Valider</button>
 ```
 
-```astro {icon=true}
+```astro
 ---
 layout: ../layouts/Base.astro
 ---
 <h1>Bonjour</h1>
 ```
 
-```bash {icon=true}
+```bash
 echo "Hello World"
 ```
 
@@ -121,64 +140,64 @@ echo "Hello World"
 }
 ```
 
-```dart {icon=true}
+```dart
 void main() { print('Bonjour'); }
 ```
 
-```docker {icon=true}
+```docker
 FROM alpine:3
 RUN apk add curl
 ```
 
-```dockerfile {icon=true}
+```dockerfile
 FROM node:20-alpine
 COPY . .
 RUN npm ci
 ```
 
-```drupal {icon=true}
+```drupal
 function demo_form_alter(&$form, $form_state) {
   $form['#validate'][] = 'demo_validate';
 }
 ```
 
-```elixir {icon=true}
+```elixir
 def hello, do: IO.puts("Bonjour")
 ```
 
-```elm {icon=true}
+```elm
 main =
   text "Bonjour"
 ```
 
-```erlang {icon=true}
+```erlang
 hello() ->
   io:format("Bonjour~n").
 ```
 
-```flutter {icon=true}
+```flutter
 const Text('Bonjour')
 ```
 
-```git {icon=true}
+```git
 git commit -m "feat: blocs de code"
 ```
 
-```gitlab {icon=true}
+```gitlab
 image: node:20
 script:
   - npm test
 ```
 
-```go {icon=true}
+```go
 fmt.Println("Bonjour")
 ```
 
-```golang {icon=true}
+```golang
 func main() { fmt.Println("Bonjour") }
 ```
 
-```gql {icon=true}
+```gql
 query {
   user(id: 1) {
     name
@@ -186,266 +205,266 @@ query {
 }
 ```
 
-```graphql {icon=true}
+```graphql
 type Query {
   hello: String
 }
 ```
 
-```haskell {icon=true}
+```haskell
 main = putStrLn "Bonjour"
 ```
 
-```htm {icon=true}
+```htm
 <p>Bonjour</p>
 ```
 
-```html {icon=true}
+```html
 <p>Bonjour le monde</p>
 ```
 
-```hugo {icon=true}
+```hugo
 {{ range .Pages }}{{ .Title }}{{ end }}
 ```
 
-```java {icon=true}
+```java
 System.out.println("Bonjour");
 ```
 
-```javascript {icon=true}
+```javascript
 console.log('Bonjour');
 ```
 
-```js {icon=true}
+```js
 const somme = (a, b) => a + b;
 ```
 
-```jsx {icon=true}
+```jsx
 <Bouton label="Bonjour" onClick={valider} />
 ```
 
-```tsx {icon=true}
+```tsx
 <Bouton label="Bonjour" onClick={valider} />
 ```
 
-```k8s {icon=true}
+```k8s
 apiVersion: v1
 kind: Pod
 ```
 
-```kotlin {icon=true}
+```kotlin
 fun main() = println("Bonjour")
 ```
 
-```kubernetes {icon=true}
+```kubernetes
 kubectl get pods -n prod
 ```
 
-```laravel {icon=true}
+```laravel
 Route::get('/bonjour', fn () => 'Bonjour');
 ```
 
-```less {icon=true}
+```less
 @primaire: rebeccapurple;
 .title {
   color: @primaire;
 }
 ```
 
-```lua {icon=true}
+```lua
 print("Bonjour")
 ```
 
-```markdown {icon=true}
+```markdown
 **Bonjour le monde**
 ```
 
-```md {icon=true}
+```md
 ## Bonjour
 
 Un titre de section.
 ```
 
-```mongodb {icon=true}
+```mongodb
 db.utilisateurs.find({ actif: true })
 ```
 
-```mysql {icon=true}
+```mysql
 SELECT * FROM utilisateurs WHERE actif = 1;
 ```
 
-```next {icon=true}
+```next
 export default function Page() {
   return <h1>Bonjour</h1>;
 }
 ```
 
-```nextjs {icon=true}
+```nextjs
 export const metadata = { title: "Bonjour" };
 ```
 
-```nginx {icon=true}
+```nginx
 location / {
   proxy_pass http://app:3000;
 }
 ```
 
-```perl {icon=true}
+```perl
 print "Bonjour\n";
 ```
 
-```php {icon=true}
+```php
 <?php echo "Bonjour";
 ```
 
-```postgres {icon=true}
+```postgres
 SELECT count(*) FROM utilisateurs;
 ```
 
-```postgresql {icon=true}
+```postgresql
 SELECT NOW();
 ```
 
-```powershell {icon=true}
+```powershell
 Get-ChildItem -Recurse -Filter *.log
 ```
 
-```ps1 {icon=true}
+```ps1
 Write-Host "Bonjour"
 ```
 
-```py {icon=true}
+```py
 print("Bonjour")
 ```
 
-```python {icon=true}
+```python
 print("Bonjour le monde")
 ```
 
-```r {icon=true}
+```r
 x <- c(1, 2, 3)
 mean(x)
 ```
 
-```rb {icon=true}
+```rb
 puts "Bonjour"
 ```
 
-```react {icon=true}
+```react
 <button onClick={valider}>Valider</button>
 ```
 
-```redis {icon=true}
+```redis
 SET salut "Bonjour"
 ```
 
-```rs {icon=true}
+```rs
 println!("Bonjour");
 ```
 
-```rust {icon=true}
+```rust
 fn main() {
     println!("Bonjour le monde");
 }
 ```
 
-```sass {icon=true}
+```sass
 $primaire: rebeccapurple
 ```
 
-```scss {icon=true}
+```scss
 .title {
   color: $primaire;
 }
 ```
 
-```sh {icon=true}
+```sh
 ls -la
 ```
 
-```shell {icon=true}
+```shell
 echo "Bonjour"
 ```
 
-```solidity {icon=true}
+```solidity
 contract Bonjour {
     string public salut = "Bonjour";
 }
 ```
 
-```sqlite {icon=true}
+```sqlite
 SELECT * FROM utilisateurs LIMIT 5;
 ```
 
-```svg {icon=true}
+```svg
 <svg xmlns="http://www.w3.org/2000/svg"><circle r="10" /></svg>
 ```
 
-```svelte {icon=true}
+```svelte
 <h1>{titre}</h1>
 ```
 
-```swift {icon=true}
+```swift
 print("Bonjour")
 ```
 
-```symfony {icon=true}
+```symfony
 #[Route('/bonjour', name: 'bonjour')]
 public function bonjour(): Response {}
 ```
 
-```tailwind {icon=true}
+```tailwind
 <div class="flex items-center gap-2">Bonjour</div>
 ```
 
-```tailwindcss {icon=true}
+```tailwindcss
 @tailwind utilities;
 ```
 
-```terraform {icon=true}
+```terraform
 resource "aws_instance" "web" {
   ami = "ami-123456"
 }
 ```
 
-```tf {icon=true}
+```tf
 resource "aws_s3_bucket" "cdn" {
   bucket = "cdn"
 }
 ```
 
-```ts {icon=true}
+```ts
 const id: number = 1;
 ```
 
-```typescript {icon=true}
+```typescript
 function direBonjour(nom: string): string {
   return 'Bonjour ' + nom;
 }
 ```
 
-```vite {icon=true}
+```vite
 import { defineConfig } from "vite";
 
 export default defineConfig({});
 ```
 
-```vue {icon=true}
+```vue
 <template>
   <p>{{ msg }}</p>
 </template>
 ```
 
-```wordpress {icon=true}
+```wordpress
 add_action("init", "mon_init");
 ```
 
-```xml {icon=true}
+```xml
 <utilisateur>
   <nom>Thomas</nom>
 </utilisateur>
 ```
 
-```zsh {icon=true}
+```zsh
 echo $SHELL
 ```

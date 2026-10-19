@@ -3,21 +3,13 @@
 
 @layer tokens {
   :root {
-    --code-block-header-color-background: var(--color-background-muted);
-    --code-block-header-color-text: var(--color-text);
-    --code-block-header-border-radius: var(--radius-surface);
-    --code-block-header-border-style: var(--border-style-normal);
-    --code-block-header-border-width: var(--border-width-sm);
-    --code-block-header-color-border: var(--color-border);
+    --code-block-radius: var(--radius-surface);
     --code-block-header-font-family: var(--font-family-mono);
     --code-block-header-font-size: var(--font-size-xs);
     --code-block-header-gap: var(--spacing-xs);
     --code-block-header-padding: var(--spacing-xs);
-    --code-block-copy-border-style: var(--border-style-normal);
-    --code-block-copy-border-width: var(--border-width-md);
     --code-block-copy-padding: var(--spacing-2xs);
     --code-block-copy-border-radius: var(--radius-xs);
-    --code-block-copy-background: var(--color-background-muted-hover);
   }
 }
 
@@ -52,19 +44,22 @@
     opacity: 0.5;
   }
 
+  /*
+   * Bloc de code (layouts/_markup/render-codeblock.html) — figure unique :
+   * l'en-tête (icône + libellé + bouton copier) et le code partagent la
+   * palette Chroma. Le hook écrit la classe chroma sur l'en-tête, les
+   * feuilles de layouts/_partials/highlight.html habillent l'un et l'autre
+   * — clair comme sombre, quel que soit le thème Chroma choisi. Pas de
+   * fond ni de bordure propres ici : la fusion vient de la palette.
+   */
   .code-block {
     margin-block-start: var(--spacing-md);
+    border-radius: var(--code-block-radius);
     overflow: hidden;
 
+    /* En-tête : icône du langage + libellé à gauche, bouton copier à droite. */
     .code-block-header {
-      /* icône du langage + titre sur une seule ligne, alignés à gauche */
       align-items: center;
-      background: var(--code-block-header-color-background);
-      border: var(--code-block-header-border-width)
-        var(--code-block-header-border-style)
-        var(--code-block-header-color-border);
-      border-radius: var(--code-block-header-border-radius);
-      color: var(--code-block-header-color-text);
       display: flex;
       font-family: var(--code-block-header-font-family);
       font-size: var(--code-block-header-font-size);
@@ -74,7 +69,8 @@
       padding: var(--code-block-header-padding);
     }
 
-    .code-block-title {
+    .code-block-title,
+    .code-block-lang {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -83,18 +79,17 @@
     .code-copy {
       align-items: center;
       background: none;
-
+      border: none;
       color: inherit;
       cursor: pointer;
       display: inline-flex;
       margin-inline-start: auto;
       padding: var(--code-block-copy-padding);
-      border: var(--code-block-copy-border-width)
-        var(--code-block-copy-border-style) var(--code-block-color-border);
       border-radius: var(--code-block-copy-border-radius);
 
+      /* Translucide : le bouton vit sur le fond de la palette, clair ou sombre. */
       &:hover {
-        background: var(--code-block-copy-background);
+        background: color-mix(in srgb, currentColor 12%, transparent);
       }
 
       .icon-check {
@@ -110,6 +105,13 @@
           display: inline-block;
         }
       }
+    }
+  }
+
+  /* Impression : pas de bouton copier sur le papier. */
+  @media print {
+    .code-copy {
+      display: none;
     }
   }
 }
