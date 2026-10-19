@@ -26,6 +26,30 @@ admin:
       minimal: false
       modes: "['rich_text', 'raw']"
 
+  shortcodes:
+    # Surcharge de la liste par défaut du module hugolify-admin (les listes ne
+    # fusionnent pas) : 18 shortcodes du module + abbr.
+    enable:
+      - alert
+      - alert-block
+      - badge
+      - blank_link
+      - blockquote
+      - dailymotion
+      - button
+      - details
+      - figure
+      - icon
+      - map
+      - qr
+      - span_lang
+      - twitch
+      - twitter
+      - video
+      - vimeo
+      - youtube
+      - abbr
+
   collections:
     persons:
       media_folder: /assets/images/uploads/persons
