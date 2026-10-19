@@ -59,3 +59,13 @@ admin:
           llms-full,
           abbr
         ]
+
+# Code blocks (see layouts/_markup/render-codeblock.html)
+code:
+  icon: true # language icon in the block header — false to disable
+  copy: true # copy-to-clipboard button — false to disable
+  # icons: # language → icon mapping overrides
+  #   vue: nuxt
+  # styles: # Chroma palette pair — see layouts/_partials/highlight.html
+  #   light: friendly
+  #   dark: dracula

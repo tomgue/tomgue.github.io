@@ -1,0 +1,113 @@
+{{- /*
+  Code blocks — Markdown render hook for fenced code blocks.
+
+  Every fenced block gets a header bar — language icon and label on the
+  left, copy-to-clipboard button on the right — above the highlighted
+  code. The label shows, in order: the file name, the free title, the
+  language.
+
+  Info string — Chroma options (lineNos, hl_lines, lineNoStart, style,
+  tabWidth, anchorLineNos...) are passed through to Hugo's highlighter
+  untouched, the same options the highlight shortcode accepts. Examples:
+
+    python fence with {filename="hello.py"}
+    js fence with {filename="app.js" copy=false}
+    bash fence with {title="Install" icon=false}
+
+  Per-block extras (they override the site defaults):
+    filename="hello.py"        label as a file name (wins over title)
+    title="Install"           free label
+    icon=true|false|"python"  language icon / off / explicit icon
+    copy=true|false           copy button
+
+  Site defaults (config/_default/params.yaml) — both on by default:
+    code:
+      icon: true               language icon — false to disable
+      copy: true               copy button — false to disable
+      icons:                   language → icon mapping overrides
+        vue: nuxt
+      styles:                  Chroma palette pair — see highlight.html
+        light: friendly
+        dark: dracula
+
+  A block that asks for nothing — both site defaults at false and no
+  filename, title, icon or copy in the info string — falls back to
+  Hugo's own rendering (transform.HighlightCodeBlock): the exact markup
+  Hugo emits without this hook.
+
+  Syntax colors come from the Chroma palettes linked by
+  layouts/_partials/highlight.html (markup.highlight.noClasses: false).
+  The header carries the chroma class too, so it shares the palette
+  background and text color of the code — one unified block, in light
+  and dark mode alike, whatever the Chroma style.
+
+  Works without hugolify-theme-icons: every icon call is guarded by
+  templates.Exists, the block renders header and all without icons.
+
+  @see layouts/_partials/func/GetCodeIcon.html for the language → icon mapping.
+  @see assets/js/components/custom.js for the copy button behaviour.
+*/ -}}
+{{- $label := "" -}}
+{{- $icon := "" -}}
+{{- $copy := false -}}
+{{- $autoIcon := false -}}
+{{- $siteIcon := true -}}
+{{- $siteCopy := true -}}
+{{- with site.Params.code }}
+  {{- if isset . "icon" }}{{- $siteIcon = eq (printf "%v" .icon) "true" -}}{{- end -}}
+  {{- if isset . "copy" }}{{- $siteCopy = eq (printf "%v" .copy) "true" -}}{{- end -}}
+{{- end }}
+{{- with .Attributes }}
+  {{- with .filename }}{{- $label = printf "%v" . -}}{{- end }}
+  {{- if not $label }}{{- with .title }}{{- $label = printf "%v" . -}}{{- end }}{{- end }}
+  {{- if isset . "icon" }}
+    {{- $value := printf "%v" (index . "icon") -}}
+    {{- if eq $value "true" }}
+      {{- $autoIcon = true -}}
+    {{- else if eq $value "false" }}
+      {{- /* explicit opt-out */ -}}
+    {{- else }}
+      {{- $icon = $value -}}
+    {{- end }}
+  {{- else if $siteIcon }}{{- $autoIcon = true -}}{{- end }}
+  {{- if isset . "copy" }}
+    {{- if eq (printf "%v" (index . "copy")) "true" }}{{- $copy = true -}}{{- end }}
+  {{- else if $siteCopy }}{{- $copy = true -}}{{- end }}
+{{- else }}
+  {{- if $siteIcon }}{{- $autoIcon = true -}}{{- end }}
+  {{- if $siteCopy }}{{- $copy = true -}}{{- end }}
+{{- end }}
+{{- if $autoIcon }}{{- $icon = partial "func/GetCodeIcon.html" .Type -}}{{- end }}
+{{- if not (or $label $icon $copy) -}}
+  {{- transform.HighlightCodeBlock . -}}
+{{- else }}
+  {{- $attrs := slice -}}
+  {{- range $key, $value := $.Attributes }}
+    {{- if not (in (slice "title" "filename" "icon" "copy") $key) }}
+      {{- $attrs = $attrs | append (printf `
+%s="%s"` $key (htmlEscape (printf "%v" $value))) -}}
+    {{- end }}
+  {{- end }}
+    <figure class="code-block"{{ with $attrs }} {{ delimit $attrs " " | safeHTML }}{{ end }}>
+    <figcaption class="code-block-header chroma">
+      {{- with $icon }}
+        {{- if templates.Exists "partials/icon.html" }}
+          {{- if strings.Contains . ":" }}{{ partial "icon" . }}{{ else }}{{ partial "icon" (printf "brand:%s" .) }}{{ end }}
+        {{- end }}
+      {{- end }}
+      {{- if $label }}
+        <span class="code-block-title">{{ $label }}</span>
+      {{- else }}
+        {{- with $.Type }}
+          <span class="code-block-lang">{{ . }}</span>
+        {{- end }}
+      {{- end }}
+      {{- if $copy }}
+        <button type="button" class="code-copy js-code-copy" aria-label="{{ i18n "code.copy" }}">
+          {{- if templates.Exists "partials/icon.html" }}{{ partial "icon" "copy" }}{{ partial "icon" "check" }}{{ end }}
+        </button>
+      {{- end }}
+    </figcaption>
+    {{- highlight $.Inner $.Type $.Options -}}
+  </figure>
+{{- end -}}
