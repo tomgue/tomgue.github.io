@@ -40,6 +40,20 @@ admin:
           label: Email
     indexes:
       enable: false
+    # Albums — habillage Sveltia de la collection publications
+    # (doc : https://www.hugolify.io/docs/admin/v2/collections/)
+    publications:
+      icon:
+        lucide: images
+      sortable_fields:
+        - field: date
+          default_sort: desc
+      view_groups:
+        - label: Année
+          field: date
+          pattern: '\d{4}'
+      reorder: true
+      # thumbnail : automatique avec la couverture (image)
     config:
       # files : surcharge la liste par défaut du module (nav-primary, nav-legal, seo)
       files:

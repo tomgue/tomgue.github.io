@@ -1,0 +1,19 @@
+# Albums — libellés admin : la collection publications devient « Albums »
+# (clés du site prioritaires sur hugolify-admin ; format identique à i18n/fr.yml du module)
+admin:
+  collections:
+    publications:
+      _description: Tous les albums
+      label:
+        one: Album
+        other: Albums
+    publications_categories:
+      _description: Tous les lieux
+      label:
+        one: Lieu
+        other: Lieux
+    publications_persons:
+      _description: Tous les auteurs
+      label:
+        one: Auteur
+        other: Auteurs
