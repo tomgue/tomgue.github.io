@@ -1,11 +1,5 @@
 _merge: deep
 
-# Umami Analytics Configuration
-umami:
-  enabled: false
-  website_id: ''
-  src: 'https://cloud.umami.is/script.js'
-
 css:
   darkmode: true
   preload: true
@@ -31,10 +25,11 @@ admin:
     text_markdown:
       minimal: false
       modes: "['rich_text', 'raw']"
+
   collections:
     persons:
-      media_folder: /assets/images/persons
-      public_folder: /images/persons
+      media_folder: /assets/images/uploads/persons
+      public_folder: /images/uploads/persons
       summary_fields:
         - summary
         - firstname
@@ -47,11 +42,20 @@ admin:
       enable: false
     config:
       # files : surcharge la liste par défaut du module (nav-primary, nav-legal, seo)
-      files: [abbr,nav-header-primary, nav-header-secondary, nav-footer-primary, nav-footer-secondary, nav-legal, nav-social, banner, footer, credit, schema, seo, llms, llms-full]
-
-# Code blocks — options des blocs de code (render hook layouts/_markup/render-codeblock.html)
-# copy : bouton copier le code (JS dans assets/js/components/custom.js)
-# icon : icône du langage dans l'en-tête (hugolify-theme-icons)
-code:
-  copy: true
-  icon: true
+      files:
+        [
+          nav-header-primary,
+          nav-header-secondary,
+          nav-footer-primary,
+          nav-footer-secondary,
+          nav-legal,
+          nav-social,
+          banner,
+          footer,
+          credit,
+          schema,
+          seo,
+          llms,
+          llms-full,
+          abbr
+        ]

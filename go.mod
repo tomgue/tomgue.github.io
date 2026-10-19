@@ -10,7 +10,7 @@ require (
 	github.com/hugolify/hugolify-theme-design-system v0.0.0-20261016091517-6210ee1646d2 // indirect
 	github.com/hugolify/hugolify-theme-docs/v2 v2.0.0-20261009094139-a5b427476ff4 // indirect
 	github.com/hugolify/hugolify-theme-expertises/v2 v2.4.0 // indirect
-	github.com/hugolify/hugolify-theme-icons v0.0.0-20261012161711-e37d4d1546f6 // indirect
+	github.com/hugolify/hugolify-theme-icons v0.0.0-20261016114629-339c166e9627 // indirect
 	github.com/hugolify/hugolify-theme-jobs/v2 v2.0.0-20261014192220-098a7d5fc96d // indirect
 	github.com/hugolify/hugolify-theme-persons-expertises/v2 v2.4.0 // indirect
 	github.com/hugolify/hugolify-theme-persons-places/v2 v2.4.0 // indirect
@@ -29,8 +29,8 @@ require (
 	github.com/hugolify/hugolify-theme-publications/v2 v2.5.0 // indirect
 	github.com/hugolify/hugolify-theme-realestates-persons/v2 v2.2.0 // indirect
 	github.com/hugolify/hugolify-theme-realestates/v2 v2.4.0 // indirect
-	github.com/hugolify/hugolify-theme/v2 v2.47.0 // indirect
-	github.com/lucide-icons/lucide v0.265.1-0.20261015160102-7b0196e249ca // indirect
+	github.com/hugolify/hugolify-theme/v2 v2.48.0 // indirect
+	github.com/lucide-icons/lucide v0.265.1-0.20261016133129-1ef60af944de // indirect
 	github.com/midzer/tobii v3.2.0+incompatible // indirect
 	github.com/orestbida/cookieconsent v3.1.0+incompatible // indirect
 	github.com/simple-icons/simple-icons v0.0.0-20260607021030-c3777a7e48a5 // indirect
