@@ -11,12 +11,6 @@ links:
   - title: Linkedin
     url: https://www.linkedin.com/in/tomgue
     blank: true
-  # - title: Bluesky
-  #   url: https://bsky.app/profile/…
-  #   blank: true
-  # - title: Gitlab
-  #   url: https://gitlab.com/…
-  #   blank: true
-  # - title: Mastodon
-  #   url: https://…/@…
-  #   blank: true
+  - title: Mastodon
+    url: https://mastodon.social/@tomgue
+    blank: true

@@ -20,15 +20,9 @@ contact:
     - platform: linkedin
       url: https://www.linkedin.com/in/tomgue
       rel: me
-    # - platform: bluesky
-    #   url: https://bsky.app/profile/…
-    #   rel: me
-    # - platform: gitlab
-    #   url: https://gitlab.com/…
-    #   rel: me
-    # - platform: mastodon
-    #   url: https://…/@…
-    #   rel: me
+    - platform: mastodon
+      url: https://mastodon.social/@tomgue
+      rel: me
 ---
 
 ### TODO
