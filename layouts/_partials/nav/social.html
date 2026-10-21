@@ -1,0 +1,28 @@
+{{- /*
+  Site override of hugolify-theme (v2.48.0) nav/social.html — test bed for
+  the upstream rel="me" proposal.
+
+  The social menu lists the site owner's own profiles, so every link carries
+  rel="me" (Mastodon profile verification, IndieWeb identity) in addition to
+  the theme's noopener: <a ... rel="me noopener">.
+
+  A per-link `rel` key in data/menu/social.yml still wins, thanks to the
+  merge order below (link data over the "me" default).
+
+  Data unchanged: data/menu/social.yml → links: [{title, url, blank}],
+  `title` resolving to the Simple Icons slug once lowercased
+  (Mastodon, Github, Linkedin, X…).
+*/ -}}
+{{- $menu := hugo.Data.menu.social -}}
+{{- with index $menu (partial "func/GetLanguage.html").name -}}
+  {{- $menu = . -}}
+{{- end -}}
+{{- with $menu }}
+  <ul class="nav nav-social">
+    {{- range .links }}
+      <li class="{{ lower (safeHTML .title) }}">
+        {{- partial "nav/link-with-icon.html" (merge (dict "rel" "me") .) -}}
+      </li>
+    {{- end }}
+  </ul>
+{{ end -}}
