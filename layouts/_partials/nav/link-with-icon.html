@@ -1,0 +1,32 @@
+{{- /*
+  Site override of hugolify-theme (v2.48.0) nav/link-with-icon.html — test
+  bed for the upstream rel="me" proposal (Mastodon profile verification,
+  IndieWeb identity).
+
+  Adds an optional `rel` context key to the theme partial. Its value is
+  prepended to the theme's own "noopener":
+
+    with .blank → <a ... target="_blank" rel="me noopener">
+    without     → <a ... rel="me">
+
+  Without `rel`, the output is the theme's exact one (target + noopener
+  when blank, no rel attribute otherwise).
+
+  @context
+    title    (string) link label, falls back to .platform
+    platform (string) alias of .title (contact socials)
+    url      (string)
+    blank    (bool)   open in a new tab
+    rel      (string) optional rel value, e.g. "me"
+*/ -}}
+{{- if templates.Exists "partials/icon.html" -}}
+  {{- $title := cond .title .title .platform }}
+  {{- $rel := "noopener" -}}
+  {{- with .rel -}}{{- $rel = printf "%s %s" . $rel -}}{{- end -}}
+  <a href="{{ .url | safeURL }}"{{ if .blank }} target="_blank"{{ end }}{{ if or .blank .rel }} rel="{{ $rel }}"{{ end }} title="{{ safeHTML $title }}">
+    {{- partial "icon" (printf "brand:%s" (lower $title)) -}}
+    <span class="visually-hidden">{{ partial "func/PrepareHTML.html" $title }}</span>
+  </a>
+{{- else -}}
+  {{- partial "nav/link.html" (dict "link" . "span" true) -}}
+{{- end -}}

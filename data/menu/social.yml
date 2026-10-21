@@ -1,0 +1,16 @@
+links:
+  - title: Facebook
+    url: https://www.facebook.com/tomgue
+    blank: true
+  - title: Github
+    url: https://www.github.com/tomgue
+    blank: true
+  - title: Instagram
+    url: https://www.instagram.com/grlt.tom/
+    blank: true
+  - title: Linkedin
+    url: https://www.linkedin.com/in/tomgue
+    blank: true
+  - title: Mastodon
+    url: https://mastodon.social/@tomgue
+    blank: true
