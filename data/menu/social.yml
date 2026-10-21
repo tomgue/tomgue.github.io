@@ -14,3 +14,4 @@ links:
   - title: Mastodon
     url: https://mastodon.social/@tomgue
     blank: true
+    rel: me
