@@ -2,15 +2,19 @@ links:
   - title: Facebook
     url: https://www.facebook.com/tomgue
     blank: true
+    rel: me
   - title: Github
     url: https://www.github.com/tomgue
     blank: true
+    rel: me
   - title: Instagram
     url: https://www.instagram.com/grlt.tom/
     blank: true
+    rel: me
   - title: Linkedin
     url: https://www.linkedin.com/in/tomgue
     blank: true
+    rel: me
   - title: Mastodon
     url: https://mastodon.social/@tomgue
     blank: true

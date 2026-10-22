@@ -25,14 +25,6 @@ admin:
     text_markdown:
       minimal: false
       modes: "['rich_text', 'raw']"
-    # rel=me project (PR #25) : ajoute le champ rel (opt-in) aux listes
-    # socials des contacts via le mecanisme GetFields du module
-    # (surcharge native, pas de copie du partial fields/socials.yml).
-    socials:
-      fields:
-        - socials_platform
-        - url
-        - rel
 
   shortcodes:
     # Surcharge de la liste par défaut du module hugolify-admin (les listes ne
