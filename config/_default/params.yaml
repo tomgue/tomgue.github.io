@@ -11,7 +11,7 @@ search:
   enable: true # Set true to enable search
   layout: drawer # Also raw, modal or drawer
   filter: false # Set true to add filters by type
-  sort: true
+  sort: true # Set true to add filters by type
 
 # Admin
 admin:
@@ -25,14 +25,6 @@ admin:
     text_markdown:
       minimal: false
       modes: "['rich_text', 'raw']"
-    # rel=me project (PR #25) : ajoute le champ rel (opt-in) aux listes
-    # socials des contacts via le mecanisme GetFields du module
-    # (surcharge native, pas de copie du partial fields/socials.yml).
-    socials:
-      fields:
-        - socials_platform
-        - url
-        - rel
 
   shortcodes:
     # Surcharge de la liste par défaut du module hugolify-admin (les listes ne
