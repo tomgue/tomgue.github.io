@@ -1,0 +1,39 @@
+{{/*
+  `platform` select for the socials lists (contact socials).
+
+  Site override, companion to the rel=me kit (PR #25, merged) and to the
+  hugolify-admin fork PR tomgue/hugolify-admin#3: adds bluesky, gitlab,
+  mastodon and peertube, and fixes the twitter slug to x. Icons are
+  resolved by Simple Icons slugs in v2 ("use x, not twitter" —
+  hugolify-theme-icons DESIGN.md); a twitter slug renders without icon.
+
+  Upstream v2 currently ships: facebook, github, google, instagram,
+  linkedin, pinterest, threads, tiktok, twitch, twitter, vimeo, youtube.
+  To be removed once the upstream hugolify-admin PR is merged.
+*/}}
+{{- $options := slice "bluesky" 
+  "facebook" 
+  "github" 
+  "gitlab" 
+  "google" 
+  "instagram" 
+  "linkedin" 
+  "mastodon" 
+  "peertube" 
+  "pinterest" 
+  "threads" 
+  "tiktok" 
+  "twitch" 
+  "vimeo" 
+  "x" 
+  "youtube" }}
+{{- $options = partial "admin/func/GetOptions.html" (dict "field" . "options" $options) -}}
+
+{{- $args := dict 
+  "label" (i18n "admin.fields.socials.platform")
+  "name" "platform"
+  "required" true
+  "options" $options
+  -}}
+
+{{ partial "admin/widgets/select.js" $args }}
