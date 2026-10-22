@@ -11,7 +11,7 @@ search:
   enable: true # Set true to enable search
   layout: drawer # Also raw, modal or drawer
   filter: false # Set true to add filters by type
-  sort: true # Set true to add filters by type
+  sort: true
 
 # Admin
 admin:
