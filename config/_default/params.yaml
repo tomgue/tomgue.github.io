@@ -29,6 +29,10 @@ links:
     # Lucide icon appended after mailto: link texts — false to disable,
     # any Lucide slug works (e.g. "mail").
     icon: mail-plus
+  tel:
+    # Lucide icon appended after tel: link texts — false to disable,
+    # any Lucide slug works (e.g. "phone-call").
+    icon: phone
 
 # Admin
 admin:

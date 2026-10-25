@@ -115,7 +115,7 @@
 }
 
 @layer components {
-  /* Icône mailto (render hook link) : après le texte. Les liens externes
+  /* Icônes mailto / tel (render hook link) : après le texte. Les liens externes
      n'en reçoivent pas du hook — le design system ajoute déjà l'icône
      via a[target="_blank"]::after (css/base/link.css). */
   .link-icon {

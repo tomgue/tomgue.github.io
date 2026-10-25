@@ -136,13 +136,14 @@ Autoconverted link https://github.com/nodeca/pica (enable linkify to see)
 
 ## Link render hook
 
-External http(s) links written in Markdown open in a new tab with a translated `title`, mirroring the `blank_link` shortcode — the external-link icon is the design system's native one, added in CSS to every `target="_blank"` link; `mailto:` links get a Lucide icon — configured under `links` in `config/_default/params.yaml`.
+External http(s) links written in Markdown open in a new tab with a translated `title`, mirroring the `blank_link` shortcode — the external-link icon is the design system's native one, added in CSS to every `target="_blank"` link; `mailto:` and `tel:` links get a Lucide icon — configured under `links` in `config/_default/params.yaml`.
 
 - external link: [Hugolify](https://www.hugolify.io/)
 - external link with a Markdown title, kept as-is: [Hugolify docs](https://www.hugolify.io/docs/ 'Documentation')
 - internal link, resolved: [Markdown page](/markdown/)
 - link to a site host, unchanged: [Home](https://tomgue.github.io/)
-- `mailto:` link, unchanged: [email](mailto:hi@example.com)
+- `mailto:` link, icon only, no new tab: [email](mailto:hi@example.com)
+- `tel:` link, icon only, no new tab: [call](tel:+33123456789)
 - fragment link, resolved to this page: [Links section](#links)
 
 ## Images

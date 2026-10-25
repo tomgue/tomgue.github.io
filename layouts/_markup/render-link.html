@@ -1,14 +1,14 @@
 {{- /*
   Markdown link render hook: opens external http(s) links in a new tab with
   a translated title, mirroring the blank_link shortcode rendering, and
-  appends a Lucide icon to mailto: links.
+  appends Lucide icons to mailto: and tel: links.
 
   External links get no icon from this hook: the design system already
   appends one in CSS — a[target="_blank"]::after in css/base/link.css
   (see https://www.hugolify.io/docs/shortcodes/blank_link/) — so every
   new-tab link, shortcode or hook, is decorated the same way and no
-  double icon can appear. mailto: links have no target="_blank", so an
-  opt-in icon is emitted for them only.
+  double icon can appear. mailto: and tel: links have no target="_blank",
+  so an opt-in icon is emitted for them only.
 
   Internal destinations keep Hugo's embedded render hook resolution — page,
   then page resource, then global resource — so relative links and page
@@ -23,6 +23,9 @@
     mailto:
       icon    (string|bool)  Lucide slug appended to mailto: links
                              (e.g. "mail-plus") — default false
+    tel:
+      icon    (string|bool)  Lucide slug appended to tel: links
+                             (e.g. "phone") — default false
 
   @context
     Destination (string)         link destination
@@ -35,6 +38,7 @@
     [Some text](https://example.com)          -> external, new tab (icon: native CSS)
     [Some text](/posts/some-post/)           -> internal, unchanged
     [Some text](mailto:hi@example.com)       -> optional icon, no new tab
+    [Some text](tel:+33123456789)            -> optional icon, no new tab
     [Some text](https://example.com "Title")  -> external, author title kept
 */ -}}
 {{- /* Configuration. */ -}}
@@ -44,6 +48,8 @@
 {{- $domains := $external.domains | default slice -}}
 {{- $mailto := $links.mailto | default dict -}}
 {{- $mailtoIcon := $mailto.icon | default false -}}
+{{- $tel := $links.tel | default dict -}}
+{{- $telIcon := $tel.icon | default false -}}
 
 {{- /* Resolve the destination like Hugo's embedded link render hook. */ -}}
 {{- $u := urls.Parse .Destination -}}
@@ -78,12 +84,14 @@
   {{- $isExternal = not (in $internalHosts (lower $u.Hostname)) -}}
 {{- end -}}
 
-{{- /* Icon: mailto only — external links are already decorated by the
+{{- /* Icons: mailto and tel — external links are already decorated by the
        design system CSS (a[target="_blank"]::after); requires the icon
        partial (hugolify-theme-icons), silently skipped otherwise. */ -}}
 {{- $icon := false -}}
 {{- if eq $u.Scheme "mailto" -}}
   {{- $icon = $mailtoIcon -}}
+{{- else if eq $u.Scheme "tel" -}}
+  {{- $icon = $telIcon -}}
 {{- end -}}
 {{- if and $icon (not (templates.Exists "partials/icon.html")) -}}
   {{- $icon = false -}}
