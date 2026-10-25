@@ -54,7 +54,7 @@
 {{- $isExternal := and $enable (or (eq $u.Scheme "http") (eq $u.Scheme "https")) -}}
 {{- if $isExternal -}}
   {{- $internalHosts := slice -}}
-  {{- range $site := sites -}}
+  {{- range $site := hugo.Sites -}}
     {{- with $site.BaseURL | urls.Parse -}}
       {{- $internalHosts = union $internalHosts (slice .Hostname) -}}
     {{- end -}}
