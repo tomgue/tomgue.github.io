@@ -13,6 +13,16 @@ search:
   filter: false # Set true to add filters by type
   sort: true
 
+# Links
+links:
+  external:
+    # Markdown external http(s) links open in a new tab with a translated
+    # title, mirroring the blank_link shortcode — see
+    # layouts/_markup/render-link.html. Default: false (native output).
+    enable: true
+    # Extra hostnames treated as internal (site hosts always excluded).
+    # domains: ['www.example.com']
+
 # Admin
 admin:
   cms: sveltiacms

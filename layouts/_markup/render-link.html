@@ -1,0 +1,71 @@
+{{- /*
+  Markdown link render hook: opens external http(s) links in a new tab with
+  a translated title, mirroring the blank_link shortcode rendering.
+
+  Internal destinations keep Hugo's embedded render hook resolution — page,
+  then page resource, then global resource — so relative links and page
+  bundles keep working on multilingual single-host sites. With the feature
+  disabled, the output is identical to the embedded render hook.
+
+  @params (site.Params.links)
+    external:
+      enable  (bool)  open absolute http(s) links in a new tab — default false
+      domains (list)  hostnames to treat as internal in addition to the site
+                      hosts, e.g. ["www.example.com"]
+
+  @context
+    Destination (string)         link destination
+    Text        (template.HTML) link description
+    Title       (string)        optional link title
+    PlainText   (string)        link description as plain text
+    PageInner   (page)          page used to resolve internal destinations
+
+  @example - Markdown
+    [Some text](https://example.com)          -> external, new tab
+    [Some text](/posts/some-post/)            -> internal, unchanged
+    [Some text](mailto:hi@example.com)        -> unchanged
+    [Some text](https://example.com "Title")  -> external, author title kept
+*/ -}}
+{{- /* Configuration. */ -}}
+{{- $links := site.Params.links | default dict -}}
+{{- $external := $links.external | default dict -}}
+{{- $enable := $external.enable | default false -}}
+{{- $domains := $external.domains | default slice -}}
+
+{{- /* Resolve the destination like Hugo's embedded link render hook. */ -}}
+{{- $u := urls.Parse .Destination -}}
+{{- $href := $u.String -}}
+{{- if strings.HasPrefix $u.String "#" -}}
+  {{- $href = printf "%s#%s" .PageInner.RelPermalink $u.Fragment -}}
+{{- else if and $href (not $u.IsAbs) -}}
+  {{- $path := strings.TrimPrefix "./" $u.Path -}}
+  {{- with or ($.PageInner.GetPage $path) ($.PageInner.Resources.Get $path) (resources.Get $path) -}}
+    {{- $href = .RelPermalink -}}
+    {{- with $u.RawQuery -}}
+      {{- $href = printf "%s?%s" $href . -}}
+    {{- end -}}
+    {{- with $u.Fragment -}}
+      {{- $href = printf "%s#%s" $href . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* External detection: http(s) only, site hosts excluded. */ -}}
+{{- $isExternal := and $enable (or (eq $u.Scheme "http") (eq $u.Scheme "https")) -}}
+{{- if $isExternal -}}
+  {{- $internalHosts := slice -}}
+  {{- range $site := sites -}}
+    {{- with $site.BaseURL | urls.Parse -}}
+      {{- $internalHosts = union $internalHosts (slice .Hostname) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- with $domains -}}
+    {{- $internalHosts = union $internalHosts (apply . "lower" ".") -}}
+  {{- end -}}
+  {{- $isExternal = not (in $internalHosts (lower $u.Hostname)) -}}
+{{- end -}}
+
+{{- /* Render: an author-provided title wins; external links without one get
+       the translated external-link title of the blank_link shortcode. */ -}}
+<a href="{{ $href | safeURL }}"{{ with .Title }} title="{{ . }}"{{ else if $isExternal }} title="{{ i18n "link.blank_aria" (dict "Title" .PlainText) }}"{{ end }}{{ if $isExternal }} target="_blank" rel="noreferrer noopener"{{ end }}>{{ with .Text }}{{ . }}{{ end }}</a>
+{{- /**/ -}}
