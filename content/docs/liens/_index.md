@@ -62,6 +62,16 @@ Rendu : [Accueil](https://tomgue.github.io/)
 
 Les hosts des sites (toutes les langues) sont exclus du nouvel onglet — un lien vers votre propre domaine reste en navigation courante.
 
+### Lien externe contenant une image
+
+```markdown
+[![Dernier commit](https://img.shields.io/github/last-commit/portainer/portainer?style=flat-square&logo=github)](https://github.com/portainer/portainer)
+```
+
+Rendu : [![Dernier commit](https://img.shields.io/github/last-commit/portainer/portainer?style=flat-square&logo=github)](https://github.com/portainer/portainer)
+
+Nouvel onglet, mais pas d'icône externe : collée à une image, l'icône native se détacherait du contenu. Une règle site (`a[target="_blank"]:has(img)::after { content: none; }`, `assets/css/site.css`) la masque — elle vaut pour tout lien blank du site, shortcode ou hook (`:has()` : tous les navigateurs modernes).
+
 ### Lien mailto
 
 ```markdown
@@ -136,6 +146,7 @@ Les icônes mailto et tel s'appuient sur l'infrastructure native : `partial "ico
 | URL nue autoconvertie          | Comme un lien externe                                             |
 | Interne (page/ressource)       | Résolu, inchangé                                                  |
 | Host du site                   | Inchangé                                                          |
+| Externe avec image (badge)     | Nouvel onglet, pas d'icône (règle site `:has(img)`)        |
 | `mailto:`                      | Inchangé + icône `mail-plus` (émise par le hook)                  |
 | `tel:`                         | Inchangé + icône `phone` (émise par le hook)                      |
 | `#fragment`                    | Résolu vers la page courante                                      |
@@ -144,7 +155,7 @@ Les icônes mailto et tel s'appuient sur l'infrastructure native : `partial "ico
 
 - **`blank_link` conservé** : les liens inline n'acceptent pas d'attributs markdown — le shortcode reste le seul moyen d'ajouter un `rel` par lien (ex. `rel="me"`) ou de blanchir un lien dans du HTML brut.
 - **Résolution interne** : un hook custom remplace le hook embarqué de Hugo — celui-ci réplique sa résolution (page, ressource de page, ressource globale, fragments et query recollés), les liens relatifs des bundles continuent de fonctionner en multilingue.
-- **Icône externe native** : le design system ajoute déjà une icône à tout lien `target="_blank"` (`a[target="_blank"]::after`, `css/base/link.css` — cf. [la doc de `blank_link`](https://www.hugolify.io/docs/shortcodes/blank_link/)). Le hook n'émet donc **aucune icône pour les liens externes** (sinon double icône) ; seuls `mailto:` et `tel:`, sans `target`, reçoivent une icône du hook.
+- **Icône externe native** : le design system ajoute déjà une icône à tout lien `target="_blank"` (`a[target="_blank"]::after`, `css/base/link.css` — cf. [la doc de `blank_link`](https://www.hugolify.io/docs/shortcodes/blank_link/)). Le hook n'émet donc **aucune icône pour les liens externes** (sinon double icône) ; seuls `mailto:` et `tel:`, sans `target`, reçoivent une icône du hook. Exception : sur les liens contenant une image, une règle site (`a[target="_blank"]:has(img)::after`) masque l'icône native, qui se détacherait de l'image.
 - **Icônes mailto et tel** : le hook appelle `partial "icon"` derrière `templates.Exists` — sans hugolify-theme-icons, le rendu reste correct (pas d'icône). La taille s'ajuste via `--icon-size` (règle `.link-icon` dans `assets/css/site.css`).
 - **Périmètre** : uniquement le markdown de contenu — TOC, footnotes, liens HTML et partials du thème ne passent pas par le hook.
 - **Édition** : les liens markdown restent des liens normaux dans l'éditeur riche Sveltia — rien à configurer côté CMS.

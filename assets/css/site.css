@@ -126,4 +126,11 @@
       --icon-size: 0.9em;
     }
   }
+
+  /* Liens « nouvel onglet » contenant une image (badges, logos) : pas
+     d'icône externe native. Le design system colle l'icône à tout
+     a[target="_blank"] (::after), où elle se détacherait de l'image. */
+  a[target="_blank"]:has(img)::after {
+    content: none;
+  }
 }
