@@ -2,11 +2,11 @@
 isIndex: false
 draft: false
 title: "Liens (render hook)"
-description: "Page de démo du render hook link : liens externes du markdown en nouvel onglet avec title traduit et icône Lucide, icône sur les liens mailto, liens internes et résolution Hugo conservés."
+description: "Page de démo du render hook link : liens externes du markdown en nouvel onglet avec title traduit et icône native du design system, icône Lucide sur les liens mailto, liens internes et résolution Hugo conservés."
 icon: link
 ---
 
-Cette page illustre le render hook `layouts/_markup/render-link.html` : les **liens externes http(s) écrits en markdown** s'ouvrent dans un nouvel onglet avec un `title` traduit et une **icône Lucide**, et les liens `mailto:` reçoivent une icône — le même rendu que le shortcode `blank_link`, sans écrire de shortcode.
+Cette page illustre le render hook `layouts/_markup/render-link.html` : les **liens externes http(s) écrits en markdown** s'ouvrent dans un nouvel onglet avec un `title` traduit — le même rendu que le shortcode `blank_link`, sans écrire de shortcode — et les liens `mailto:` reçoivent une icône Lucide `mail-plus`.
 
 La fonctionnalité est activée sous `links` dans `config/_default/params.yaml`.
 
@@ -20,7 +20,7 @@ Voir [Hugolify](https://www.hugolify.io/)
 
 Rendu : Voir [Hugolify](https://www.hugolify.io/)
 
-Nouvel onglet (`target="_blank" rel="noreferrer noopener"`), `title` « Hugolify » - lien externe (clé i18n `link.blank_aria` du thème), icône Lucide `external-link`.
+Nouvel onglet (`target="_blank" rel="noreferrer noopener"`), `title` « Hugolify » - lien externe (clé i18n `link.blank_aria` du thème). L'icône affichée après le texte est **native** : le design system l'ajoute en CSS (`a[target="_blank"]::after`) sur tout lien ouvrant un nouvel onglet — shortcode, navigation ou hook.
 
 ### Lien externe avec un title markdown
 
@@ -30,7 +30,7 @@ Nouvel onglet (`target="_blank" rel="noreferrer noopener"`), `title` « Hugolify
 
 Rendu : [Hugolify docs](https://www.hugolify.io/docs/ "Documentation")
 
-Le title écrit par l'auteur est **respecté** — il n'est remplacé que s'il est absent. Icône et nouvel onglet s'appliquent quand même.
+Le title écrit par l'auteur est **respecté** — il n'est remplacé que s'il est absent. Le nouvel onglet (et son icône native) s'appliquent quand même.
 
 ### URL nue autoconvertie
 
@@ -70,7 +70,7 @@ Les hosts des sites (toutes les langues) sont exclus du nouvel onglet — un lie
 
 Rendu : [Écrire](mailto:hi@example.com)
 
-Pas de nouvel onglet (seuls `http`/`https` sont traités), mais une icône Lucide `mail-plus` est ajoutée après le texte.
+Pas de nouvel onglet (seuls `http`/`https` sont traités) ni d'icône CSS native (pas de `target="_blank"`) : c'est le hook qui ajoute l'icône Lucide `mail-plus` après le texte.
 
 ### Lien tel
 
@@ -95,8 +95,9 @@ Le fragment est recollé au `RelPermalink` de la page courante (comportement du 
 ## HTML rendu
 
 ```html
-<!-- externe : title traduit + nouvel onglet + icône -->
-<a href="https://www.hugolify.io/" title="« Hugolify » - lien externe" target="_blank" rel="noreferrer noopener">Hugolify <span class="link-icon"><i class="icon icon-external-link" aria-hidden="true"></i></span></a>
+<!-- externe : title traduit + nouvel onglet ; l'icône vient du design
+     system (a[target="_blank"]::after), pas du hook -->
+<a href="https://www.hugolify.io/" title="« Hugolify » - lien externe" target="_blank" rel="noreferrer noopener">Hugolify</a>
 
 <!-- mailto : icône seule, pas de nouvel onglet -->
 <a href="mailto:hi@example.com">Écrire <span class="link-icon"><i class="icon icon-mail-plus" aria-hidden="true"></i></span></a>
@@ -112,24 +113,25 @@ Le fragment est recollé au `RelPermalink` de la page courante (comportement du 
 links:
   external:
     enable: true # défaut du thème : false (sortie native inchangée)
-    icon: external-link # slug Lucide, false pour désactiver
     # domains: ['www.example.com'] # hosts internes additionnels
   mailto:
     icon: mail-plus # slug Lucide, false pour désactiver
 ```
 
-Les icônes s'appuient sur l'infrastructure native : `partial "icon"` (module hugolify-theme-icons) rend `<i class="icon icon-…">` et la feuille différée `assets/css/icons.css` n'embarque que les icônes réellement utilisées — **tout slug Lucide fonctionne** (`square-arrow-out-up-right`, `mail`, etc.).
+Pas de clé d'icône pour les liens externes : elle serait redondante — le design system décore déjà tout `a[target="_blank"]` (même icône pour `blank_link`, la navigation et le hook, aucune double icône possible).
+
+L'icône mailto s'appuie sur l'infrastructure native : `partial "icon"` (module hugolify-theme-icons) rend `<i class="icon icon-…">` et la feuille différée `assets/css/icons.css` n'embarque que les icônes réellement utilisées — **tout slug Lucide fonctionne** (`mail`, etc.).
 
 ## Récapitulatif
 
 | Cas                            | Résultat                                                          |
 | ------------------------------ | ----------------------------------------------------------------- |
-| `http(s)` externe              | Nouvel onglet + `rel="noreferrer noopener"` + title traduit + icône `external-link` |
+| `http(s)` externe              | Nouvel onglet + `rel="noreferrer noopener"` + title traduit + icône native (CSS) |
 | `http(s)` avec title markdown  | Title de l'auteur conservé (onglet et icône identiques)           |
 | URL nue autoconvertie          | Comme un lien externe                                             |
 | Interne (page/ressource)       | Résolu, inchangé                                                  |
 | Host du site                   | Inchangé                                                          |
-| `mailto:`                      | Inchangé + icône `mail-plus`                                       |
+| `mailto:`                      | Inchangé + icône `mail-plus` (émise par le hook)                  |
 | `tel:`                         | Inchangé                                                          |
 | `#fragment`                    | Résolu vers la page courante                                      |
 
@@ -137,6 +139,7 @@ Les icônes s'appuient sur l'infrastructure native : `partial "icon"` (module hu
 
 - **`blank_link` conservé** : les liens inline n'acceptent pas d'attributs markdown — le shortcode reste le seul moyen d'ajouter un `rel` par lien (ex. `rel="me"`) ou de blanchir un lien dans du HTML brut.
 - **Résolution interne** : un hook custom remplace le hook embarqué de Hugo — celui-ci réplique sa résolution (page, ressource de page, ressource globale, fragments et query recollés), les liens relatifs des bundles continuent de fonctionner en multilingue.
-- **Icônes** : le hook appelle `partial "icon"` derrière `templates.Exists` — sans hugolify-theme-icons, le rendu reste correct (pas d'icône). La taille s'ajuste via `--icon-size` (règle `.link-icon` dans `assets/css/site.css`).
+- **Icône externe native** : le design system ajoute déjà une icône à tout lien `target="_blank"` (`a[target="_blank"]::after`, `css/base/link.css` — cf. [la doc de `blank_link`](https://www.hugolify.io/docs/shortcodes/blank_link/)). Le hook n'émet donc **aucune icône pour les liens externes** (sinon double icône) ; seul `mailto:`, sans `target`, reçoit une icône du hook.
+- **Icône mailto** : le hook appelle `partial "icon"` derrière `templates.Exists` — sans hugolify-theme-icons, le rendu reste correct (pas d'icône). La taille s'ajuste via `--icon-size` (règle `.link-icon` dans `assets/css/site.css`).
 - **Périmètre** : uniquement le markdown de contenu — TOC, footnotes, liens HTML et partials du thème ne passent pas par le hook.
 - **Édition** : les liens markdown restent des liens normaux dans l'éditeur riche Sveltia — rien à configurer côté CMS.

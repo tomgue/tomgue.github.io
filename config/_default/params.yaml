@@ -19,14 +19,15 @@ links:
     # Markdown external http(s) links open in a new tab with a translated
     # title, mirroring the blank_link shortcode — see
     # layouts/_markup/render-link.html. Default: false (native output).
+    # External-link icon: native — the design system adds one to every
+    # a[target="_blank"] in CSS, like the blank_link shortcode. Nothing
+    # to configure here (and no double icon).
     enable: true
-    # Lucide icon appended after the link text — false to disable,
-    # any Lucide slug works (e.g. square-arrow-out-up-right).
-    icon: external-link
     # Extra hostnames treated as internal (site hosts always excluded).
     # domains: ['www.example.com']
   mailto:
-    # Lucide icon appended after mailto: link texts — false to disable.
+    # Lucide icon appended after mailto: link texts — false to disable,
+    # any Lucide slug works (e.g. "mail").
     icon: mail-plus
 
 # Admin

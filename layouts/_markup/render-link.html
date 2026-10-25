@@ -1,7 +1,14 @@
 {{- /*
   Markdown link render hook: opens external http(s) links in a new tab with
-  a translated title and a Lucide icon, and appends a Lucide icon to
-  mailto: links — mirroring the blank_link shortcode rendering.
+  a translated title, mirroring the blank_link shortcode rendering, and
+  appends a Lucide icon to mailto: links.
+
+  External links get no icon from this hook: the design system already
+  appends one in CSS — a[target="_blank"]::after in css/base/link.css
+  (see https://www.hugolify.io/docs/shortcodes/blank_link/) — so every
+  new-tab link, shortcode or hook, is decorated the same way and no
+  double icon can appear. mailto: links have no target="_blank", so an
+  opt-in icon is emitted for them only.
 
   Internal destinations keep Hugo's embedded render hook resolution — page,
   then page resource, then global resource — so relative links and page
@@ -11,8 +18,6 @@
   @params (site.Params.links)
     external:
       enable  (bool)         open absolute http(s) links in a new tab — default false
-      icon    (string|bool)  Lucide slug appended after the link text
-                             (e.g. "external-link") — default false
       domains (list)         hostnames to treat as internal in addition to
                              the site hosts, e.g. ["www.example.com"]
     mailto:
@@ -27,9 +32,9 @@
     PageInner   (page)          page used to resolve internal destinations
 
   @example - Markdown
-    [Some text](https://example.com)          -> external, new tab + icon
-    [Some text](/posts/some-post/)            -> internal, unchanged
-    [Some text](mailto:hi@example.com)        -> icon only, no new tab
+    [Some text](https://example.com)          -> external, new tab (icon: native CSS)
+    [Some text](/posts/some-post/)           -> internal, unchanged
+    [Some text](mailto:hi@example.com)       -> optional icon, no new tab
     [Some text](https://example.com "Title")  -> external, author title kept
 */ -}}
 {{- /* Configuration. */ -}}
@@ -37,7 +42,6 @@
 {{- $external := $links.external | default dict -}}
 {{- $enable := $external.enable | default false -}}
 {{- $domains := $external.domains | default slice -}}
-{{- $externalIcon := $external.icon | default false -}}
 {{- $mailto := $links.mailto | default dict -}}
 {{- $mailtoIcon := $mailto.icon | default false -}}
 
@@ -74,12 +78,11 @@
   {{- $isExternal = not (in $internalHosts (lower $u.Hostname)) -}}
 {{- end -}}
 
-{{- /* Icons: one slug per family, appended after the link text; requires the
-       icon partial (hugolify-theme-icons), silently skipped otherwise. */ -}}
+{{- /* Icon: mailto only — external links are already decorated by the
+       design system CSS (a[target="_blank"]::after); requires the icon
+       partial (hugolify-theme-icons), silently skipped otherwise. */ -}}
 {{- $icon := false -}}
-{{- if $isExternal -}}
-  {{- $icon = $externalIcon -}}
-{{- else if eq $u.Scheme "mailto" -}}
+{{- if eq $u.Scheme "mailto" -}}
   {{- $icon = $mailtoIcon -}}
 {{- end -}}
 {{- if and $icon (not (templates.Exists "partials/icon.html")) -}}
