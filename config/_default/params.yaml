@@ -20,8 +20,14 @@ links:
     # title, mirroring the blank_link shortcode — see
     # layouts/_markup/render-link.html. Default: false (native output).
     enable: true
+    # Lucide icon appended after the link text — false to disable,
+    # any Lucide slug works (e.g. square-arrow-out-up-right).
+    icon: external-link
     # Extra hostnames treated as internal (site hosts always excluded).
     # domains: ['www.example.com']
+  mailto:
+    # Lucide icon appended after mailto: link texts — false to disable.
+    icon: mail-plus
 
 # Admin
 admin:

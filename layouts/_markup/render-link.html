@@ -1,6 +1,7 @@
 {{- /*
   Markdown link render hook: opens external http(s) links in a new tab with
-  a translated title, mirroring the blank_link shortcode rendering.
+  a translated title and a Lucide icon, and appends a Lucide icon to
+  mailto: links — mirroring the blank_link shortcode rendering.
 
   Internal destinations keep Hugo's embedded render hook resolution — page,
   then page resource, then global resource — so relative links and page
@@ -9,9 +10,14 @@
 
   @params (site.Params.links)
     external:
-      enable  (bool)  open absolute http(s) links in a new tab — default false
-      domains (list)  hostnames to treat as internal in addition to the site
-                      hosts, e.g. ["www.example.com"]
+      enable  (bool)         open absolute http(s) links in a new tab — default false
+      icon    (string|bool)  Lucide slug appended after the link text
+                             (e.g. "external-link") — default false
+      domains (list)         hostnames to treat as internal in addition to
+                             the site hosts, e.g. ["www.example.com"]
+    mailto:
+      icon    (string|bool)  Lucide slug appended to mailto: links
+                             (e.g. "mail-plus") — default false
 
   @context
     Destination (string)         link destination
@@ -21,9 +27,9 @@
     PageInner   (page)          page used to resolve internal destinations
 
   @example - Markdown
-    [Some text](https://example.com)          -> external, new tab
+    [Some text](https://example.com)          -> external, new tab + icon
     [Some text](/posts/some-post/)            -> internal, unchanged
-    [Some text](mailto:hi@example.com)        -> unchanged
+    [Some text](mailto:hi@example.com)        -> icon only, no new tab
     [Some text](https://example.com "Title")  -> external, author title kept
 */ -}}
 {{- /* Configuration. */ -}}
@@ -31,6 +37,9 @@
 {{- $external := $links.external | default dict -}}
 {{- $enable := $external.enable | default false -}}
 {{- $domains := $external.domains | default slice -}}
+{{- $externalIcon := $external.icon | default false -}}
+{{- $mailto := $links.mailto | default dict -}}
+{{- $mailtoIcon := $mailto.icon | default false -}}
 
 {{- /* Resolve the destination like Hugo's embedded link render hook. */ -}}
 {{- $u := urls.Parse .Destination -}}
@@ -65,11 +74,23 @@
   {{- $isExternal = not (in $internalHosts (lower $u.Hostname)) -}}
 {{- end -}}
 
+{{- /* Icons: one slug per family, appended after the link text; requires the
+       icon partial (hugolify-theme-icons), silently skipped otherwise. */ -}}
+{{- $icon := false -}}
+{{- if $isExternal -}}
+  {{- $icon = $externalIcon -}}
+{{- else if eq $u.Scheme "mailto" -}}
+  {{- $icon = $mailtoIcon -}}
+{{- end -}}
+{{- if and $icon (not (templates.Exists "partials/icon.html")) -}}
+  {{- $icon = false -}}
+{{- end -}}
+
 {{- /* An author-provided title wins; external links without one get the
        translated external-link title of the blank_link shortcode. */ -}}
 {{- $title := .Title -}}
 {{- if and $isExternal (not $title) -}}
   {{- $title = i18n "link.blank_aria" (dict "Title" .PlainText) -}}
 {{- end -}}
-<a href="{{ $href | safeURL }}"{{ with $title }} title="{{ . }}"{{ end }}{{ if $isExternal }} target="_blank" rel="noreferrer noopener"{{ end }}>{{ with .Text }}{{ . }}{{ end }}</a>
+<a href="{{ $href | safeURL }}"{{ with $title }} title="{{ . }}"{{ end }}{{ if $isExternal }} target="_blank" rel="noreferrer noopener"{{ end }}>{{ with .Text }}{{ . }}{{ end }}{{ with $icon }} <span class="link-icon">{{ partial "icon" . }}</span>{{ end }}</a>
 {{- /**/ -}}

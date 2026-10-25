@@ -136,7 +136,7 @@ Autoconverted link https://github.com/nodeca/pica (enable linkify to see)
 
 ## Link render hook
 
-External http(s) links written in Markdown open in a new tab with a translated `title`, mirroring the `blank_link` shortcode — configured under `links.external` in `config/_default/params.yaml`.
+External http(s) links written in Markdown open in a new tab with a translated `title` and a Lucide icon, mirroring the `blank_link` shortcode; `mailto:` links get an icon too — configured under `links` in `config/_default/params.yaml`.
 
 - external link: [Hugolify](https://www.hugolify.io/)
 - external link with a Markdown title, kept as-is: [Hugolify docs](https://www.hugolify.io/docs/ 'Documentation')

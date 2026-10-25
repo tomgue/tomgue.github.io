@@ -113,3 +113,15 @@
     }
   }
 }
+
+@layer components {
+  /* Icône de lien externe / mailto (render hook link) : après le texte. */
+  .link-icon {
+    margin-inline-start: 0.25em;
+
+    .icon {
+      /* Légèrement plus petite que le texte du lien, comme anchor-heading-icon. */
+      --icon-size: 0.9em;
+    }
+  }
+}
