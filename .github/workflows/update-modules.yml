@@ -1,7 +1,8 @@
 name: Update Hugolify modules
 
-# Manually triggered: bumps all Hugo modules to their latest versions,
-# refreshes npm deps (hugo mod npm pack + yarn), then opens a PR to main.
+# Manually triggered: bumps every hugolify module to its latest release
+# tag (never upstream HEAD), refreshes npm deps (hugo mod npm pack),
+# then opens a PR to main.
 # No deploy preview on this repo: test locally (hugo server -D) before
 # merge. Merging to main triggers the Deploy Hugolify workflow, i.e.
 # production (tomgue.github.io) goes live immediately.
@@ -10,8 +11,11 @@ name: Update Hugolify modules
 # diff, changed files) so the review shows exactly what was bumped
 # directly in the PR description, without leaving the page.
 #
-# Uses the repo's own yarn scripts (package.json) so local and CI stay
-# identical: yarn update = hugo mod get -u + hugo mod npm pack.
+# Rationale (decided 27/10): hugo mod get -u resolves upstream HEAD
+# commits, which are not fetchable when pushed < ~24h earlier — three
+# failed runs in one day. Release tags are fetchable almost immediately
+# and are what the site actually consumes. The local script
+# (yarn update in package.json) stays available for manual HEAD bumps.
 # Versions (Hugo, Node) are read from .github/workflows/deploy.yml (env),
 # the single source of truth shared with the GitHub Pages deploy.
 
@@ -46,25 +50,31 @@ jobs:
           hugo-version: ${{ steps.versions.outputs.hugo }}
           extended: true
 
-      - name: Update Hugo modules (yarn update = hugo mod get -u + npm pack)
+      - name: Update Hugo modules to their latest releases (tags only, no -u)
         id: update
+        # Bump every hugolify module found in go.mod to its latest git tag.
+        # hugo mod get -u would resolve upstream HEAD commits, which are not
+        # fetchable when pushed < ~24h earlier (runs #3-#5, 27/10).
+        # Icons flow through hugolify-theme-icons and keep static known-good
+        # pins (bump manually when needed).
         run: |
           set -o pipefail
-          yarn update 2>&1 | tee "${RUNNER_TEMP}/update.log"
-
-      - name: Pin modules to their latest releases (avoid unfetchable fresh pseudo-versions)
-        # hugo mod get -u resolves some modules to the upstream HEAD commit
-        # pushed minutes or hours earlier; those raw pseudo-versions are not
-        # fetchable yet (runs #3/#4, 27/10: lucide, then hugolify-theme).
-        # For release-tagged repos (theme, admin), follow the latest git tag
-        # instead of HEAD. Icons flow through hugolify-theme-icons and keep
-        # static known-good pins (bump manually when needed).
-        run: |
+          : > "${RUNNER_TEMP}/update.log"
           latest_tag() { git ls-remote --tags --refs --sort=-v:refname "https://github.com/$1.git" | head -1 | grep -oP 'refs/tags/\K.*'; }
-          hugo mod get "github.com/hugolify/hugolify-theme/v2@$(latest_tag Hugolify/hugolify-theme)"
-          hugo mod get "github.com/hugolify/hugolify-admin/v2@$(latest_tag Hugolify/hugolify-admin)"
-          hugo mod get github.com/lucide-icons/lucide@v0.265.1-0.20261016133129-1ef60af944de
-          hugo mod get github.com/simple-icons/simple-icons@v0.0.0-20260607021030-c3777a7e48a5
+          for mod in $(grep -oP 'github\.com/hugolify/[\w-]+(/v2)?(?= )' go.mod | sort -u); do
+            repo="${mod#github.com/}"
+            repo="${repo%/v2}"
+            tag=$(latest_tag "$repo")
+            if [ -n "$tag" ]; then
+              echo "→ ${mod}@${tag}" | tee -a "${RUNNER_TEMP}/update.log"
+              hugo mod get "${mod}@${tag}" 2>&1 | tee -a "${RUNNER_TEMP}/update.log"
+            else
+              echo "no tag found for $repo, skipped" | tee -a "${RUNNER_TEMP}/update.log"
+            fi
+          done
+          hugo mod get github.com/lucide-icons/lucide@v0.265.1-0.20261016133129-1ef60af944de 2>&1 | tee -a "${RUNNER_TEMP}/update.log"
+          hugo mod get github.com/simple-icons/simple-icons@v0.0.0-20260607021030-c3777a7e48a5 2>&1 | tee -a "${RUNNER_TEMP}/update.log"
+          hugo mod npm pack 2>&1 | tee -a "${RUNNER_TEMP}/update.log"
 
       - name: Tidy modules
         run: yarn tidy
@@ -100,12 +110,12 @@ jobs:
           branch: chore/update-hugolify-modules
           delete-branch: true
           title: 'chore: update Hugolify modules'
-          commit-message: 'chore: update Hugolify modules (yarn update, tidy, install)'
+          commit-message: 'chore: update Hugolify modules (latest release tags, tidy, install)'
           body: |
-            Mise à jour des modules Hugolify via les scripts du dépôt : `yarn update` (hugo mod get -u + hugo mod npm pack), `yarn tidy`, `yarn install`.
+            Mise à jour des modules Hugolify vers leur dernière release : bump de chaque module hugolify vers son dernier tag git, pins statiques des libs d'icônes, puis `hugo mod npm pack`, `yarn tidy`, `yarn install`.
 
             <details>
-            <summary>Journal <code>hugo mod get -u</code></summary>
+            <summary>Journal de mise à jour (bumps par tag)</summary>
 
             ```text
             ${{ steps.details.outputs.log }}
