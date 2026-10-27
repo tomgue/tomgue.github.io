@@ -85,8 +85,12 @@ jobs:
       - name: Install npm dependencies
         run: yarn install
 
+      # hugo mod download does not exist (hugo mod subcommands: clean|get|graph|
+      # init|npm|tidy|vendor|verify) — the step crashed with exit 1 on every
+      # run (#3-#5, #7), whatever the module state. go mod download all fetches
+      # the full build list via the module proxy: the real fetchability test.
       - name: Verify modules download (fail early, before creating the PR)
-        run: hugo mod download
+        run: go mod download all
 
       - name: Collect update details for the PR body
         id: details
