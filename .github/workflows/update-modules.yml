@@ -52,12 +52,17 @@ jobs:
           set -o pipefail
           yarn update 2>&1 | tee "${RUNNER_TEMP}/update.log"
 
-      - name: Pin icon libraries (avoid raw-commit pseudo-versions)
-        # hugo mod get -u bumps lucide/simple-icons to the upstream HEAD commit;
-        # those fresh pseudo-versions are not fetchable yet (run #3, 27/10).
-        # Icons flow through hugolify-theme-icons; pin them to the last
-        # known-good versions instead. Bump these pins manually when needed.
+      - name: Pin modules to their latest releases (avoid unfetchable fresh pseudo-versions)
+        # hugo mod get -u resolves some modules to the upstream HEAD commit
+        # pushed minutes or hours earlier; those raw pseudo-versions are not
+        # fetchable yet (runs #3/#4, 27/10: lucide, then hugolify-theme).
+        # For release-tagged repos (theme, admin), follow the latest git tag
+        # instead of HEAD. Icons flow through hugolify-theme-icons and keep
+        # static known-good pins (bump manually when needed).
         run: |
+          latest_tag() { git ls-remote --tags --refs --sort=-v:refname "https://github.com/$1.git" | head -1 | grep -oP 'refs/tags/\K.*'; }
+          hugo mod get "github.com/hugolify/hugolify-theme/v2@$(latest_tag Hugolify/hugolify-theme)"
+          hugo mod get "github.com/hugolify/hugolify-admin/v2@$(latest_tag Hugolify/hugolify-admin)"
           hugo mod get github.com/lucide-icons/lucide@v0.265.1-0.20261016133129-1ef60af944de
           hugo mod get github.com/simple-icons/simple-icons@v0.0.0-20260607021030-c3777a7e48a5
 
