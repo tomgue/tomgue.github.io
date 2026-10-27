@@ -52,6 +52,15 @@ jobs:
           set -o pipefail
           yarn update 2>&1 | tee "${RUNNER_TEMP}/update.log"
 
+      - name: Pin icon libraries (avoid raw-commit pseudo-versions)
+        # hugo mod get -u bumps lucide/simple-icons to the upstream HEAD commit;
+        # those fresh pseudo-versions are not fetchable yet (run #3, 27/10).
+        # Icons flow through hugolify-theme-icons; pin them to the last
+        # known-good versions instead. Bump these pins manually when needed.
+        run: |
+          hugo mod get github.com/lucide-icons/lucide@v0.265.1-0.20261016133129-1ef60af944de
+          hugo mod get github.com/simple-icons/simple-icons@v0.0.0-20260607021030-c3777a7e48a5
+
       - name: Tidy modules
         run: yarn tidy
 
