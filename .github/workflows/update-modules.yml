@@ -1,0 +1,127 @@
+name: Update Hugolify modules
+
+# Manually triggered: bumps all Hugo modules to their latest versions,
+# refreshes npm deps (hugo mod npm pack + yarn), then opens a PR to main.
+# No deploy preview on this repo: test locally (hugo server -D) before
+# merge. Merging to main triggers the Deploy Hugolify workflow, i.e.
+# production (tomgue.github.io) goes live immediately.
+#
+# The created PR embeds the update details (hugo mod get log, go.mod
+# diff, changed files) so the review shows exactly what was bumped
+# directly in the PR description, without leaving the page.
+#
+# Uses the repo's own yarn scripts (package.json) so local and CI stay
+# identical: yarn update = hugo mod get -u + hugo mod npm pack.
+# Versions (Hugo, Node) are read from .github/workflows/deploy.yml (env),
+# the single source of truth shared with the GitHub Pages deploy.
+
+permissions:
+  contents: write
+  pull-requests: write
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v7
+
+      - name: Read versions from deploy.yml (single source of truth)
+        id: versions
+        run: |
+          echo "hugo=$(grep -oP '^\s*HUGO_VERSION: \K.*' .github/workflows/deploy.yml)" >> "$GITHUB_OUTPUT"
+          echo "node=$(grep -oP '^\s*NODE_VERSION: \K.*' .github/workflows/deploy.yml)" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ steps.versions.outputs.node }}
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: ${{ steps.versions.outputs.hugo }}
+          extended: true
+
+      - name: Update Hugo modules (yarn update = hugo mod get -u + npm pack)
+        id: update
+        run: |
+          set -o pipefail
+          yarn update 2>&1 | tee "${RUNNER_TEMP}/update.log"
+
+      - name: Tidy modules
+        run: yarn tidy
+
+      - name: Install npm dependencies
+        run: yarn install
+
+      - name: Collect update details for the PR body
+        id: details
+        run: |
+          {
+            echo "log<<EOF"
+            cat "${RUNNER_TEMP}/update.log" || true
+            echo "EOF"
+            echo "gomod<<EOF"
+            git diff -- go.mod
+            echo "EOF"
+            echo "stat<<EOF"
+            git diff --stat
+            echo "EOF"
+            echo "files<<EOF"
+            git status --porcelain
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create PR to main
+        uses: peter-evans/create-pull-request@v7
+        with:
+          base: main
+          branch: chore/update-hugolify-modules
+          delete-branch: true
+          title: 'chore: update Hugolify modules'
+          commit-message: 'chore: update Hugolify modules (yarn update, tidy, install)'
+          body: |
+            Mise à jour des modules Hugolify via les scripts du dépôt : `yarn update` (hugo mod get -u + hugo mod npm pack), `yarn tidy`, `yarn install`.
+
+            <details>
+            <summary>Journal <code>hugo mod get -u</code></summary>
+
+            ```text
+            ${{ steps.details.outputs.log }}
+            ```
+
+            </details>
+
+            <details>
+            <summary>Diff <code>go.mod</code></summary>
+
+            ```diff
+            ${{ steps.details.outputs.gomod }}
+            ```
+
+            </details>
+
+            <details>
+            <summary>Vue d'ensemble des changements</summary>
+
+            ```text
+            ${{ steps.details.outputs.stat }}
+            ```
+
+            </details>
+
+            <details>
+            <summary>Fichiers modifiés</summary>
+
+            ```text
+            ${{ steps.details.outputs.files }}
+            ```
+
+            </details>
+
+            - Pas de preview par PR sur ce dépôt : tester en local (`hugo server -D`) avant merge.
+            - Le merge vers main déclenche « Deploy Hugolify » → mise en production immédiate de tomgue.github.io.
