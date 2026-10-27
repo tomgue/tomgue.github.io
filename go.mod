@@ -30,7 +30,7 @@ require (
 	github.com/hugolify/hugolify-theme-realestates-persons/v2 v2.3.0 // indirect
 	github.com/hugolify/hugolify-theme-realestates/v2 v2.5.0 // indirect
 	github.com/hugolify/hugolify-theme/v2 v2.54.0 // indirect
-	github.com/lucide-icons/lucide v0.265.1-0.20261026171016-03f11e2d6adc // indirect
+	github.com/lucide-icons/lucide v0.265.1-0.20261016133129-1ef60af944de // indirect
 	github.com/midzer/tobii v3.2.0+incompatible // indirect
 	github.com/orestbida/cookieconsent v3.1.0+incompatible // indirect
 	github.com/simple-icons/simple-icons v0.0.0-20260607021030-c3777a7e48a5 // indirect
