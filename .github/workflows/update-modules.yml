@@ -60,7 +60,10 @@ jobs:
         run: |
           set -o pipefail
           : > "${RUNNER_TEMP}/update.log"
-          latest_tag() { git ls-remote --tags --refs --sort=-v:refname "https://github.com/$1.git" | head -1 | grep -oP 'refs/tags/\K.*'; }
+          # head -1 closes the pipe after the first line: git gets SIGPIPE -> exit 141
+          # under the default -eo pipefail shell (run #6, 27/10). sed reads all of
+          # ls-remote's output before printing only the first line — no early exit.
+          latest_tag() { git ls-remote --tags --refs --sort=-v:refname "https://github.com/$1.git" | sed -n '1s#.*refs/tags/##p'; }
           for mod in $(grep -oP 'github\.com/hugolify/[\w-]+(/v2)?(?= )' go.mod | sort -u); do
             repo="${mod#github.com/}"
             repo="${repo%/v2}"
