@@ -58,6 +58,9 @@ jobs:
       - name: Install npm dependencies
         run: yarn install
 
+      - name: Verify modules download (fail early, before creating the PR)
+        run: hugo mod download
+
       - name: Collect update details for the PR body
         id: details
         run: |
