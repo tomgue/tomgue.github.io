@@ -6,8 +6,8 @@ github.com/hugolify/hugolify-admin/v2 v2.0.0-40 h1:2Lnr9BfGw4XndV1f2XhjvagiJXWoC
 github.com/hugolify/hugolify-admin/v2 v2.0.0-40/go.mod h1:lPDkZn5SuJ2zB96xU/kKH3gNWOovqgxutjgnBOin48M=
 github.com/hugolify/hugolify-theme-awards/v2 v2.0.0-20261013101942-50991e9200d0 h1:PKu+/eEu4iQqwxKwzMm4NuVoqN9/YO4lvC0PHMQlj+Q=
 github.com/hugolify/hugolify-theme-awards/v2 v2.0.0-20261013101942-50991e9200d0/go.mod h1:mOaCpWj77xBVwyu3C7ftCyEGgEQXjPYtd9Y4VPYQuaQ=
-github.com/hugolify/hugolify-theme-design-system v0.0.0-20261024150101-ed42181ace2e h1:UjIY8gggFw2XD0I+wTTdBWjR49pkdduORjWbXIw2u40=
-github.com/hugolify/hugolify-theme-design-system v0.0.0-20261024150101-ed42181ace2e/go.mod h1:pmx1M5Ej9OhNx59jVsqRWhWHSv0JVx6U9txsqTWauTQ=
+github.com/hugolify/hugolify-theme-design-system v0.0.0-20261028110111-84fdd110d293 h1:DVSlXsztpIbd3MEL6g/zJe9cGHqz0f6dv/KLNa8zj6A=
+github.com/hugolify/hugolify-theme-design-system v0.0.0-20261028110111-84fdd110d293/go.mod h1:pmx1M5Ej9OhNx59jVsqRWhWHSv0JVx6U9txsqTWauTQ=
 github.com/hugolify/hugolify-theme-docs/v2 v2.0.0-20261009094139-a5b427476ff4 h1:C+i1AcinZN0AWS5R3eFeug9/foG8p74QEmPjsOb4imc=
 github.com/hugolify/hugolify-theme-docs/v2 v2.0.0-20261009094139-a5b427476ff4/go.mod h1:L+idmDTe/Y+zi2lxe7BakjDgywPvNJ5NISKvEb/DwrU=
 github.com/hugolify/hugolify-theme-expertises/v2 v2.5.0 h1:lquDuU9IqJdAS2FIFGBut8ltze4EozxHxIUHCkq2fmY=
@@ -50,8 +50,8 @@ github.com/hugolify/hugolify-theme-realestates-persons/v2 v2.3.0 h1:tzCTQ+mfg/zi
 github.com/hugolify/hugolify-theme-realestates-persons/v2 v2.3.0/go.mod h1:9Ml1E8lYpC0Fz7NJyq2cvEONACm9yh+8PlrAz3JUqB0=
 github.com/hugolify/hugolify-theme-realestates/v2 v2.5.0 h1:4ZawKE3rFw5e1h96dPu1UJeRDs158chrhqwazVzmiAk=
 github.com/hugolify/hugolify-theme-realestates/v2 v2.5.0/go.mod h1:sPw8JpOaARr+0BW4Q5QikDNV9iX+NK8y3y3M8l9MyE4=
-github.com/hugolify/hugolify-theme/v2 v2.55.0 h1:ahabaJmZwsL4T1NoCWCO6iVj9IoeF+Po21EHqscVuhQ=
-github.com/hugolify/hugolify-theme/v2 v2.55.0/go.mod h1:49bO1E1dltejQfsaP5EYB4dv7oOUDhyWWio9OWK9FAw=
+github.com/hugolify/hugolify-theme/v2 v2.55.1 h1:4rAW6n84BEHrqtaLknZbmGZDqXotEIlqmmGGXzDe1ic=
+github.com/hugolify/hugolify-theme/v2 v2.55.1/go.mod h1:49bO1E1dltejQfsaP5EYB4dv7oOUDhyWWio9OWK9FAw=
 github.com/lucide-icons/lucide v0.265.1-0.20261016133129-1ef60af944de h1:nyosJh/N7uiPVDb5vRnp9DBExuzY5jGTVysVc49sZ5M=
 github.com/lucide-icons/lucide v0.265.1-0.20261016133129-1ef60af944de/go.mod h1:0HX/9u6n25zuV2HgBIuqfMfDktGNXmsvYqL1cOK4aWc=
 github.com/midzer/tobii v3.2.0+incompatible h1:+08xCdrQ8dlXrkBIOJFsIUsfgme4Ou1CUfbqDmeX/Hc=

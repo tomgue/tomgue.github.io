@@ -7,7 +7,7 @@ require (
 	github.com/dixonandmoe/rellax v0.0.0-20240824005335-9ed6cb0aae03 // indirect
 	github.com/hugolify/hugolify-admin/v2 v2.0.0-40 // indirect
 	github.com/hugolify/hugolify-theme-awards/v2 v2.0.0-20261013101942-50991e9200d0 // indirect
-	github.com/hugolify/hugolify-theme-design-system v0.0.0-20261024150101-ed42181ace2e // indirect
+	github.com/hugolify/hugolify-theme-design-system v0.0.0-20261028110111-84fdd110d293 // indirect
 	github.com/hugolify/hugolify-theme-docs/v2 v2.0.0-20261009094139-a5b427476ff4 // indirect
 	github.com/hugolify/hugolify-theme-expertises/v2 v2.5.0 // indirect
 	github.com/hugolify/hugolify-theme-icons v0.0.0-20261016114629-339c166e9627 // indirect
@@ -29,7 +29,7 @@ require (
 	github.com/hugolify/hugolify-theme-publications/v2 v2.5.0 // indirect
 	github.com/hugolify/hugolify-theme-realestates-persons/v2 v2.3.0 // indirect
 	github.com/hugolify/hugolify-theme-realestates/v2 v2.5.0 // indirect
-	github.com/hugolify/hugolify-theme/v2 v2.55.0 // indirect
+	github.com/hugolify/hugolify-theme/v2 v2.55.1 // indirect
 	github.com/lucide-icons/lucide v0.265.1-0.20261016133129-1ef60af944de // indirect
 	github.com/midzer/tobii v3.2.0+incompatible // indirect
 	github.com/orestbida/cookieconsent v3.1.0+incompatible // indirect
