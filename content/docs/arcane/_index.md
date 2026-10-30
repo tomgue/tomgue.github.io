@@ -8,7 +8,9 @@ icon: brand:arcane
 
 ![header](https://shieldcn.dev/header/grid.svg?title=Arcane&amp;subtitle=Modern+Docker+management%2C+designed+for+everyone.&amp;logo=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2Fselfhst%2Ficons%40main%2Fpng%2Farcane.png&amp;mode=dark "Header")
 
-[![badge group](https://shieldcn.dev/group/github/getarcaneapp/arcane/stars+github/getarcaneapp/arcane/release+github/getarcaneapp/arcane/license.svg?variant=outline&amp;size=xs "badge group")](https://github.com/getarcaneapp/arcane)
+[![badge group](https://shieldcn.dev/group/github/getarcaneapp/arcane/stars+github/getarcaneapp/arcane/release+github/getarcaneapp/arcane/license.svg?variant=secondary&amp;size=xs "badge group")](https://github.com/getarcaneapp/arcane)
+
+![chart](https://shieldcn.dev/chart/github/stars/getarcaneapp/arcane.svg?logo=false)
 
 [![contributors](https://shieldcn.dev/contributors/getarcaneapp/arcane.svg?size=40&amp;mode=dark "Contributors")](https://github.com/getarcaneapp/arcane/graphs/contributors)
 
