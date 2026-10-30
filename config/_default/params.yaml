@@ -21,7 +21,11 @@ admin:
   publish_mode: preview
   netlify:
     identity: false
+
   fields:
+    body:
+      minimal: false
+      modes: "['rich_text', 'raw']"
     text_markdown:
       minimal: false
       modes: "['rich_text', 'raw']"
