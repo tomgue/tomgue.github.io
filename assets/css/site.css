@@ -90,7 +90,8 @@
       margin-inline-start: auto;
       padding: var(--code-block-copy-padding);
       border: var(--code-block-copy-border-width)
-        var(--code-block-copy-border-style) var(--code-block-color-border);
+        var(--code-block-copy-border-style)
+        var(--code-block-color-border);
       border-radius: var(--code-block-copy-border-radius);
 
       &:hover {
@@ -111,5 +112,29 @@
         }
       }
     }
+  }
+
+  /* Callouts pliables (render hook blockquote, `> [!type]+` / `> [!type]-`) :
+     <details class="alert"> + <summary class="alert-heading">. */
+  details.alert > .alert-heading {
+    cursor: pointer;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::marker {
+      content: '';
+    }
+
+    .icon-chevron-down {
+      margin-inline-start: auto;
+      transition: rotate 200ms ease-in-out;
+    }
+  }
+
+  details.alert[open] > .alert-heading .icon-chevron-down {
+    rotate: 180deg;
   }
 }
