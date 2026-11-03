@@ -5,7 +5,7 @@ go 1.21
 require (
 	github.com/Splidejs/splide v4.1.3+incompatible // indirect
 	github.com/dixonandmoe/rellax v0.0.0-20240824005335-9ed6cb0aae03 // indirect
-	github.com/hugolify/hugolify-admin/v2 v2.0.0-41 // indirect
+	github.com/hugolify/hugolify-admin/v2 v2.0.0-42 // indirect
 	github.com/hugolify/hugolify-theme-awards/v2 v2.0.0-20261013101942-50991e9200d0 // indirect
 	github.com/hugolify/hugolify-theme-design-system v0.0.0-20261102111704-6800ea19b382 // indirect
 	github.com/hugolify/hugolify-theme-docs/v2 v2.0.0-20261101200637-2cf48f85d276 // indirect
@@ -29,8 +29,8 @@ require (
 	github.com/hugolify/hugolify-theme-publications/v2 v2.5.0 // indirect
 	github.com/hugolify/hugolify-theme-realestates-persons/v2 v2.3.0 // indirect
 	github.com/hugolify/hugolify-theme-realestates/v2 v2.5.0 // indirect
-	github.com/hugolify/hugolify-theme/v2 v2.56.0 // indirect
-	github.com/lucide-icons/lucide v0.265.1-0.20261102140305-857a08d1f2e5 // indirect
+	github.com/hugolify/hugolify-theme/v2 v2.57.0 // indirect
+	github.com/lucide-icons/lucide v0.265.1-0.20261103084131-7bb15b80a3c8 // indirect
 	github.com/midzer/tobii v3.2.1+incompatible // indirect
 	github.com/orestbida/cookieconsent v3.2.1+incompatible // indirect
 	github.com/simple-icons/simple-icons v0.0.0-20260607021030-c3777a7e48a5 // indirect
