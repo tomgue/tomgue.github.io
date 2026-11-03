@@ -5,6 +5,9 @@ enableRobotsTXT: true
 
 markup:
   goldmark:
+    parser:
+      attribute:
+        block: true # Attributs de bloc Markdown ({state="..."} sous un callout)
     extensions:
       extras:
         delete:

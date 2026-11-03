@@ -13,6 +13,18 @@ search:
   filter: false # Set true to add filters by type
   sort: true
 
+# Callouts (render hook blockquote — syntaxe Obsidian / GitHub `> [!NOTE]`)
+# Défaut amont : enable false. Activé sur ce site de démo.
+callouts:
+  enable: true
+  icons: true # Icônes Lucide par type (slug résolu par hugolify-theme-icons)
+  # Types personnalisés : état et icône par type, fusionnés sur le mapping par défaut.
+  # Le type `release` ci-dessous sert d'exemple sur la page /docs/callouts/.
+  types:
+    release:
+      state: success
+      icon: rocket
+
 # Admin
 admin:
   cms: sveltiacms

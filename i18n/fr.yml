@@ -1,0 +1,30 @@
+# Callouts — libellés par défaut des types (render hook blockquote),
+# utilisés quand le callout n'a pas de titre personnalisé.
+callout:
+  abstract: Résumé
+  attention: Attention
+  bug: Bogue
+  caution: Attention
+  check: Effectué
+  cite: Citation
+  danger: Danger
+  done: Terminé
+  error: Erreur
+  example: Exemple
+  fail: Échec
+  failure: Échec
+  faq: FAQ
+  help: Aide
+  hint: Astuce
+  important: Important
+  info: Information
+  missing: Manquant
+  note: Remarque
+  question: Question
+  quote: Citation
+  success: Succès
+  summary: Résumé
+  tip: Astuce
+  tldr: En résumé
+  todo: À faire
+  warning: Avertissement

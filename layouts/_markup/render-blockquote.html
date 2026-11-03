@@ -1,0 +1,133 @@
+{{- /*
+  Callouts render hook — renders blockquote alerts (Obsidian/GitHub syntax)
+  as Hugolify alerts, reusing the commons/alert.html partial so callouts look
+  exactly like the alert and alert-block shortcodes (.alert, .alert-{state},
+  .alert-heading classes, Lucide icons).
+
+  Opt-in via params.callouts.enable (default: false). Without the flag, and
+  for regular blockquotes, rendering stays the default CommonMark behavior.
+
+  Syntax:
+    > [!note]                    basic (GitHub, Obsidian, Typora compatible)
+    > [!warning] Custom title    extended (Obsidian): custom title, inline markdown
+    > [!warning]+ Custom title   extended: foldable, expanded by default
+    > [!warning]- Custom title   extended: foldable, collapsed
+    {state="primary" icon="sparkles"}  per-block overrides, on the line below
+                                        (requires markup.goldmark.parser.attribute.block: true)
+
+  Config (config/_default/params.yaml):
+    callouts:
+      enable: true
+      icons: true              # Lucide icons, default true, false disables all
+      types:                   # custom types: state & icon per type
+        release: { state: success, icon: rocket }
+
+  Unknown type: neutral state, info icon, humanized type as title, unless
+  overridden by params.callouts.types or block attributes.
+
+  i18n: default titles come from the callout.{type} keys (i18n/fr.yml),
+  with a humanized fallback.
+
+  @documentation - https://gohugo.io/render-hooks/blockquotes/
+*/ -}}
+{{- if and (eq .Type "alert") (site.Params.callouts.enable) -}}
+  {{- $type := .AlertType -}}
+  {{- /* Default mapping: type (and aliases) → state / Lucide icon. */ -}}
+  {{- $states := dict
+    "note" "info"
+    "abstract" "info" "summary" "info" "tldr" "info"
+    "info" "info"
+    "todo" "info"
+    "tip" "success" "hint" "success"
+    "important" "primary"
+    "success" "success" "check" "success" "done" "success"
+    "question" "warning" "help" "warning" "faq" "warning"
+    "warning" "warning" "caution" "warning" "attention" "warning"
+    "failure" "danger" "fail" "danger" "missing" "danger"
+    "danger" "danger" "error" "danger"
+    "bug" "danger"
+    "example" "secondary"
+    "quote" "neutral" "cite" "neutral"
+  -}}
+  {{- $icons := dict
+    "note" "info"
+    "abstract" "clipboard-list" "summary" "clipboard-list" "tldr" "clipboard-list"
+    "info" "info"
+    "todo" "circle-check"
+    "tip" "lightbulb" "hint" "lightbulb"
+    "important" "circle-alert"
+    "success" "circle-check" "check" "circle-check" "done" "circle-check"
+    "question" "circle-help" "help" "circle-help" "faq" "circle-help"
+    "warning" "triangle-alert" "caution" "triangle-alert" "attention" "triangle-alert"
+    "failure" "circle-x" "fail" "circle-x" "missing" "circle-x"
+    "danger" "octagon-alert" "error" "octagon-alert"
+    "bug" "bug"
+    "example" "list"
+    "quote" "quote" "cite" "quote"
+  -}}
+  {{- $state := index $states $type | default "neutral" -}}
+  {{- $icon := index $icons $type | default "info" -}}
+  {{- /* Config overrides: params.callouts.types.<type>.{state,icon}. */ -}}
+  {{- $conf := index (site.Params.callouts.types | default dict) $type | default dict -}}
+  {{- if isset $conf "state" -}}
+    {{- $state = index $conf "state" -}}
+  {{- end -}}
+  {{- if isset $conf "icon" -}}
+    {{- $icon = index $conf "icon" -}}
+  {{- end -}}
+  {{- /* Per-block overrides: {state="..."} {icon="..."} (block attributes). */ -}}
+  {{- with .Attributes -}}
+    {{- if isset . "state" -}}
+      {{- $state = index . "state" -}}
+    {{- end -}}
+    {{- if isset . "icon" -}}
+      {{- $icon = index . "icon" -}}
+    {{- end -}}
+  {{- end -}}
+  {{- /* Master switch: params.callouts.icons false disables every icon. */ -}}
+  {{- if not (site.Params.callouts.icons | default true) -}}
+    {{- $icon = false -}}
+  {{- end -}}
+  {{- /* Title: custom (first line) or i18n label, humanized fallback. */ -}}
+  {{- $title := .AlertTitle -}}
+  {{- if not $title -}}
+    {{- $title = or (i18n (print "callout." $type)) (title $type) -}}
+  {{- end -}}
+  {{- /* Foldable: + (expanded) / - (collapsed). */ -}}
+  {{- $foldable := ne .AlertSign "" -}}
+  {{- $open := eq .AlertSign "+" -}}
+  {{- if $foldable -}}
+    {{- partial "commons/alert.html" (dict
+      "text" .Text
+      "html" true
+      "title" $title
+      "state" $state
+      "icon" $icon
+      "foldable" true
+      "open" $open
+    ) -}}
+  {{- else if .Text -}}
+    {{- partial "commons/alert.html" (dict
+      "text" .Text
+      "html" true
+      "title" $title
+      "state" $state
+      "icon" $icon
+    ) -}}
+  {{- else -}}
+    {{- /* Title-only callout: the title (already-rendered inline HTML from
+         Goldmark) is wrapped in <p> to match the alert shortcode look
+         (icon + text, no heading). html=true skips markdownify, which
+         would strip the inline HTML of the title (goldmark unsafe=false). */ -}}
+    {{- partial "commons/alert.html" (dict
+      "text" (printf "<p>%s</p>" $title | safeHTML)
+      "html" true
+      "state" $state
+      "icon" $icon
+    ) -}}
+  {{- end -}}
+{{- else -}}
+<blockquote>
+{{ .Text }}
+</blockquote>
+{{- end -}}
