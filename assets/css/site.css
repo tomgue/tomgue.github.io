@@ -113,3 +113,24 @@
     }
   }
 }
+
+@layer components {
+  /* Icônes mailto / tel (render hook link) : après le texte. Les liens externes
+     n'en reçoivent pas du hook — le design system ajoute déjà l'icône
+     via a[target="_blank"]::after (css/base/link.css). */
+  .link-icon {
+    margin-inline-start: 0.25em;
+
+    .icon {
+      /* Légèrement plus petite que le texte du lien, comme anchor-heading-icon. */
+      --icon-size: 0.9em;
+    }
+  }
+
+  /* Liens « nouvel onglet » contenant une image (badges, logos) : pas
+     d'icône externe native. Le design system colle l'icône à tout
+     a[target="_blank"] (::after), où elle se détacherait de l'image. */
+  a[target="_blank"]:has(img)::after {
+    content: none;
+  }
+}
