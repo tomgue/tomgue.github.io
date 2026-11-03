@@ -20,7 +20,7 @@ admin:
   repo: tomgue/tomgue.github.io
   skip_ci: false
   netlify:
-    identity: false
+    identity: true
 
   fields:
     body:
