@@ -35,7 +35,7 @@
      Case-insensitive match; when found, the entry's "abbr" value is the
      canonical displayed text. */}}
 {{- if not $title -}}
-  {{- with site.Data.abbr -}}
+  {{- with hugo.Data.abbr -}}
     {{- with index . site.Language.Lang -}}
       {{- with .abbreviations -}}
         {{- range . -}}
