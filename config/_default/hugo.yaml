@@ -18,3 +18,11 @@ markup:
         superscript:
           enable: true
       strikethrough: false
+  highlight:
+    # CSS classes instead of inline colors: the palettes of
+    # layouts/_partials/highlight.html provide them (light + dark).
+    noClasses: false
+    # Default palette — the dark pair resolves through Chroma's
+    # counterpart (github -> github-dark). Free pair through
+    # params.code.styles.light/.dark.
+    style: github

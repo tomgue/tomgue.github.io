@@ -1,0 +1,53 @@
+{{- /*
+  highlight.html — Chroma palettes for code blocks, linked from
+  head/head.html. Called partialCached: the output only depends on
+  site params.
+
+  Requires markup.highlight.noClasses: false (config/_default/hugo.yaml):
+  Hugo emits CSS classes instead of inline colors, and the palettes
+  below provide them. Requires Hugo >= 0.165 (css.ChromaStyles). Hugo
+  caches the calls — no build overhead.
+
+  Palette choice, two routes:
+    1. No params: css.ChromaStyles reads markup.highlight.style (github)
+       and resolves the light/dark pair through Chroma's counterpart —
+       github <-> github-dark, monokai <-> monokailight — via the mode
+       option. A style without a counterpart for the requested mode
+       fails the build with a clear error.
+    2. params.code.styles.light + .dark: free heterogeneous pair
+       (e.g. friendly + dracula), generated without mode — each style
+       renders in its own default mode, no pairing required. Set light
+       and dark together.
+
+  The dark sheet is scoped to prefers-color-scheme: dark and not forced
+  light (Hugolify writes data-color-scheme="light" on the html element
+  when params.css.darkmode is false). CSS nesting keeps every
+  generated rule under that scope.
+
+  The block header shares the palette: the hook writes the chroma class
+  on it too (see layouts/_markup/render-codeblock.html).
+
+  @see layouts/_markup/render-codeblock.html for the block markup.
+*/ -}}
+{{- $light := "" -}}
+{{- $dark := "" -}}
+{{- with site.Params.code }}
+  {{- with .styles }}
+    {{- with .light }}{{- $light = printf "%v" . -}}{{- end }}
+    {{- with .dark }}{{- $dark = printf "%v" . -}}{{- end }}
+  {{- end }}
+{{- end }}
+{{- /* Light sheet — unscoped, the default. */ -}}
+{{- $lightOpts := dict "targetPath" "css/highlight-light.css" -}}
+{{- if $light }}{{- $lightOpts = merge $lightOpts (dict "style" $light) -}}{{- else }}{{- $lightOpts = merge $lightOpts (dict "mode" "light") -}}{{- end }}
+{{- with css.ChromaStyles $lightOpts | fingerprint }}
+  <link rel="stylesheet" href="{{ .RelPermalink }}"{{ with .Data.Integrity }} integrity="{{ . }}"{{ end }}>
+{{- end }}
+{{- /* Dark sheet — OS dark and site not forced light. */ -}}
+{{- $darkOpts := dict "targetPath" "css/highlight-dark-raw.css" -}}
+{{- if $dark }}{{- $darkOpts = merge $darkOpts (dict "style" $dark) -}}{{- else }}{{- $darkOpts = merge $darkOpts (dict "mode" "dark") -}}{{- end }}
+{{- $darkCss := css.ChromaStyles $darkOpts -}}
+{{- $wrapped := resources.FromString "css/highlight-dark.css" (printf "@media (prefers-color-scheme: dark){:root:not([data-color-scheme='light']){%s}}" $darkCss.Content) -}}
+{{- with $wrapped | fingerprint }}
+  <link rel="stylesheet" href="{{ .RelPermalink }}"{{ with .Data.Integrity }} integrity="{{ . }}"{{ end }}>
+{{- end }}

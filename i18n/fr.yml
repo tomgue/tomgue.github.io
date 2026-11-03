@@ -1,0 +1,4 @@
+# Code blocks (see layouts/_markup/render-codeblock.html)
+code:
+  copy: Copier le code
+  copied: Code copié

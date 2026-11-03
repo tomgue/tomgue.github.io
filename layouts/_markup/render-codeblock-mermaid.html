@@ -1,0 +1,16 @@
+{{- /*
+  Mermaid — Markdown render hook for fenced mermaid blocks.
+
+  A mermaid fence renders a diagram, not a code block — the same result
+  as the mermaid shortcode, which bypasses render hooks and stays
+  unchanged. This per-language hook takes precedence over
+  render-codeblock.html, so diagrams never get the block header.
+
+  Markup and JS loader come from the theme partial commons/mermaid.html
+  (the script is injected once per page).
+
+  Note: the hook exposes the raw .Inner — no deindentation, unlike the
+  shortcode. Write mermaid fences at the top level of the document or
+  of a list item, without extra indentation.
+*/ -}}
+{{- partial "commons/mermaid.html" (dict "inner" .Inner "page" .Page) -}}

@@ -1,0 +1,43 @@
+{{- /*
+  footer/js-i18n — site override of hugolify-theme (v2.48.0), adds the
+  window.i18n.code.* labels of the code block copy button
+  (assets/js/components/custom.js).
+
+  Every value goes through jsonify. The bare i18n output of the theme
+  (window.i18n.close = Fermer;) is invalid JavaScript — a bare identifier,
+  ReferenceError at best, SyntaxError with empty values — and one broken
+  line kills the whole window.i18n object. jsonify quotes and escapes:
+  the script stays valid whatever the translations hold, and a missing
+  key degrades to an empty string (custom.js falls back to hardcoded
+  labels).
+
+  i18n keys: i18n/fr.yml (code.copy, code.copied).
+*/ -}}
+<script>
+  window.i18n = {};
+  window.i18n.close = {{ i18n "close" | jsonify }};
+  window.i18n.next = {{ i18n "next" | jsonify }};
+  window.i18n.previous = {{ i18n "previous" | jsonify }};
+  window.i18n.carousel = {};
+  window.i18n.carousel.carousel = {{ i18n "carousel.carousel" | jsonify }};
+  window.i18n.carousel.first = {{ i18n "carousel.first" | jsonify }};
+  window.i18n.carousel.last = {{ i18n "carousel.last" | jsonify }};
+  window.i18n.carousel.next = {{ i18n "carousel.next" | jsonify }};
+  window.i18n.carousel.pageX = {{ i18n "carousel.pagex" | jsonify }};
+  window.i18n.carousel.pause = {{ i18n "carousel.pause" | jsonify }};
+  window.i18n.carousel.play = {{ i18n "carousel.play" | jsonify }};
+  window.i18n.carousel.previous = {{ i18n "carousel.previous" | jsonify }};
+  window.i18n.carousel.select = {{ i18n "carousel.select" | jsonify }};
+  window.i18n.carousel.slide = {{ i18n "carousel.slide" | jsonify }};
+  window.i18n.carousel.slideLabel = {{ i18n "carousel.slidelabel" | jsonify }};
+  window.i18n.carousel.slideX = {{ i18n "carousel.slidex" | jsonify }};
+  window.i18n.form = {};
+  window.i18n.form.error = {{ i18n "form.error" | jsonify }};
+  window.i18n.form.success = {{ i18n "form.success" | jsonify }};
+  window.i18n.newsletter = {};
+  window.i18n.newsletter.error = {{ i18n "newsletter.error" | jsonify }};
+  window.i18n.newsletter.success = {{ i18n "newsletter.success" | jsonify }};
+  window.i18n.code = {};
+  window.i18n.code.copy = {{ i18n "code.copy" | jsonify }};
+  window.i18n.code.copied = {{ i18n "code.copied" | jsonify }};
+</script>
