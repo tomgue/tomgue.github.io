@@ -4,6 +4,10 @@
   classes que les shortcodes alert / alert-block, plus le rendu pliable
   <details>/<summary>. À retirer après merge amont.
 
+  Le chemin historique (sans foldable ni html) rend une sortie byte-identique
+  au partial du thème : la branche <div> reste au même niveau (else if),
+  sans ré-indentation des textes émis.
+
   @context
     text     (string or markdown) — already-rendered HTML when html is true
     state    (string)
@@ -31,7 +35,7 @@
   {{- $html := .html | default false }}
   {{- $foldable := .foldable | default false }}
   {{- $open := .open | default false }}
-  {{- /* Start empty and only ever assign a real icon: callers pass `false` when they have none,
+  {{/* Start empty and only ever assign a real icon: callers pass `false` when they have none,
        and that value used to survive as far as the output. */}}
   {{- $icon := "" }}
   {{- with .icon }}
@@ -39,37 +43,35 @@
       {{- $icon = printf "%s " (partial "icon.html" .) }}
     {{- end }}
   {{- end }}
-  {{- if or $text $foldable }}
-    {{- if $foldable }}
-      <details class="{{ $class }}"{{ with $open }} open{{ end }}>
-        <summary class="alert-heading">
-          {{- $icon | safeHTML -}}
-          {{- with $title }} {{ partial "func/PrepareHTML.html" . }}{{- end }}
-          {{- if templates.Exists "partials/icon.html" }} {{ partial "icon.html" "chevron-down" }}{{- end }}
-        </summary>
-        {{- with $text }}
-          {{- if or $html (in (string .) "\n") }}
-            {{ . }}
-          {{- else }}
-            <p>{{ . | markdownify }}</p>
-          {{- end }}
-        {{- end }}
-      </details>
-    {{- else }}
-      <div class="{{ $class }}">
-        {{- with $title }}
-          <p class="alert-heading">{{ $icon | safeHTML -}} {{ partial "func/PrepareHTML.html" . }}</p>
+  {{- if $foldable }}
+    <details class="{{ $class }}"{{ with $open }} open{{ end }}>
+      <summary class="alert-heading">
+        {{- $icon | safeHTML -}}
+        {{- with $title }} {{ partial "func/PrepareHTML.html" . }}{{- end }}
+        {{- if templates.Exists "partials/icon.html" }} {{ partial "icon.html" "chevron-down" }}{{- end }}
+      </summary>
+      {{- with $text }}
+        {{- if or $html (in (string .) "\n") }}
+          {{ . }}
         {{- else }}
-          {{ $icon | safeHTML }}
+          <p>{{ . | markdownify }}</p>
         {{- end }}
-        {{- with $text }}
-          {{- if or $html (in (string .) "\n") }}
-            {{ . }}
-          {{- else }}
-            <p>{{ . | markdownify }}</p>
-          {{- end }}
+      {{- end }}
+    </details>
+  {{- else if $text }}
+    <div class="{{ $class }}">
+      {{- with $title }}
+        <p class="alert-heading">{{ $icon | safeHTML -}} {{ partial "func/PrepareHTML.html" . }}</p>
+      {{- else }}
+        {{ $icon | safeHTML }}
+      {{- end }}
+      {{- with $text }}
+        {{- if or $html (in (string .) "\n") }}
+          {{ . }}
+        {{- else }}
+          <p>{{ . | markdownify }}</p>
         {{- end }}
-      </div>
-    {{- end }}
+      {{- end }}
+    </div>
   {{- end }}
 {{- end }}

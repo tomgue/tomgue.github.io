@@ -90,8 +90,7 @@
       margin-inline-start: auto;
       padding: var(--code-block-copy-padding);
       border: var(--code-block-copy-border-width)
-        var(--code-block-copy-border-style)
-        var(--code-block-color-border);
+        var(--code-block-copy-border-style) var(--code-block-color-border);
       border-radius: var(--code-block-copy-border-radius);
 
       &:hover {

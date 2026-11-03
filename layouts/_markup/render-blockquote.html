@@ -115,10 +115,13 @@
       "icon" $icon
     ) -}}
   {{- else -}}
-    {{- /* Title-only callout: the title is rendered as text, like the
-         alert shortcode (icon + text, no heading). */ -}}
+    {{- /* Title-only callout: the title (already-rendered inline HTML from
+         Goldmark) is wrapped in <p> to match the alert shortcode look
+         (icon + text, no heading). html=true skips markdownify, which
+         would strip the inline HTML of the title (goldmark unsafe=false). */ -}}
     {{- partial "commons/alert.html" (dict
-      "text" $title
+      "text" (printf "<p>%s</p>" $title | safeHTML)
+      "html" true
       "state" $state
       "icon" $icon
     ) -}}
