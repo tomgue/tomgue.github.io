@@ -114,26 +114,27 @@
   }
 
   /* Callouts pliables (render hook blockquote, `> [!type]+` / `> [!type]-`) :
-     <details class="alert"> + <summary class="alert-heading">. */
-  details.alert > .alert-heading {
-    cursor: pointer;
-    list-style: none;
-
-    &::-webkit-details-marker {
-      display: none;
-    }
-
-    &::marker {
-      content: '';
-    }
-
-    .icon-chevron-down {
-      margin-inline-start: auto;
-      transition: rotate 200ms ease-in-out;
-    }
+     <details class="alert"> + <summary class="alert-heading">.
+     Le chevron est le summary::after natif du composant details de css-base
+     (rotation 180° à l'ouverture) — pas d'icône dédiée, sinon il s'affiche
+     deux fois. Le reste du style « carte » de details (ombre, police heading
+     du summary) est neutralisé pour garder le look alert. */
+  details.alert {
+    box-shadow: none;
   }
 
-  details.alert[open] > .alert-heading .icon-chevron-down {
-    rotate: 180deg;
+  details.alert > .alert-heading {
+    font-family: inherit;
+    font-size: inherit;
+    justify-content: flex-start;
+  }
+
+  details.alert > .alert-heading::after {
+    margin-inline-start: auto;
+  }
+
+  /* Espacement entre callouts consécutifs (le token --alert-margin vaut 0). */
+  .alert + .alert {
+    margin-block-start: var(--spacing-md);
   }
 }

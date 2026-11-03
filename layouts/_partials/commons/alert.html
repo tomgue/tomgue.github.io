@@ -8,6 +8,10 @@
   au partial du thème : la branche <div> reste au même niveau (else if),
   sans ré-indentation des textes émis.
 
+  Foldable: the summary chevron comes from the details component of
+  @uncinq/css-base (>= 1.14): summary::after, rotated 180deg when open.
+  No dedicated icon here — it would render next to the native one.
+
   @context
     text     (string or markdown) — already-rendered HTML when html is true
     state    (string)
@@ -48,7 +52,6 @@
       <summary class="alert-heading">
         {{- $icon | safeHTML -}}
         {{- with $title }} {{ partial "func/PrepareHTML.html" . }}{{- end }}
-        {{- if templates.Exists "partials/icon.html" }} {{ partial "icon.html" "chevron-down" }}{{- end }}
       </summary>
       {{- with $text }}
         {{- if or $html (in (string .) "\n") }}
