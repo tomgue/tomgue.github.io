@@ -5,7 +5,15 @@ title: Thomas Gueroult
 firstname: Thomas
 lastname: Gueroult
 description: Yo !
-weight: 1
+persons_statutes: statut
+persons_expertises:
+  - html
+persons_places:
+  - le-phare-de-la-baleine
+persons_awards:
+  - distinction
+languages:
+  - fr
 contact:
   socials:
     - platform: facebook
@@ -23,6 +31,13 @@ contact:
     - platform: mastodon
       url: https://mastodon.social/@tomgue
       rel: me
+education:
+  - title: Formation
+    school: établissement
+    year: 2024
+    category: degree
+weight: 1
+noIndex: false
 ---
 
 ### TODO
